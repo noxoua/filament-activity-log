@@ -1,0 +1,16 @@
+<?php
+
+namespace {{ namespace }};
+
+use Noxo\FilamentActivityLog\ActivityLogger;
+
+class {{ class }} extends ActivityLogger
+{
+    public array $fields = [
+        // Provider the model fields that need to be logged
+    ];
+
+    public array $types = [
+        // Provider field types if needed
+    ];
+}
