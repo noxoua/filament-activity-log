@@ -12,16 +12,17 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/noxoua/filament-activity-log.svg)](https://packagist.org/packages/noxoua/filament-activity-log)
 
 
-This package is an add-on for simplified activity logging based on [`spatie/laravel-activitylog`](https://github.com/spatie/laravel-activitylog) package.
-This package also includes a page for viewing activity logs.
+This package is an add-on for simplified activity logging based on [`spatie/laravel-activitylog`](https://github.com/spatie/laravel-activitylog) package. This package also includes a page for viewing activity logs.
 
-The viewing page was copied from [`pxlrbt/filament-activity-log`](https://github.com/pxlrbt/filament-activity-log) package and slightly modernized.
-If you only need the page for viewing activity logs, without additional functionality, use this package - [`pxlrbt/filament-activity-log`](https://github.com/pxlrbt/filament-activity-log)
+The viewing page was copied from [`pxlrbt/filament-activity-log`](https://github.com/pxlrbt/filament-activity-log) package and slightly modernized. If you only need the page for viewing activity logs, without additional functionality, use this package - [`pxlrbt/filament-activity-log`](https://github.com/pxlrbt/filament-activity-log)
 
 
 <div class="filament-hidden">
 
-![Screenshot](./.github/resources/screenshot.png)
+![Screenshot](./.github/resources/screenshot1.png)
+![Screenshot](./.github/resources/screenshot2.png)
+![Screenshot](./.github/resources/screenshot3.png)
+![Screenshot](./.github/resources/screenshot4.png)
 
 </div>
 
@@ -87,7 +88,7 @@ INFO  Filament logger [app/Filament/Loggers/UserLogger.php] created successfully
 
 ### Logger - Fields
 
-Logger class has the `fields` property, here you can specify all fields that need to ne logged. You can also specify relations.
+The Logger class has the fields property where you can specify all fields that need to be logged. You can also specify relations.
 
 
 ```php
@@ -102,8 +103,7 @@ public static ?array $fields = [
 
 ### Logger - Field Types
 
-Logger class has the `types` property, here you can specify fields, specifying how they should be logged.
-
+The Logger class has the `types` property where you can specify fields and how they should be logged.
 
 ```php
 public static ?array $types = [
@@ -126,7 +126,7 @@ Available types:
 
 ### Logger - Field Value Views
 
-Logger class has the `fieldViews` property, here you can define how to display specific fields in the activity log views.
+The Logger class has the `fieldViews` property where you can define how to display specific fields in the activity log views.
 
 ```php
 public static ?array $fieldViews = [
@@ -141,11 +141,12 @@ Available views:
 - image
 - badge
 
-_avatar and image has same size but different border-radius_
+(Note: _"avatar" and "image" have the same size but a different border-radius._)
 
-### Logger - Field translated key
 
-Logger class has the `attributeMap` property, here you can map field keys to make translations user friendly.
+### Logger - Field Translated Key
+
+The Logger class has the `attributeMap` property where you can map field keys to make translations user-friendly.
 
 ```php
 public static ?array $attributeMap = [
@@ -156,7 +157,7 @@ public static ?array $attributeMap = [
 
 ### Logger - Usage
 
-After the logger is created you can use it.
+After the logger is created, you can use it.
 
 #### CreateRecord
 ```php
