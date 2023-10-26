@@ -21,7 +21,7 @@
         </x-filament::link>
     </div>
 
-    <div class="space-y-6">
+    <div class="space-y-4">
         @php
             $activities = $this->getActivities();
             $prevDate = null;
@@ -33,8 +33,13 @@
             @endphp
 
             @if ($date != $prevDate)
-                <div
-                    class="px-4 py-2 bg-white text-gray-600 rounded-full text-sm font-medium w-fit mx-auto shadow-md sticky top-20">
+                <div @class([
+                    'px-4 py-2 w-fit mx-auto',
+                    'shadow-md rounded-full',
+                    'bg-white text-gray-600 text-sm font-medium',
+                    'dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300',
+                    'sticky top-20',
+                ])>
                     {{ $date }}
                 </div>
                 @php

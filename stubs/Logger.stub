@@ -12,23 +12,23 @@ class {{ class }} extends ActivityLogger
      *
      * @var string
      */
-    public static string $modelClass = {{ modelClass }}::class;
+    public static ?string $modelClass = {{ modelClass }}::class;
 
     /**
      * The fields that will be logged for this user activity.
      *
      * @var array
      */
-    public static array $fields = [
+    public static ?array $fields = [
         //
     ];
 
     /**
-     * The data types for specific fields, specifying how they should be displayed.
+     * The data types for specific fields, specifying how they should be logged.
      *
      * @var array
      */
-    public static array $types = [
+    public static ?array $types = [
         // 'media' => 'media',
         // 'roles' => 'pluck:name',
     ];
@@ -38,7 +38,7 @@ class {{ class }} extends ActivityLogger
      *
      * @var array
      */
-    public static array $fieldViews = [
+    public static ?array $fieldViews = [
         // 'media' => 'avatar',
     ];
 
@@ -47,7 +47,7 @@ class {{ class }} extends ActivityLogger
      *
      * @var array
      */
-    public static array $attributeMap = [
+    public static ?array $attributeMap = [
         // 'name' => 'first_name',
     ];
 }

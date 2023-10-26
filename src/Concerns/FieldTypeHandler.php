@@ -30,19 +30,27 @@ trait FieldTypeHandler
 
         switch ($type) {
             case 'date':
-                return $model->{$key}?->format('Y-m-d');
+                return $model->{$key}?->translatedFormat($typeValues[0] ?? 'Y-m-d');
+
+            case 'time':
+                return $model->{$key}?->translatedFormat($typeValues[0] ?? 'H:i:s');
+
+            case 'datetime':
+                return $model->{$key}?->translatedFormat($typeValues[0] ?? 'Y-m-d H:i:s');
 
             case 'media':
-                return $model->{$key}[0]['original_url'] ?? null;
-
-            // case 'multiple_media':
-            //     return collect($model->{$key})->pluck('original_url');
+                $isMultiple = ($typeValues[0] ?? 'single') === 'multiple';
+                if ($isMultiple) {
+                    return collect($model->{$key})->pluck('original_url')->toArray();
+                } else {
+                    return $model->{$key}[0]['original_url'] ?? null;
+                }
 
             case 'boolean':
                 return $model->{$key} ? 'true' : 'false';
 
-            // case 'array':
-            //     return collect($model->{$key})->only($typeValues)->toArray();
+            case 'only':
+                return collect($model->{$key})->only((array) $typeValues)->toArray();
 
             case 'pluck':
                 return collect($model->{$key})->pluck($typeValues[0])->toArray();

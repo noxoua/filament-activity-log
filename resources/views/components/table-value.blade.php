@@ -14,6 +14,18 @@
         />
     @break
 
+    @case('image')
+        <div class="flex flex-wrap gap-2">
+            @foreach ((array) $value as $_value)
+                <x-filament::avatar
+                    :src="$_value"
+                    size="lg"
+                    class="rounded-md"
+                />
+            @endforeach
+        </div>
+    @break
+
     @case('badge')
         <div class="flex flex-wrap gap-2">
             @foreach ((array) $value as $_value)
