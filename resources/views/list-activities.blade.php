@@ -1,10 +1,61 @@
 <x-filament-panels::page>
+    {{ $this->form }}
+
+    <div
+        x-data
+        class="flex justify-end gap-x-3"
+    >
+        <x-filament::link
+            color="gray"
+            tag="button"
+            size="sm"
+            x-on:click="$dispatch('collapse-all')"
+        >
+            @lang('filament-forms::components.repeater.actions.collapse_all.label')
+        </x-filament::link>
+
+        <x-filament::link
+            color="gray"
+            tag="button"
+            size="sm"
+            x-on:click="$dispatch('expand-all')"
+        >
+            @lang('filament-forms::components.repeater.actions.expand_all.label')
+        </x-filament::link>
+    </div>
+
     <div class="space-y-6">
+        @php
+            $activities = $this->getActivities();
+            $prevDate = null;
+        @endphp
+
         @foreach ($this->getActivities() as $activityItem)
-            <div @class([
-                'p-2 space-y-2 bg-white rounded-xl shadow',
-                'dark:border-gray-600 dark:bg-gray-800',
-            ])>
+            @php
+                $date = $activityItem->created_at->translatedFormat(__('filament-activity-log::activities.date_format'));
+            @endphp
+
+            @if ($date != $prevDate)
+                <div
+                    class="px-4 py-2 bg-white text-gray-600 rounded-full text-sm font-medium w-fit mx-auto shadow-md sticky top-20">
+                    {{ $date }}
+                </div>
+                @php
+                    $prevDate = $date;
+                @endphp
+            @endif
+
+            <div
+                @class([
+                    'p-2 space-y-2 bg-white rounded-xl shadow',
+                    'dark:border-gray-600 dark:bg-gray-800',
+                ])
+                x-data="{
+                    isCollapsed: true,
+                }"
+                @collapse-all.window="() => isCollapsed = false"
+                @expand-all.window="() => isCollapsed = true"
+            >
                 @php
                     /* @var \Spatie\Activitylog\Models\Activity $activityItem */
                     $changes = $activityItem->getChangesAttribute();
@@ -17,10 +68,12 @@
                 />
 
                 @if ($hasChanges)
-                    {{-- <x-filament-activity-log::components.table
-                        :$activityItem
-                        :$changes
-                    /> --}}
+                    <div x-show="isCollapsed">
+                        <x-filament-activity-log::components.table
+                            :$activityItem
+                            :$changes
+                        />
+                    </div>
                 @endif
             </div>
         @endforeach

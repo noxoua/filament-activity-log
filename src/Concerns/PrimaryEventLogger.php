@@ -17,7 +17,10 @@ trait PrimaryEventLogger
             }
         }
 
-        $this->log(['old' => [], 'attributes' => $attributes]);
+        $this->log(
+            ['old' => [], 'attributes' => $attributes],
+            event: 'created',
+        );
     }
 
     /**
@@ -38,7 +41,11 @@ trait PrimaryEventLogger
             }
         }
 
-        $this->logIf($old !== $new, ['old' => $old, 'attributes' => $new]);
+        $this->logIf(
+            $old !== $new,
+            ['old' => $old, 'attributes' => $new],
+            event: 'updated',
+        );
     }
 
     /**
@@ -54,7 +61,10 @@ trait PrimaryEventLogger
             }
         }
 
-        $this->log(['old' => [], 'attributes' => $attributes]);
+        $this->log(
+            ['old' => [], 'attributes' => $attributes],
+            event: 'deleted',
+        );
     }
 
     /**
@@ -62,6 +72,9 @@ trait PrimaryEventLogger
      */
     public function restored(): void
     {
-        $this->log(['old' => [], 'attributes' => []]);
+        $this->log(
+            ['old' => [], 'attributes' => []],
+            event: 'restored',
+        );
     }
 }

@@ -7,10 +7,12 @@ trait Loggable
     /**
      * Log the properties if the condition is met.
      *
-     * @param  bool  $condition
-     * @param  array  $event
+     * @param bool $condition
+     * @param array $properties
+     * @param string $event
+     * @return void
      */
-    public function logIf($condition, array $properties, string $event = null): void
+    public function logIf(bool $condition, array $properties, string $event): void
     {
         if ($condition) {
             $this->log($properties, $event);
@@ -20,10 +22,12 @@ trait Loggable
     /**
      * Log the properties Unless the condition is met.
      *
-     * @param  bool  $condition
-     * @param  array  $event
+     * @param bool $condition
+     * @param array $properties
+     * @param string $event
+     * @return void
      */
-    public function logUnless($condition, array $properties, string $event = null): void
+    public function logUnless(bool $condition, array $properties, string $event): void
     {
         if (! $condition) {
             $this->log($properties, $event);
@@ -33,13 +37,14 @@ trait Loggable
     /**
      * Log the properties.
      *
-     * @param  array  $event
+     * @param array $properties
+     * @param string $event
+     * @return void
      */
-    public function log(array $properties, string $event = null): void
+    public function log(array $properties, string $event): void
     {
         // $this?->beforeLog();
 
-        $event = $event ?? debug_backtrace()[1]['function'];
         $activity = activity()
             ->event($event)
             ->on($this->model)
