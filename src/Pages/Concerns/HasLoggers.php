@@ -1,27 +1,14 @@
 <?php
 
-namespace Noxo\FilamentActivityLog\Concerns;
+namespace Noxo\FilamentActivityLog\Pages\Concerns;
 
 use Illuminate\Filesystem\Filesystem;
 use Noxo\FilamentActivityLog\ActivityLogger;
 use ReflectionClass;
-use Spatie\Activitylog\Models\Activity;
 
 trait HasLoggers
 {
     public array $loggers = [];
-
-    public function getFieldView(Activity $activity, string $field): ?string
-    {
-        $loggerClass = $this->loggers[$activity->subject_type];
-        return $loggerClass ? $loggerClass::$fieldViews[$field] ?? null : null;
-    }
-
-    public function getFieldType(Activity $activity, string $field): ?string
-    {
-        $loggerClass = $this->loggers[$activity->subject_type];
-        return $loggerClass ? $loggerClass::$types[$field] ?? null : null;
-    }
 
     public function getLoggerConfigurations(): array
     {

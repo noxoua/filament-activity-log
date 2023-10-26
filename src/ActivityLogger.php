@@ -11,15 +11,17 @@ class ActivityLogger
     use Concerns\Loggable;
     use Concerns\PrimaryEventLogger;
 
-    public static string $modelClass;
+    public static ?string $modelClass;
 
-    public static array $fields;
+    public static ?array $fields;
 
-    public static array $fieldViews;
+    public static ?array $types;
 
-    public Model $model;
+    public static ?array $fieldViews;
 
-    public ?Model $modelAfter;
+    protected Model $model;
+
+    protected ?Model $modelAfter;
 
     public function __construct(Model $model, Model $modelAfter = null)
     {
@@ -27,11 +29,19 @@ class ActivityLogger
         $this->modelAfter = $modelAfter;
     }
 
+    // TODO: Makeable trait
     public static function make(Model $model, Model $modelAfter = null): static
     {
         return new static($model, $modelAfter);
     }
 
+    /**
+     * Perform actions through a closure and update the "modelAfter."
+     *
+     * @param Closure $callback
+     *
+     * @return static
+     */
     public function through(Closure $callback): static
     {
         $callback(clone $this->model);
@@ -43,6 +53,11 @@ class ActivityLogger
 
     /**
      * Get the value of a field, optionally from the "after" model.
+     *
+     * @param string $key
+     * @param bool $fromAfter
+     *
+     * @return mixed
      */
     public function getValue(string $key, bool $fromAfter = false): mixed
     {

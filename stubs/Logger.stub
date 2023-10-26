@@ -7,17 +7,47 @@ use Noxo\FilamentActivityLog\ActivityLogger;
 
 class {{ class }} extends ActivityLogger
 {
+    /**
+     * The class of the model being logged.
+     *
+     * @var string
+     */
     public static string $modelClass = {{ modelClass }}::class;
 
+    /**
+     * The fields that will be logged for this user activity.
+     *
+     * @var array
+     */
     public static array $fields = [
-        // Provider the model fields that need to be logged
+        //
     ];
 
+    /**
+     * The data types for specific fields, specifying how they should be displayed.
+     *
+     * @var array
+     */
     public static array $types = [
-        // Provider field types if needed
+        // 'media' => 'media',
+        // 'roles' => 'pluck:name',
     ];
 
+    /**
+     * Define how to display specific fields in the activity log views.
+     *
+     * @var array
+     */
     public static array $fieldViews = [
-        // Provider field views if needed
+        // 'media' => 'avatar',
+    ];
+
+    /**
+     * Define an attribute map for field names if they differ in the model.
+     *
+     * @var array
+     */
+    public static array $attributeMap = [
+        // 'name' => 'first_name',
     ];
 }

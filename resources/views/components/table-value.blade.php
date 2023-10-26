@@ -10,7 +10,7 @@
         <x-filament::avatar
             :src="$value"
             size="lg"
-            rounded
+            class="rounded-full"
         />
     @break
 

@@ -7,9 +7,7 @@ use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Pages\Page;
 use Filament\Tables\Concerns\CanPaginateRecords;
-use Illuminate\Support\Collection;
 use Livewire\WithPagination;
-use Noxo\FilamentActivityLog\Concerns\HasLoggers;
 use Spatie\Activitylog\Models\Activity;
 
 abstract class ListActivities extends Page implements HasForms
@@ -17,11 +15,11 @@ abstract class ListActivities extends Page implements HasForms
     use CanPaginateRecords,
         InteractsWithForms,
         WithPagination,
-        HasLoggers;
+        Concerns\HasLoggers,
+        Concerns\LogFormatting,
+        Concerns\UrlHandling;
 
     protected static string $view = 'filament-activity-log::list-activities';
-
-    protected static Collection $fieldLabelMap;
 
     public ?array $data = [];
 
@@ -33,6 +31,7 @@ abstract class ListActivities extends Page implements HasForms
             'causer',
             'subject_type',
             'subject_id',
+            'event',
         ]));
     }
 
@@ -102,12 +101,12 @@ abstract class ListActivities extends Page implements HasForms
             ->statePath('data');
     }
 
-    public function getBreadcrumb(): string
+    public function getTitle(): string
     {
-        return __('filament-activity-log::activities.breadcrumb');
+        return __('filament-activity-log::activities.title');
     }
 
-    public function getTitle(): string
+    public static function getNavigationLabel(): string
     {
         return __('filament-activity-log::activities.title');
     }
@@ -144,18 +143,6 @@ abstract class ListActivities extends Page implements HasForms
                     fn ($query) => $query->where('event', $state['event'])
                 )
         );
-    }
-
-    public function getSubjectLabel(Activity $activity): string
-    {
-        $name = str($activity->subject_type)->afterLast('\\')->lower();
-        return __('filament-activity-log::activities.subjects.' . $name);
-    }
-
-    public function getFieldLabel(string $name): string
-    {
-        $name = static::$fieldLabelMap[$name] ?? $name;
-        return __("filament-activity-log::activities.labels.{$name}");
     }
 
     protected function getIdentifiedTableQueryStringPropertyNameFor(string $property): string

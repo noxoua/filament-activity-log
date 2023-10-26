@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'title' => 'Історія діяльності',
+
     'date_format' => 'Y-m-d',
     'time_format' => 'H:i:s',
 
@@ -55,6 +57,7 @@ return [
         'text' => 'Текст',
         'email' => 'E-mail',
         'excerpt' => 'Уривок',
+        'name' => 'Назва',
         'first_name' => 'Ім\'я',
         'last_name' => 'Прізвище',
         'image' => 'Зображення',

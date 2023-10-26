@@ -21,7 +21,7 @@
                 width="20%"
                 class="px-4 py-2 align-top sm:first-of-type:ps-6 sm:last-of-type:pe-6"
             >
-                {{ $this->getFieldLabel($field) }}
+                {{ $this->getFieldLabel($activityItem, $field) }}
             </x-filament-tables::cell>
             <x-filament-tables::cell
                 width="40%"

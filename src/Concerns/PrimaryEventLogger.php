@@ -11,7 +11,7 @@ trait PrimaryEventLogger
     {
         $attributes = [];
 
-        foreach (self::$fields as $key) {
+        foreach (static::$fields as $key) {
             if (! empty($value = $this->getValue($key))) {
                 $attributes[$key] = $value;
             }
@@ -31,7 +31,7 @@ trait PrimaryEventLogger
         $old = [];
         $new = [];
 
-        foreach (self::$fields as $key) {
+        foreach (static::$fields as $key) {
             $beforeValue = $this->getValue($key);
             $afterValue = $this->getValue($key, fromAfter: true);
 
@@ -55,7 +55,7 @@ trait PrimaryEventLogger
     {
         $attributes = [];
 
-        foreach (self::$fields as $key) {
+        foreach (static::$fields as $key) {
             if (! empty($value = $this->getValue($key))) {
                 $attributes[$key] = $value;
             }

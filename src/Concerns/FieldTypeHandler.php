@@ -4,14 +4,12 @@ namespace Noxo\FilamentActivityLog\Concerns;
 
 trait FieldTypeHandler
 {
-    public static array $types;
-
     /**
      * Get the type and values for a given field.
      */
     public function getType(string $key): array
     {
-        $typeName = self::$types[$key] ?? null;
+        $typeName = static::$types[$key] ?? null;
         if (empty($typeName)) {
             return [null, null];
         }
