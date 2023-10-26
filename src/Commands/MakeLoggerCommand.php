@@ -4,12 +4,12 @@ namespace Noxo\FilamentActivityLog\Commands;
 
 use Filament\Facades\Filament;
 use Filament\Panel;
-use Illuminate\Console\Command;
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Arr;
-
 use function Laravel\Prompts\select;
 use function Laravel\Prompts\text;
+use Illuminate\Console\Command;
+
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Arr;
 
 class MakeLoggerCommand extends Command
 {
@@ -81,21 +81,23 @@ class MakeLoggerCommand extends Command
         $loggerClass = "{$modelClass}Logger";
         $namespace .= $modelNamespace !== '' ? "\\{$modelNamespace}" : '';
 
-        $baseResourcePath =
+        $baseLoggerPath =
             (string) str($loggerClass)
                 ->prepend('/')
                 ->prepend($path)
                 ->replace('\\', '/')
                 ->replace('//', '/');
 
-        $resourcePath = "{$baseResourcePath}.php";
+        $loggerPath = "{$baseLoggerPath}.php";
 
-        $this->copyStubToApp($resourcePath, [
+        $this->copyStubToApp($loggerPath, [
             'namespace' => $namespace,
             'class' => $loggerClass,
+            'modelClass' => $modelClass,
+            'modelNamespace' => 'App\\Models' . ($modelNamespace !== '' ? "\\{$modelNamespace}" : '') . '\\' . $modelClass,
         ]);
 
-        $this->components->info("Filament resource [{$resourcePath}] created successfully.");
+        $this->components->info("Filament logger [{$loggerPath}] created successfully.");
 
         return static::SUCCESS;
     }

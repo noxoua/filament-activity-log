@@ -9,13 +9,15 @@ use Filament\Pages\Page;
 use Filament\Tables\Concerns\CanPaginateRecords;
 use Illuminate\Support\Collection;
 use Livewire\WithPagination;
+use Noxo\FilamentActivityLog\Concerns\HasLoggers;
 use Spatie\Activitylog\Models\Activity;
 
 abstract class ListActivities extends Page implements HasForms
 {
-    use CanPaginateRecords;
-    use InteractsWithForms;
-    use WithPagination;
+    use CanPaginateRecords,
+        InteractsWithForms,
+        WithPagination,
+        HasLoggers;
 
     protected static string $view = 'filament-activity-log::list-activities';
 
@@ -25,6 +27,8 @@ abstract class ListActivities extends Page implements HasForms
 
     public function mount(): void
     {
+        $this->discoverLoggers();
+
         $this->form->fill(request()->only([
             'causer',
             'subject_type',

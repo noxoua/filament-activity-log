@@ -29,6 +29,7 @@
             >
                 <x-filament-activity-log::components.table-value
                     :$activityItem
+                    :field="$field"
                     :value="$oldValue"
                 />
             </x-filament-tables::cell>
@@ -38,6 +39,7 @@
             >
                 <x-filament-activity-log::components.table-value
                     :$activityItem
+                    :field="$field"
                     :value="$newValue"
                 />
             </x-filament-tables::cell>

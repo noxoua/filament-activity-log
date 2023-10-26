@@ -11,11 +11,15 @@ class ActivityLogger
     use Concerns\Loggable;
     use Concerns\PrimaryEventLogger;
 
+    public static string $modelClass;
+
+    public static array $fields;
+
+    public static array $fieldViews;
+
     public Model $model;
 
     public ?Model $modelAfter;
-
-    public array $fields;
 
     public function __construct(Model $model, Model $modelAfter = null)
     {

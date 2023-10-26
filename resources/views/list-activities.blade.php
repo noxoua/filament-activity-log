@@ -1,10 +1,7 @@
 <x-filament-panels::page>
     {{ $this->form }}
 
-    <div
-        x-data
-        class="flex justify-end gap-x-3"
-    >
+    <div class="flex justify-end gap-x-3">
         <x-filament::link
             color="gray"
             tag="button"

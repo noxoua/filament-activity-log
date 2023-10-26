@@ -2,15 +2,22 @@
 
 namespace {{ namespace }};
 
+use {{ modelNamespace }};
 use Noxo\FilamentActivityLog\ActivityLogger;
 
 class {{ class }} extends ActivityLogger
 {
-    public array $fields = [
+    public static string $modelClass = {{ modelClass }}::class;
+
+    public static array $fields = [
         // Provider the model fields that need to be logged
     ];
 
-    public array $types = [
+    public static array $types = [
         // Provider field types if needed
+    ];
+
+    public static array $fieldViews = [
+        // Provider field views if needed
     ];
 }
