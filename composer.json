@@ -1,7 +1,13 @@
 {
     "name": "noxoua/filament-activity-log",
-    "description": "This is my package filament-activity-log",
+    "description": "A Laravel package that simplifies activity logging in the Filament admin panel, with support for logging create, update, delete, and restore actions. It integrates with the 'spatie/laravel-activitylog' package and includes a modernized activity log viewing page.",
+    "type": "library",
     "keywords": [
+        "laravel",
+        "filament",
+        "activity log",
+        "logging",
+        "spatie",
         "noxoua",
         "laravel",
         "filament-activity-log"
