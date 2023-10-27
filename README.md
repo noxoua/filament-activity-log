@@ -6,11 +6,31 @@
 
 # Filament Activity Log
 
+* [Introduction](#introduction)
+* [Installation](#installation)
+* [Activities Page](#activities-page)
+  - [Create a page](#create-a-page)
+* [Loggers](#loggers)
+  - [Create a Logger](#create-a-logger)
+  - [Logger - Fields](#logger---fields)
+  - [Logger - Field Types](#logger---field-types)
+  - [Logger - Field Value Views](#logger---field-value-views)
+  - [Logger - Field Translated Keys](#logger---field-translated-keys)
+  - [Logger - Usage](#logger---usage)
+    - [CreateRecord](#createrecord)
+    - [EditRecord](#editrecord)
+    - [Table actions](#table-actions)
+* [Contributing](#contributing)
+* [License](#license)
+
+
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/noxoua/filament-activity-log.svg?include_prereleases)](https://packagist.org/packages/noxoua/filament-activity-log)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](LICENSE.md)
 ![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/noxoua/filament-activity-log/code-style.yml?branch=main&label=Code%20style&style=flat-square)
 [![Total Downloads](https://img.shields.io/packagist/dt/noxoua/filament-activity-log.svg)](https://packagist.org/packages/noxoua/filament-activity-log)
 
+
+## Introduction
 
 This package is an add-on for simplified activity logging based on [`spatie/laravel-activitylog`](https://github.com/spatie/laravel-activitylog) package. This package also includes a page for viewing activity logs.
 
@@ -21,8 +41,6 @@ The viewing page was copied from [`pxlrbt/filament-activity-log`](https://github
 
 ![Screenshot](./.github/resources/screenshot1.png)
 ![Screenshot](./.github/resources/screenshot2.png)
-![Screenshot](./.github/resources/screenshot3.png)
-![Screenshot](./.github/resources/screenshot4.png)
 
 </div>
 
@@ -72,7 +90,7 @@ class Activities extends ListActivities
 }
 ```
 
-## Logging Actions
+## Loggers
 
 ### Create a Logger
 
@@ -144,7 +162,7 @@ Available views:
 (Note: _"avatar" and "image" have the same size but a different border-radius._)
 
 
-### Logger - Field Translated Key
+### Logger - Field Translated Keys
 
 The Logger class has the `attributeMap` property where you can map field keys to make translations user-friendly.
 
