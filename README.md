@@ -17,6 +17,7 @@
   - [Logger - Field Value Views](#logger---field-value-views)
   - [Logger - Field Translated Keys](#logger---field-translated-keys)
   - [Logger - Usage](#logger---usage)
+    - [Primary events](#primary-events)
     - [CreateRecord](#createrecord)
     - [EditRecord](#editrecord)
     - [Table actions](#table-actions)
@@ -176,6 +177,24 @@ public static ?array $attributeMap = [
 ### Logger - Usage
 
 After the logger is created, you can use it.
+
+
+#### Primary events
+
+```php
+// Created
+UserLogger::make($record)->created();
+
+// Updated
+UserLogger::make($oldRecord, $record)->updated();
+
+// Deleted
+UserLogger::make($record)->deleted();
+
+// Restored
+UserLogger::make($record)->restored();
+
+```
 
 #### CreateRecord
 ```php
