@@ -1,28 +1,20 @@
 <?php
 
-namespace Noxo\FilamentActivityLog\Pages\Concerns;
+namespace Noxo\FilamentActivityLog;
 
 use Illuminate\Filesystem\Filesystem;
 use Noxo\FilamentActivityLog\ActivityLogger;
 use ReflectionClass;
 
-trait HasLoggers
+class ActivityLoggers
 {
-    public array $loggers = [];
+    public static array $loggers = [];
 
-    public function getLoggerConfigurations(): array
+    public static function discover(): void
     {
-        return [
-            'in' => app_path('Filament/Loggers'),
-            'for' => 'App\\Filament\\Loggers',
-        ];
-    }
-
-    protected function discoverLoggers(): void
-    {
-        $loggerConfig = $this->getLoggerConfigurations();
-        $directory = $loggerConfig['in'];
-        $namespace = $loggerConfig['for'];
+        $config = config('filament-activity-log.loggers');
+        $directory = $config['directory'];
+        $namespace = $config['namespace'];
         $baseClass = ActivityLogger::class;
 
         if (blank($directory) || blank($namespace)) {
@@ -67,7 +59,25 @@ trait HasLoggers
                 continue;
             }
 
-            $this->loggers[$class::$modelClass] = $class;
+            self::$loggers[] = $class;
+        }
+    }
+
+    public static function registerEvents(): void
+    {
+        foreach (self::$loggers as $logger) {
+            foreach ($logger::$events as $event) {
+                $logger::$modelClass::{$event}(function ($model) use ($logger, $event) {
+                    if ($event === 'updated') {
+                        $old = $model::make($model->getOriginal());
+                        $new = $model::make($model->getAttributes());
+                        $old->id = $model->id;
+                        $logger::make($old, $new)->updated();
+                    } else {
+                        $logger::make($model)->{$event}();
+                    }
+                });
+            }
         }
     }
 }

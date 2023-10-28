@@ -12,11 +12,12 @@
   - [Create a page](#create-a-page)
 * [Loggers](#loggers)
   - [Create a Logger](#create-a-logger)
+  - [Logger - Events](#logger---events)
   - [Logger - Fields](#logger---fields)
   - [Logger - Field Types](#logger---field-types)
   - [Logger - Field Value Views](#logger---field-value-views)
   - [Logger - Field Translated Keys](#logger---field-translated-keys)
-  - [Logger - Usage](#logger---usage)
+  - [Logger - Usage with relations](#logger---usage-with-relations)
     - [Primary events](#primary-events)
     - [CreateRecord](#createrecord)
     - [EditRecord](#editrecord)
@@ -105,9 +106,25 @@ Result:
 INFO  Filament logger [app/Filament/Loggers/UserLogger.php] created successfully.
 ```
 
+Once `UserLogger` is created, it immediately starts listening to model events.
+
+### Logger - Events
+
+The Logger class has the `events` property, which is a list of events that will be logged automatically.
+
+
+```php
+public static ?array $events = [
+    'created',
+    'updated',
+    'deleted',
+    'restored',
+];
+```
+
 ### Logger - Fields
 
-The Logger class has the fields property where you can specify all fields that need to be logged. You can also specify relations.
+The Logger class has the `fields` property where you can specify all fields that need to be logged. You can also specify relations.
 
 
 ```php
@@ -160,6 +177,10 @@ Available views:
 - image
 - badge
 
+___
+
+<img src="./.github/resources/screenshot-views.png" width="750">
+
 (Note: _"avatar" and "image" have the same size but a different border-radius._)
 
 
@@ -174,34 +195,21 @@ public static ?array $attributeMap = [
 ];
 ```
 
-### Logger - Usage
+### Logger - Usage with relations
 
-After the logger is created, you can use it.
-
-
-#### Primary events
+If you want to log relations as well, you should comment out the `created` and `updated` events and manually add a logger to your filament resource.
 
 ```php
-// Created
-UserLogger::make($record)->created();
-
-// Updated
-UserLogger::make($oldRecord, $record)->updated();
-
-// Deleted
-UserLogger::make($record)->deleted();
-
-// Restored
-UserLogger::make($record)->restored();
-
+public static ?array $events = [
+    // 'created',
+    // 'updated',
+    'deleted',
+    'restored',
+];
 ```
 
 #### CreateRecord
 ```php
-
-namespace App\Filament\Resources\UserResource\Pages;
-
-use App\Filament\Loggers\UserLogger;
 
 class CreateUser extends CreateRecord
 {
@@ -219,26 +227,21 @@ class CreateUser extends CreateRecord
 
 ```php
 
-namespace App\Filament\Resources\UserResource\Pages;
-
-use App\Filament\Loggers\UserLogger;
-
-
 class EditUser extends EditRecord
 {
     protected static string $resource = UserResource::class;
 
-    public $before;
+    public $old_model;
 
     public function beforeValidate()
     {
-        $this->before = clone $this->record->load('roles', 'media');
+        $this->old_model = clone $this->record->load('roles', 'media');
     }
 
     public function afterSave()
     {
-        $after = $this->record->load('roles', 'media');
-        UserLogger::make($this->before, $after)->updated();
+        $new_model = $this->record->load('roles', 'media');
+        UserLogger::make($this->old_model, $new_model)->updated();
     }
 }
 

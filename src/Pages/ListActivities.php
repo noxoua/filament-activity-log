@@ -15,7 +15,6 @@ abstract class ListActivities extends Page implements HasForms
     use CanPaginateRecords,
         InteractsWithForms,
         WithPagination,
-        Concerns\HasLoggers,
         Concerns\LogFormatting,
         Concerns\UrlHandling;
 
@@ -25,8 +24,6 @@ abstract class ListActivities extends Page implements HasForms
 
     public function mount(): void
     {
-        $this->discoverLoggers();
-
         $this->form->fill(request()->only([
             'causer',
             'subject_type',

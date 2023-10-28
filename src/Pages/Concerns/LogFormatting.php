@@ -2,6 +2,7 @@
 
 namespace Noxo\FilamentActivityLog\Pages\Concerns;
 
+use Noxo\FilamentActivityLog\ActivityLoggers;
 use Spatie\Activitylog\Models\Activity;
 
 trait LogFormatting
@@ -29,7 +30,7 @@ trait LogFormatting
      */
     public function getFieldLabel(Activity $activity, string $field): string
     {
-        $loggerClass = $this->loggers[$activity->subject_type];
+        $loggerClass = $this->getLoggerByModelName($activity->subject_type);
 
         // Check if the field has a custom mapping, otherwise use the original field name.
         $field = $loggerClass::$attributeMap[$field] ?? $field;
@@ -47,7 +48,7 @@ trait LogFormatting
      */
     public function getFieldView(Activity $activity, string $field): ?string
     {
-        $loggerClass = $this->loggers[$activity->subject_type];
+        $loggerClass = $this->getLoggerByModelName($activity->subject_type);
         return $loggerClass::$fieldViews[$field] ?? null;
     }
 
@@ -61,7 +62,25 @@ trait LogFormatting
      */
     public function getFieldType(Activity $activity, string $field): ?string
     {
-        $loggerClass = $this->loggers[$activity->subject_type];
+        $loggerClass = $this->getLoggerByModelName($activity->subject_type);
         return $loggerClass::$types[$field] ?? null;
+    }
+
+    /**
+     * Get a logger by model name.
+     *
+     * @param string $model
+     *
+     * @return string|null
+     */
+    public function getLoggerByModelName(string $model): ?string
+    {
+        foreach (ActivityLoggers::$loggers as $logger) {
+            if ($logger::$modelClass === $model) {
+                return $logger;
+            }
+        }
+
+        return null;
     }
 }

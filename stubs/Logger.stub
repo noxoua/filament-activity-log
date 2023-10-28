@@ -15,6 +15,18 @@ class {{ class }} extends ActivityLogger
     public static ?string $modelClass = {{ modelClass }}::class;
 
     /**
+     * The model events that will be logged automatically.
+     *
+     * @var array
+     */
+    public static ?array $events = [
+        'created',
+        'updated',
+        'deleted',
+        'restored',
+    ];
+
+    /**
      * The fields that will be logged for this user activity.
      *
      * @var array
