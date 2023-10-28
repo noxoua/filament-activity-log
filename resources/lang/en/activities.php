@@ -50,6 +50,7 @@ return [
         // Your custom subjects...
     ],
     'attributes' => [
+        'roles' => 'Roles',
         'category' => 'Category',
         'address' => 'Address',
         'title' => 'Title',
