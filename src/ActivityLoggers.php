@@ -3,7 +3,6 @@
 namespace Noxo\FilamentActivityLog;
 
 use Illuminate\Filesystem\Filesystem;
-use Noxo\FilamentActivityLog\ActivityLogger;
 use ReflectionClass;
 
 class ActivityLoggers

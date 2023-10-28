@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class ActivityLogger
 {
-    use Concerns\FieldTypeHandler;
     use Concerns\ActivityLogging;
+    use Concerns\FieldTypeHandler;
     use Concerns\PrimaryEventLogger;
 
     public static ?string $modelClass;
@@ -44,10 +44,6 @@ class ActivityLogger
 
     /**
      * Perform actions through a closure and update the "modelAfter."
-     *
-     * @param Closure $callback
-     *
-     * @return static
      */
     public function through(Closure $callback): static
     {
@@ -60,11 +56,6 @@ class ActivityLogger
 
     /**
      * Get the value of a field, optionally from the "after" model.
-     *
-     * @param string $key
-     * @param bool $fromAfter
-     *
-     * @return mixed
      */
     public function getValue(string $key, bool $fromAfter = false): mixed
     {

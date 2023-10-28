@@ -12,11 +12,11 @@ use Spatie\Activitylog\Models\Activity;
 
 abstract class ListActivities extends Page implements HasForms
 {
-    use CanPaginateRecords,
-        InteractsWithForms,
-        WithPagination,
-        Concerns\LogFormatting,
-        Concerns\UrlHandling;
+    use CanPaginateRecords;
+    use Concerns\LogFormatting;
+    use Concerns\UrlHandling;
+    use InteractsWithForms;
+    use WithPagination;
 
     protected static string $view = 'filament-activity-log::list-activities';
 

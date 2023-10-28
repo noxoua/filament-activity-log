@@ -9,7 +9,6 @@ trait UrlHandling
     /**
      * Get the URL for the "causer" model.
      *
-     * @param Model $causer
      * @return string
      */
     public function getCauserUrl(Model $causer)
@@ -22,7 +21,6 @@ trait UrlHandling
     /**
      * Get the URL for the "subject" model.
      *
-     * @param Model $subject
      * @return string
      */
     public function getSubjectUrl(Model $subject)
