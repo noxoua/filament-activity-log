@@ -208,6 +208,22 @@ public static ?array $events = [
 ];
 ```
 
+#### Primary events
+
+```php
+// Created
+UserLogger::make($record)->created();
+
+// Updated
+UserLogger::make($old_record, $new_record)->updated();
+
+// Deleted
+UserLogger::make($record)->deleted();
+
+// Restored
+UserLogger::make($record)->restored();
+```
+
 #### CreateRecord
 ```php
 
