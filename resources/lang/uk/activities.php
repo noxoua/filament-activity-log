@@ -50,6 +50,7 @@ return [
         // Your custom subjects...
     ],
     'attributes' => [
+        'roles' => 'Ролі',
         'category' => 'Категорія',
         'address' => 'Адреса',
         'title' => 'Назва',

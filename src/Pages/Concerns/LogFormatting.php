@@ -37,7 +37,7 @@ trait LogFormatting
     {
         $loggerClass = $this->getLoggerByModelName($activity->subject_type);
 
-        return $loggerClass::$fieldViews[$field] ?? null;
+        return $loggerClass::$views[$field] ?? null;
     }
 
     /**
