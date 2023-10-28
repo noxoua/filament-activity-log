@@ -39,7 +39,7 @@
         }
     },
     "scripts": {
-        "format": "vendor/bin/pint"
+        "pint": "vendor/bin/pint"
     },
     "extra": {
         "laravel": {
