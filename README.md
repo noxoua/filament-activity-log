@@ -55,19 +55,22 @@ Install via Composer.
 composer require noxoua/filament-activity-log
 ```
 
-
-You can publish the config file with:
+Optionally, you can publish the `config` file with:
 
 ```bash
 php artisan vendor:publish --tag="filament-activity-log-config"
 ```
 
-Optionally, you can publish the views using
-
-
+Optionally, you can publish the `views` file with:
 
 ```bash
 php artisan vendor:publish --tag="filament-activity-log-views"
+```
+
+Optionally, you can publish the `translations` file with:
+
+```bash
+php artisan vendor:publish --tag="filament-activity-log-translations"
 ```
 
 
