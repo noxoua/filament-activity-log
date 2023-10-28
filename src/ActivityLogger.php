@@ -8,10 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class ActivityLogger
 {
     use Concerns\FieldTypeHandler;
-    use Concerns\Loggable;
+    use Concerns\ActivityLogging;
     use Concerns\PrimaryEventLogger;
 
     public static ?string $modelClass;
+
+    public static ?array $events = [
+        'created',
+        'updated',
+        'deleted',
+        'restored',
+    ];
 
     public static ?array $fields;
 

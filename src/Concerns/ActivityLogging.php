@@ -2,7 +2,7 @@
 
 namespace Noxo\FilamentActivityLog\Concerns;
 
-trait Loggable
+trait ActivityLogging
 {
     /**
      * Log the properties if the condition is met.
