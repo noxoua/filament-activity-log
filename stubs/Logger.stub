@@ -50,7 +50,7 @@ class {{ class }} extends ActivityLogger
      *
      * @var array
      */
-    public static ?array $fieldViews = [
+    public static ?array $views = [
         // 'media' => 'avatar',
     ];
 

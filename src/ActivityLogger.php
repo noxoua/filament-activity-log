@@ -24,7 +24,7 @@ class ActivityLogger
 
     public static ?array $types;
 
-    public static ?array $fieldViews;
+    public static ?array $views;
 
     protected Model $model;
 

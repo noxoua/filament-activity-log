@@ -160,10 +160,10 @@ Available types:
 
 ### Logger - Field Value Views
 
-The Logger class has the `fieldViews` property where you can define how to display specific fields in the activity log views.
+The Logger class has the `views` property where you can define how to display specific fields in the activity log views.
 
 ```php
-public static ?array $fieldViews = [
+public static ?array $views = [
     'email_verified_at' => 'badge',
     'media' => 'avatar',
     'roles' => 'badge',
