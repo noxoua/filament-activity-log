@@ -1,6 +1,5 @@
 <?php
 
-
 return [
     'loggers' => [
         'directory' => app_path('Filament/Loggers'),
