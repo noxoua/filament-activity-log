@@ -39,7 +39,7 @@ The viewing page was copied from [`pxlrbt/filament-activity-log`](https://github
 
 <div class="filament-hidden">
 
-![Screenshot](https://raw.githubusercontent.com/noxoua/filament-activity-log/main/.github/resources/screenshot1.png)
+![Screenshot](https://raw.githubusercontent.com/noxoua/filament-activity-log/main/.github/resources/screenshot.png)
 
 </div>
 
