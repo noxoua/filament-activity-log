@@ -1,6 +1,6 @@
 <div class="filament-hidden">
 
-![header](./.github/resources/header.png)
+![header](https://raw.githubusercontent.com/noxoua/filament-activity-log/main/.github/resources/header.png)
 
 # Filament Activity Log
 
@@ -39,8 +39,7 @@ The viewing page was copied from [`pxlrbt/filament-activity-log`](https://github
 
 <div class="filament-hidden">
 
-![Screenshot](./.github/resources/screenshot1.png)
-![Screenshot](./.github/resources/screenshot2.png)
+![Screenshot](https://raw.githubusercontent.com/noxoua/filament-activity-log/main/.github/resources/screenshot1.png)
 
 </div>
 
@@ -284,7 +283,7 @@ class EditUser extends EditRecord
 
 ## Contributing
 
-Please see [CONTRIBUTING](.github/CONTRIBUTING.md) for details.
+Please see [CONTRIBUTING](https://raw.githubusercontent.com/noxoua/filament-activity-log/main/.github/CONTRIBUTING.md) for details.
 
 ## License
 
