@@ -2,8 +2,6 @@
 
 ![header](./.github/resources/header.png)
 
-</div>
-
 # Filament Activity Log
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/noxoua/filament-activity-log.svg?include_prereleases)](https://packagist.org/packages/noxoua/filament-activity-log)
@@ -29,6 +27,8 @@
     - [Table actions](#table-actions)
 * [Contributing](#contributing)
 * [License](#license)
+
+</div>
 
 ## Introduction
 
@@ -180,7 +180,7 @@ Available views:
 
 ___
 
-<img src="./.github/resources/screenshot-views.png" width="750">
+<img src="https://raw.githubusercontent.com/noxoua/filament-activity-log/main/.github/resources/screenshot-views.png" width="750">
 
 (Note: _"avatar" and "image" have the same size but a different border-radius._)
 
