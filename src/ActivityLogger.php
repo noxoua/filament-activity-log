@@ -22,6 +22,8 @@ class ActivityLogger
 
     public static ?array $fields;
 
+    public static ?array $relations;
+
     public static ?array $types;
 
     public static ?array $views;
@@ -52,6 +54,11 @@ class ActivityLogger
         $this->modelAfter = $this->model->fresh();
 
         return $this;
+    }
+
+    public function getFields(): array
+    {
+        return array_merge(static::$fields, static::$relations ?? []);
     }
 
     /**
