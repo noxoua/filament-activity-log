@@ -6,18 +6,18 @@ use Noxo\FilamentActivityLog\ActivityLoggers;
 
 trait LogCreateRecord
 {
-	public function afterCreate()
-	{
-		$this->logAfterCreate();
-	}
+    public function afterCreate()
+    {
+        $this->logAfterCreate();
+    }
 
-	public function logAfterCreate()
-	{
-		$logger = ActivityLoggers::getLoggerByModelClass(self::getResource()::getModel());
+    public function logAfterCreate()
+    {
+        $logger = ActivityLoggers::getLoggerByModelClass(self::getResource()::getModel());
 
-		if ($logger) {
-			$record = $this->record->load($logger::$relations ?? []);
-			$logger::make($record)->created();
-		}
-	}
+        if ($logger) {
+            $record = $this->record->load($logger::$relations ?? []);
+            $logger::make($record)->created();
+        }
+    }
 }

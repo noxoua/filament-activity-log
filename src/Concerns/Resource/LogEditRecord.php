@@ -7,6 +7,7 @@ use Noxo\FilamentActivityLog\ActivityLoggers;
 trait LogEditRecord
 {
     protected $logger;
+
     protected $log_model_old;
 
     public function beforeValidate()
