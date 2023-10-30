@@ -22,13 +22,13 @@
     - [Primary events](#primary-events)
     - [Add a custom event](#add-a-custom-event)
   - [Logger - Fields](#logger---fields)
-  - [Logger - Field Types](#logger---field-types)
+  - [Logger - Relations](#logger---relations)
+  - [Logger - Types](#logger---types)
   - [Logger - Field Value Views](#logger---field-value-views)
   - [Logger - Field Translated Keys](#logger---field-translated-keys)
   - [Logger - Usage with relations](#logger---usage-with-relations)
     - [CreateRecord](#createrecord)
     - [EditRecord](#editrecord)
-    - [Table actions](#table-actions)
 * [Contributing](#contributing)
 * [License](#license)
 
@@ -108,7 +108,7 @@ The Logger class is a fundamental component of the "Filament Activity Log" packa
 
 - **Customization**: You can customize each Logger to track only the events and fields that are relevant to your application. This flexibility ensures that you log the data that matters most to your specific use case.
 
-- **Field Types**: The Logger class supports various field types, making it easy to log and display different types of data appropriately. This includes handling dates, times, media files, boolean values, and more.
+- **Types**: The Logger class supports various field/relation types, making it easy to log and display different types of data appropriately. This includes handling dates, times, media files, boolean values, and more.
 
 - **Relation Support**: If your models have relationships with other models, Logger can track and log these related models as well. This is essential for understanding complex data dependencies.
 
@@ -150,8 +150,11 @@ class UserLogger extends ActivityLogger
         'name',
         'email',
         'email_verified_at',
-        'media',
+    ];
+
+    public static ?array $relations = [
         'roles',
+        'media',
     ];
 
     public static ?array $types = [
@@ -237,22 +240,31 @@ UserLogger::make($user_record)->transaction_deposit($transaction);
 
 ### Logger - Fields
 
-The Logger class has the `fields` property where you can specify all fields that need to be logged. You can also specify relations.
-
+The Logger class has the `fields` property where you can specify all fields that need to be logged.
 
 ```php
 public static ?array $fields = [
     'name',
     'email',
     'email_verified_at',
-    'media', // <---- relation
-    'roles', // <---- relation
 ];
 ```
 
-### Logger - Field Types
+### Logger - Relations
 
-The Logger class has the `types` property where you can specify fields and how they should be logged.
+The Logger class has the `relations` property where you can specify all relations that need to be logged.
+
+```php
+public static ?array $relations = [
+    'roles',
+    'media',
+];
+
+```
+
+### Logger - Types
+
+The Logger class has the `types` property where you can specify fields/relations and how they should be logged.
 
 ```php
 public static ?array $types = [
@@ -310,7 +322,7 @@ public static ?array $attributeMap = [
 
 ### Logger - Usage with relations
 
-If you want to log relations as well, you should comment out the `created` and `updated` events and manually add a logger to your filament resource.
+If you want to log relations as well, you should comment out the `created` and `updated` events and add `relations` that you want to log.
 
 ```php
 public static ?array $events = [
@@ -319,63 +331,75 @@ public static ?array $events = [
     'deleted',
     'restored',
 ];
+
+public static ?array $relations = ['roles', 'media'];
 ```
 
 #### CreateRecord
+
+To enable activity logging when creating records in Filament, you can use the `LogCreateRecord` trait. Here's how you can use it in your `CreateRecord` class:
+
 ```php
+use Noxo\FilamentActivityLog\Concerns\Resource\LogCreateRecord;
 
 class CreateUser extends CreateRecord
 {
+    use LogCreateRecord; // Add this trait to your CreateRecord class
+
     protected static string $resource = UserResource::class;
-
-    public function afterCreate()
-    {
-        UserLogger::make($this->record)->created();
-    }
 }
-
 ```
+If you have custom logic within the `afterCreate` method, make sure to include the call to `logAfterCreate` at the end of your method. This ensures that the activity log is generated after the creation process is complete.
+
+```php
+public function afterCreate()
+{
+    // Your code to create the record...
+
+    // Log the creation event with the activity logger
+    $this->logAfterCreate();
+}
+```
+
+By using this approach, you can easily track and log the creation of records in your Filament application while still having the flexibility to include custom logic within the `afterCreate` method.
 
 #### EditRecord
 
+To enable activity logging when editing records in Filament, you can use the `LogEditRecord` trait. Here's how you can use it in your `EditRecord` class:
+
 ```php
+use Noxo\FilamentActivityLog\Concerns\Resource\LogEditRecord;
 
 class EditUser extends EditRecord
 {
+    use LogEditRecord; // Add this trait to your EditRecord class
+
     protected static string $resource = UserResource::class;
-
-    public $old_model;
-
-    public function beforeValidate()
-    {
-        $this->old_model = clone $this->record->load('roles', 'media');
-    }
-
-    public function afterSave()
-    {
-        $new_model = $this->record->load('roles', 'media');
-        UserLogger::make($this->old_model, $new_model)->updated();
-    }
 }
-
 ```
 
-#### Table actions
+If you have custom logic within the `beforeValidate` method and/or `afterSave` method, make sure to call `logBeforeValidate` at the beginning of the `beforeValidate` method and `logAfterSave` at the end of the `afterSave` method. This ensures that the changes to the record, including any changes in the specified relations, are logged correctly.
 
 ```php
+public function beforeValidate()
+{
+    // Log the changes before validate
+    $this->logBeforeValidate();
 
-->actions([
-    Tables\Actions\Action::make('verify_email')
-        ->action(function ($record) {
+    // Your custom code for tasks before validate...
+}
 
-            UserLogger::make($record)
-                ->through(fn ($record) => $record->markEmailAsVerified())
-                ->updated();
+public function afterSave()
+{
+    // Your custom code after the record is saved...
 
-        }),
-])
-
+    // Log the changes after saving
+    $this->logAfterSave();
+}
 ```
+
+By using this approach, you can easily track and log the editing of records in your Filament application while having the flexibility to include your custom logic within the `beforeValidate` and `afterSave` methods.
+
 
 ### Logger - Process Custom Field or Complex Relation
 

@@ -9,6 +9,20 @@ class ActivityLoggers
 {
     public static array $loggers = [];
 
+    /**
+     * Get a logger by model class.
+     */
+    public static function getLoggerByModelClass(string $model): ?string
+    {
+        foreach (self::$loggers as $logger) {
+            if ($logger::$modelClass === $model) {
+                return $logger;
+            }
+        }
+
+        return null;
+    }
+
     public static function discover(): void
     {
         $config = config('filament-activity-log.loggers');

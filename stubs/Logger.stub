@@ -36,6 +36,15 @@ class {{ class }} extends ActivityLogger
     ];
 
     /**
+     * The relations that will be logged for this user activity.
+     *
+     * @var array
+     */
+    public static ?array $relations = [
+        //
+    ];
+
+    /**
      * The data types for specific fields, specifying how they should be logged.
      *
      * @var array
