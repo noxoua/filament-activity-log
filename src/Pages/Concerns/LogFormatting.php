@@ -3,6 +3,7 @@
 namespace Noxo\FilamentActivityLog\Pages\Concerns;
 
 use Noxo\FilamentActivityLog\ActivityLoggers;
+use Noxo\FilamentActivityLog\Types\BooleanEnum;
 use Spatie\Activitylog\Models\Activity;
 
 trait LogFormatting
@@ -40,27 +41,7 @@ trait LogFormatting
         return $loggerClass::$views[$field] ?? null;
     }
 
-    /**
-     * Get the type of a specific field of the activity.
-     */
-    public function getFieldType(Activity $activity, string $field): array
-    {
-        $loggerClass = ActivityLoggers::getLoggerByModelClass($activity->subject_type);
-
-        $typeName = $loggerClass::$types[$field] ?? null;
-        if (empty($typeName)) {
-            return [null, null];
-        }
-
-        $res = explode(':', $typeName);
-        $type = $res[0];
-        $values = array_filter(explode(',', $res[1] ?? null));
-
-        return [$type, $values];
-
-    }
-
-    public function resolveEnumFromName(string $enum, string $name): ?\UnitEnum
+    public function resolveEnumFromName(string $enum, ?string $name): ?\UnitEnum
     {
         foreach ($enum::cases() as $unit) {
             if (strtolower($name) === strtolower($unit->name)) {
@@ -74,31 +55,42 @@ trait LogFormatting
     /**
      * Get the type-specific value for a field.
      */
-    public function resolveValueByType($typeName, $typeValues, $fieldValue): mixed
+    public function resolveValue($activity, $field, $rawValue): mixed
     {
-        switch ($typeName) {
+        $loggerClass = ActivityLoggers::getLoggerByModelClass($activity->subject_type);
+
+        $typeString = $loggerClass::$types[$field] ?? null;
+        if (empty($typeString)) {
+            return $rawValue;
+        }
+
+        if (str_contains($typeString, ':')) {
+            [$type, $typeValues] = explode(':', $typeString);
+        } else {
+            $type = $typeString;
+            $typeValues = null;
+        }
+
+        switch ($type) {
             case 'date':
             case 'time':
             case 'datetime':
                 try {
-                    $value = \Carbon\Carbon::parse($fieldValue);
+                    $value = \Carbon\Carbon::parse($rawValue);
 
-                    $format = implode(',', $typeValues);
-                    $format = empty($format) ? null : $format;
-
-                    return match ($typeName) {
-                        'date' => $value?->translatedFormat($format ?? 'Y-m-d'),
-                        'time' => $value?->translatedFormat($format ?? 'H:i:s'),
-                        'datetime' => $value?->translatedFormat($format ?? 'Y-m-d H:i:s'),
+                    return match ($type) {
+                        'date' => $value?->translatedFormat($typeValues ?? 'Y-m-d'),
+                        'time' => $value?->translatedFormat($typeValues ?? 'H:i:s'),
+                        'datetime' => $value?->translatedFormat($typeValues ?? 'Y-m-d H:i:s'),
                     };
                 } catch (\Exception $e) {
                 }
+            case 'boolean':
+                return $this->resolveEnumFromName(BooleanEnum::class, $rawValue);
             case 'enum':
-                $enum = $this->resolveEnumFromName($typeValues[0], $fieldValue);
-
-                return $enum?->getLabel();
+                return $this->resolveEnumFromName($typeValues, $rawValue);
         }
 
-        return $fieldValue;
+        return $rawValue;
     }
 }

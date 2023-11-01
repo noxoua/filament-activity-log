@@ -27,9 +27,9 @@
             $prevDate = null;
         @endphp
 
-        @foreach ($this->getActivities() as $activityItem)
+        @foreach ($this->getActivities() as $activity)
             @php
-                $date = $activityItem->created_at->translatedFormat(__('filament-activity-log::activities.date_format'));
+                $date = $activity->created_at->translatedFormat(__('filament-activity-log::activities.date_format'));
             @endphp
 
             @if ($date != $prevDate)
@@ -47,37 +47,7 @@
                 @endphp
             @endif
 
-            <div
-                @class([
-                    'p-2 space-y-2 bg-white rounded-xl shadow',
-                    'dark:border-gray-600 dark:bg-gray-800',
-                ])
-                x-data="{
-                    isCollapsed: true,
-                }"
-                @collapse-all.window="() => isCollapsed = false"
-                @expand-all.window="() => isCollapsed = true"
-            >
-                @php
-                    /* @var \Spatie\Activitylog\Models\Activity $activityItem */
-                    $changes = $activityItem->getChangesAttribute();
-                    $hasChanges = !empty($changes['attributes']);
-                @endphp
-
-                <x-filament-activity-log::components.header
-                    :$activityItem
-                    :$hasChanges
-                />
-
-                @if ($hasChanges)
-                    <div x-show="isCollapsed">
-                        <x-filament-activity-log::components.table
-                            :$activityItem
-                            :$changes
-                        />
-                    </div>
-                @endif
-            </div>
+            {{ view('filament-activity-log::list.item', compact('activity')) }}
         @endforeach
 
         <x-filament::pagination

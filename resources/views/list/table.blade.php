@@ -1,4 +1,4 @@
-@props(['activityItem', 'changes'])
+@props(['activity', 'changes'])
 
 <x-filament-tables::table class="w-full overflow-hidden text-sm">
     <x-slot:header>
@@ -21,27 +21,29 @@
                 width="20%"
                 class="px-4 py-2 align-top sm:first-of-type:ps-6 sm:last-of-type:pe-6"
             >
-                {{ $this->getFieldLabel($activityItem, $field) }}
+                {{ $this->getFieldLabel($activity, $field) }}
             </x-filament-tables::cell>
+
             <x-filament-tables::cell
                 width="40%"
                 class="px-4 py-2 align-top break-all !whitespace-normal"
             >
-                <x-filament-activity-log::components.table-value
-                    :$activityItem
-                    :field="$field"
-                    :value="$oldValue"
-                />
+                {{ view('filament-activity-log::list.table-value', [
+                    'activity' => $activity,
+                    'field' => $field,
+                    'rawValue' => $oldValue,
+                ]) }}
             </x-filament-tables::cell>
+
             <x-filament-tables::cell
                 width="40%"
                 class="px-4 py-2 align-top break-all !whitespace-normal"
             >
-                <x-filament-activity-log::components.table-value
-                    :$activityItem
-                    :field="$field"
-                    :value="$newValue"
-                />
+                {{ view('filament-activity-log::list.table-value', [
+                    'activity' => $activity,
+                    'field' => $field,
+                    'rawValue' => $newValue,
+                ]) }}
             </x-filament-tables::cell>
         </x-filament-tables::row>
     @endforeach

@@ -4,7 +4,6 @@ namespace Noxo\FilamentActivityLog;
 
 use Filament\Support\Assets\Css;
 use Filament\Support\Facades\FilamentAsset;
-use Illuminate\Support\Facades\Blade;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -40,7 +39,5 @@ class FilamentActivityLogServiceProvider extends PackageServiceProvider
         FilamentAsset::register([
             Css::make('filament-activity-log', __DIR__ . '/../resources/dist/filament-activity-log.css'),
         ], $this->shortName());
-
-        Blade::componentNamespace('Noxo\\FilamentActivityLog', $this->shortName());
     }
 }

@@ -70,4 +70,8 @@ return [
         'amount' => 'Сума',
         // Your custom attributes...
     ],
+    'boolean' => [
+        'true' => 'Так',
+        'false' => 'Ні',
+    ],
 ];
