@@ -82,6 +82,7 @@ trait LogFormatting
             case 'datetime':
                 try {
                     $value = \Carbon\Carbon::parse($fieldValue);
+
                     return match ($typeName) {
                         'date' => $value?->translatedFormat($typeValues[0] ?? 'Y-m-d'),
                         'time' => $value?->translatedFormat($typeValues[0] ?? 'H:i:s'),
