@@ -83,10 +83,13 @@ trait LogFormatting
                 try {
                     $value = \Carbon\Carbon::parse($fieldValue);
 
+                    $format = implode(',', $typeValues);
+                    $format = empty($format) ? null : $format;
+
                     return match ($typeName) {
-                        'date' => $value?->translatedFormat($typeValues[0] ?? 'Y-m-d'),
-                        'time' => $value?->translatedFormat($typeValues[0] ?? 'H:i:s'),
-                        'datetime' => $value?->translatedFormat($typeValues[0] ?? 'Y-m-d H:i:s'),
+                        'date' => $value?->translatedFormat($format ?? 'Y-m-d'),
+                        'time' => $value?->translatedFormat($format ?? 'H:i:s'),
+                        'datetime' => $value?->translatedFormat($format ?? 'Y-m-d H:i:s'),
                     };
                 } catch (\Exception $e) {
                 }
