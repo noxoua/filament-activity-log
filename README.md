@@ -360,6 +360,9 @@ class CreateUser extends CreateRecord
 }
 ```
 
+<details>
+  <summary>Already have afterCreate method?</summary>
+
 If you have custom logic within the `afterCreate` method, ensure to include the call to `logAfterCreate` at the end of your method. This will generate the activity log entry after the creation process is complete.
 
 
@@ -372,8 +375,7 @@ public function afterCreate()
     $this->logAfterCreate();
 }
 ```
-
-By using this approach, you can easily track and log the creation of records in your Filament application while still having the flexibility to include custom logic within the `afterCreate` method.
+</details>
 
 ##### EditRecord
 
@@ -389,6 +391,9 @@ class EditUser extends EditRecord
     protected static string $resource = UserResource::class;
 }
 ```
+
+<details>
+  <summary>Already have beforeValidate or afterSave method?</summary>
 
 If you have custom logic within the `beforeValidate` method and/or `afterSave` method, make sure to call `logBeforeValidate` at the beginning of the `beforeValidate` method and `logAfterSave` at the end of the `afterSave` method. This ensures that the changes to the record, including any changes in the specified relations, are logged correctly.
 
@@ -409,8 +414,7 @@ public function afterSave()
     $this->logAfterSave();
 }
 ```
-
-By using this approach, you can easily track and log the editing of records in your Filament application while having the flexibility to include your custom logic within the `beforeValidate` and `afterSave` methods.
+</details>
 
 #### Resource with modals
 
@@ -484,6 +488,8 @@ In the example, the method name follows the convention of prefixing with `proces
 // Meta - field name `ucfirst`
 ```
 
+<div class="filament-hidden">
+
 ## Contributing
 
 Please see [CONTRIBUTING](https://raw.githubusercontent.com/noxoua/filament-activity-log/main/.github/CONTRIBUTING.md) for details.
@@ -491,3 +497,5 @@ Please see [CONTRIBUTING](https://raw.githubusercontent.com/noxoua/filament-acti
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+
+<div>
