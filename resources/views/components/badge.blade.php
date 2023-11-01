@@ -1,18 +1,15 @@
-@props(['value', 'rawValue', 'typeName', 'typeValues'])
+@props(['value'])
 
-@php
-    $getRawValue = fn($key) => ((array) $rawValue)[$key];
-@endphp
 
 <div class="flex flex-wrap gap-2">
-    @foreach ((array) $value as $key => $_value)
+    @if (is_string($value) || $value instanceof \UnitEnum)
         @php
-            $color = 'primary';
-            if ($typeName === 'enum') {
-                $enum = $this->resolveEnumFromName($typeValues[0], $getRawValue($key));
-                $color = $enum?->getColor() ?? 'primary';
-            } elseif ($typeName === 'boolean') {
-                $color = $_value === 'true' ? 'success' : 'danger';
+            if (is_string($value)) {
+                $color = 'primary';
+                $label = $value;
+            } else {
+                $color = $value?->getColor() ?? 'primary';
+                $label = $value?->getLabel() ?? $value;
             }
         @endphp
 
@@ -20,7 +17,13 @@
             :color="$color"
             class="w-fit"
         >
-            {{ $_value }}
+            {{ $label }}
         </x-filament::badge>
-    @endforeach
+    @elseif(is_array($value))
+        @foreach ($value as $_value)
+            {{ view('filament-activity-log::components.badge', [
+                'value' => $_value,
+            ]) }}
+        @endforeach
+    @endif
 </div>

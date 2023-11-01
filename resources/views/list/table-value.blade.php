@@ -2,8 +2,8 @@
 
 @php
     $view = $this->getFieldView($activity, $field) ?? 'default';
-    [$typeName, $typeValues] = $this->getFieldType($activity, $field);
-    $value = $this->resolveValueByType($typeName, $typeValues, $rawValue);
+    //[$typeName, $typeValues] = $this->getFieldType($activity, $field);
+    $value = $this->resolveValue($activity, $field, $rawValue);
 @endphp
 
-{{ view('filament-activity-log::components.' . $view, compact('value', 'rawValue', 'typeName', 'typeValues')) }}
+{{ view('filament-activity-log::components.' . $view, compact('value', 'rawValue')) }}
