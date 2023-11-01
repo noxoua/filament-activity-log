@@ -32,13 +32,9 @@ trait FieldTypeHandler
 
         switch ($type) {
             case 'date':
-                return $model->{$key}?->translatedFormat($typeValues[0] ?? 'Y-m-d');
-
             case 'time':
-                return $model->{$key}?->translatedFormat($typeValues[0] ?? 'H:i:s');
-
             case 'datetime':
-                return $model->{$key}?->translatedFormat($typeValues[0] ?? 'Y-m-d H:i:s');
+                return (string) $model->{$key};
 
             case 'media':
                 $isMultiple = ($typeValues[0] ?? 'single') === 'multiple';
