@@ -40,7 +40,5 @@ class FilamentActivityLogServiceProvider extends PackageServiceProvider
         FilamentAsset::register([
             Css::make('filament-activity-log', __DIR__ . '/../resources/dist/filament-activity-log.css'),
         ], $this->shortName());
-
-        Blade::componentNamespace('Noxo\\FilamentActivityLog', $this->shortName());
     }
 }

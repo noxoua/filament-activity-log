@@ -18,18 +18,23 @@ abstract class ListActivities extends Page implements HasForms
     use InteractsWithForms;
     use WithPagination;
 
-    protected static string $view = 'filament-activity-log::list-activities';
-
     public ?array $data = [];
 
     public function mount(): void
     {
+        $this->setView('list');
+
         $this->form->fill(request()->only([
             'causer',
             'subject_type',
             'subject_id',
             'event',
         ]));
+    }
+
+    public function setView(string $view)
+    {
+        self::$view = 'filament-activity-log::' . $view . '.index';
     }
 
     public function form(Forms\Form $form): Forms\Form
