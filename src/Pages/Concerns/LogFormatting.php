@@ -65,10 +65,10 @@ trait LogFormatting
         }
 
         if (str_contains($typeString, ':')) {
-            [$type, $typeValues] = explode(':', $typeString);
+            [$type, $typeArgument] = explode(':', $typeString);
         } else {
             $type = $typeString;
-            $typeValues = null;
+            $typeArgument = null;
         }
 
         switch ($type) {
@@ -78,17 +78,17 @@ trait LogFormatting
                 try {
                     $value = \Carbon\Carbon::parse($rawValue);
 
-                    return match ($type) {
-                        'date' => $value?->translatedFormat($typeValues ?? 'Y-m-d'),
-                        'time' => $value?->translatedFormat($typeValues ?? 'H:i:s'),
-                        'datetime' => $value?->translatedFormat($typeValues ?? 'Y-m-d H:i:s'),
-                    };
+                    return $value?->translatedFormat($typeArgument ?? match ($type) {
+                        'date' => 'Y-m-d',
+                        'time' => 'H:i:s',
+                        'datetime' => 'Y-m-d H:i:s',
+                    });
                 } catch (\Exception $e) {
                 }
             case 'boolean':
                 return $this->resolveEnumFromName(BooleanEnum::class, $rawValue);
             case 'enum':
-                return $this->resolveEnumFromName($typeValues, $rawValue);
+                return $this->resolveEnumFromName($typeArgument, $rawValue);
         }
 
         return $rawValue;
