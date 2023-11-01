@@ -60,7 +60,7 @@ trait LogFormatting
 
     }
 
-    public function resolveEnumFromName(string $enum, string $name): \UnitEnum|null
+    public function resolveEnumFromName(string $enum, string $name): ?\UnitEnum
     {
         foreach ($enum::cases() as $unit) {
             if (strtolower($name) === strtolower($unit->name)) {
@@ -89,6 +89,7 @@ trait LogFormatting
 
             case 'enum':
                 $enum = $this->resolveEnumFromName($typeValues[0], $fieldValue);
+
                 return $enum?->getLabel();
         }
 
