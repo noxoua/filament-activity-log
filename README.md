@@ -282,8 +282,9 @@ Available types:
 - boolean
 - only:first_name,last_name
 - pluck:first_name
-- enum
+- 'enum:' . PaymentStatus::class
 
+(Note: _For your `enum` field you need to define `getLabel` method in your [enum class](https://filamentphp.com/docs/3.x/support/enums#enum-labels)_)
 
 ### Logger - Field Value Views
 
@@ -302,6 +303,7 @@ Available views:
 - image
 - badge
 
+(Note: _If your `badge` field is an enum class, you can define the `getColor` method. [Details](https://filamentphp.com/docs/3.x/support/enums#enum-colors)_)
 ___
 
 <img src="https://raw.githubusercontent.com/noxoua/filament-activity-log/main/.github/resources/screenshot-views.png" width="750">

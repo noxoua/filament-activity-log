@@ -26,6 +26,8 @@ trait FieldTypeHandler
      */
     public function getTypeValue($model, $key): mixed
     {
+        // TODO: make this work with model casts
+
         [$type, $typeValues] = $this->getType($key);
 
         switch ($type) {
@@ -56,7 +58,7 @@ trait FieldTypeHandler
                 return collect($model->{$key})->pluck($typeValues[0])->toArray();
 
             case 'enum':
-                return $model->{$key}?->getLabel();
+                return $model->{$key}->name;
         }
 
         return false;

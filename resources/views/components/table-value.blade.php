@@ -2,7 +2,12 @@
 
 @php
     $view = $this->getFieldView($activityItem, $field);
-    $type = $this->getFieldType($activityItem, $field);
+    [$typeName, $typeValues] = $this->getFieldType($activityItem, $field);
+
+    $rawValue = $value;
+    $getRawValue = fn($key) => ((array) $rawValue)[$key];
+
+    $value = $this->resolveValueByType($typeName, $typeValues, $rawValue);
 @endphp
 
 @switch($view)
@@ -28,10 +33,13 @@
 
     @case('badge')
         <div class="flex flex-wrap gap-2">
-            @foreach ((array) $value as $_value)
+            @foreach ((array) $value as $key => $_value)
                 @php
                     $color = 'primary';
-                    if ($type === 'boolean') {
+                    if ($typeName === 'enum') {
+                        $enum = $this->resolveEnumFromName($typeValues[0], $getRawValue($key));
+                        $color = $enum?->getColor() ?? 'primary';
+                    } elseif ($typeName === 'boolean') {
                         $color = $_value === 'true' ? 'success' : 'danger';
                     }
                 @endphp
