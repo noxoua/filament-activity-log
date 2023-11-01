@@ -34,6 +34,9 @@ class FilamentActivityLogServiceProvider extends PackageServiceProvider
         ActivityLoggers::discover();
         ActivityLoggers::registerEvents();
 
+        \Filament\Tables\Actions\EditAction::mixin(new Macros\EditAction);
+        \Filament\Actions\CreateAction::mixin(new Macros\CreateAction);
+
         FilamentAsset::register([
             Css::make('filament-activity-log', __DIR__ . '/../resources/dist/filament-activity-log.css'),
         ], $this->shortName());

@@ -337,9 +337,13 @@ public static ?array $events = [
 public static ?array $relations = ['roles', 'media'];
 ```
 
-#### CreateRecord
+#### Resource with pages
 
-To enable activity logging when creating records in Filament, you can use the `LogCreateRecord` trait. Here's how you can use it in your `CreateRecord` class:
+When your Filament resource uses separate pages for creating and editing records, you can enable activity logging with the following methods:
+
+##### CreateRecord
+
+To enable activity logging when creating records in Filament, you should use the `LogCreateRecord` trait in your `CreateRecord` class as follows:
 
 ```php
 use Noxo\FilamentActivityLog\Concerns\Resource\LogCreateRecord;
@@ -351,7 +355,9 @@ class CreateUser extends CreateRecord
     protected static string $resource = UserResource::class;
 }
 ```
-If you have custom logic within the `afterCreate` method, make sure to include the call to `logAfterCreate` at the end of your method. This ensures that the activity log is generated after the creation process is complete.
+
+If you have custom logic within the `afterCreate` method, ensure to include the call to `logAfterCreate` at the end of your method. This will generate the activity log entry after the creation process is complete.
+
 
 ```php
 public function afterCreate()
@@ -365,9 +371,9 @@ public function afterCreate()
 
 By using this approach, you can easily track and log the creation of records in your Filament application while still having the flexibility to include custom logic within the `afterCreate` method.
 
-#### EditRecord
+##### EditRecord
 
-To enable activity logging when editing records in Filament, you can use the `LogEditRecord` trait. Here's how you can use it in your `EditRecord` class:
+To enable activity logging when editing records in Filament, you should use the `LogEditRecord` trait in your `EditRecord` class:
 
 ```php
 use Noxo\FilamentActivityLog\Concerns\Resource\LogEditRecord;
@@ -402,6 +408,47 @@ public function afterSave()
 
 By using this approach, you can easily track and log the editing of records in your Filament application while having the flexibility to include your custom logic within the `beforeValidate` and `afterSave` methods.
 
+#### Resource with modals
+
+When your resource uses modals for creating and editing records.
+When your Filament resource uses modals for creating and editing records, you can configure the logger for the `CreateAction` and `EditAction` as follows:
+
+##### CreateAction
+
+To set the logger for the `CreateAction` on the resource's list page, you can use the `setLogger` method within the `getHeaderActions` method. Here's an example:
+
+```php
+class ListUsers extends ListRecords
+{
+    protected static string $resource = UserResource::class;
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            \Filament\Actions\CreateAction::make()
+                ->setLogger(\App\Filament\Loggers\UserLogger::class),
+        ];
+    }
+}
+```
+In this code, the `CreateAction` is configured to use the `UserLogger` to log activity when creating records.
+
+##### EditRecord
+
+To set the logger for the `EditAction` within the resource table's actions, you can use the `setLogger` method as shown in the example below:
+
+```php
+->actions([
+    Tables\Actions\EditAction::make()
+        ->setLogger(\App\Filament\Loggers\UserLogger::class),
+]),
+```
+
+This configuration ensures that the `EditAction` logs activity using the `UserLogger` when editing records within your Filament resource.
+
+___
+
+By specifying the logger for these actions, you can seamlessly integrate activity logging into your resource when using modals for creating and editing records.
 
 ### Logger - Process Custom Field or Complex Relation
 
