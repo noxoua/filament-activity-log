@@ -80,6 +80,10 @@ class ActivityLoggers
     {
         foreach (self::$loggers as $logger) {
             foreach ($logger::$events as $event) {
+                if (! method_exists($logger::$modelClass, $event)) {
+                    continue;
+                }
+
                 $logger::$modelClass::{$event}(function ($model) use ($logger, $event) {
                     if ($event === 'updated') {
                         $old = $model::make($model->getOriginal());
