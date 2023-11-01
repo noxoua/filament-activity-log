@@ -414,7 +414,6 @@ By using this approach, you can easily track and log the editing of records in y
 
 #### Resource with modals
 
-When your resource uses modals for creating and editing records.
 When your Filament resource uses modals for creating and editing records, you can configure the logger for the `CreateAction` and `EditAction` as follows:
 
 ##### CreateAction
