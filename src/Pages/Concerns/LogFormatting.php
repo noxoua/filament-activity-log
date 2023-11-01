@@ -3,6 +3,7 @@
 namespace Noxo\FilamentActivityLog\Pages\Concerns;
 
 use Noxo\FilamentActivityLog\ActivityLoggers;
+use Noxo\FilamentActivityLog\Types\BooleanEnum;
 use Spatie\Activitylog\Models\Activity;
 
 trait LogFormatting
@@ -40,7 +41,7 @@ trait LogFormatting
         return $loggerClass::$views[$field] ?? null;
     }
 
-    public function resolveEnumFromName(string $enum, string $name): ?\UnitEnum
+    public function resolveEnumFromName(string $enum, ?string $name): ?\UnitEnum
     {
         foreach ($enum::cases() as $unit) {
             if (strtolower($name) === strtolower($unit->name)) {
@@ -76,6 +77,7 @@ trait LogFormatting
             case 'datetime':
                 try {
                     $value = \Carbon\Carbon::parse($rawValue);
+
                     return match ($type) {
                         'date' => $value?->translatedFormat($typeValues ?? 'Y-m-d'),
                         'time' => $value?->translatedFormat($typeValues ?? 'H:i:s'),
@@ -83,6 +85,8 @@ trait LogFormatting
                     };
                 } catch (\Exception $e) {
                 }
+            case 'boolean':
+                return $this->resolveEnumFromName(BooleanEnum::class, $rawValue);
             case 'enum':
                 return $this->resolveEnumFromName($typeValues, $rawValue);
         }
