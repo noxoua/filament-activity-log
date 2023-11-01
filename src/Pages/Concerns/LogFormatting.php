@@ -77,16 +77,18 @@ trait LogFormatting
     public function resolveValueByType($typeName, $typeValues, $fieldValue): mixed
     {
         switch ($typeName) {
-            // TODO:
-            // case 'date':
-            //     return parse_timestamp($value)?->translatedFormat($typeValues[0] ?? 'Y-m-d');
-
-            // case 'time':
-            //     return parse_timestamp($value)?->translatedFormat($typeValues[0] ?? 'H:i:s');
-
-            // case 'datetime':
-            //     return parse_timestamp($value)?->translatedFormat($typeValues[0] ?? 'Y-m-d H:i:s');
-
+            case 'date':
+            case 'time':
+            case 'datetime':
+                try {
+                    $value = \Carbon\Carbon::parse($fieldValue);
+                    return match ($typeName) {
+                        'date' => $value?->translatedFormat($typeValues[0] ?? 'Y-m-d'),
+                        'time' => $value?->translatedFormat($typeValues[0] ?? 'H:i:s'),
+                        'datetime' => $value?->translatedFormat($typeValues[0] ?? 'Y-m-d H:i:s'),
+                    };
+                } catch (\Exception $e) {
+                }
             case 'enum':
                 $enum = $this->resolveEnumFromName($typeValues[0], $fieldValue);
 
