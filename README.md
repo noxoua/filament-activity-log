@@ -27,8 +27,12 @@
   - [Logger - Field Value Views](#logger---field-value-views)
   - [Logger - Field Translated Keys](#logger---field-translated-keys)
   - [Logger - Usage with relations](#logger---usage-with-relations)
-    - [CreateRecord](#createrecord)
-    - [EditRecord](#editrecord)
+    - [Resource with pages](#resource-with-pages)
+        - [CreateRecord](#createrecord)
+        - [EditRecord](#editrecord)
+    - [Resource with modals](#resource-with-modals)
+        - [CreateAction](#createaction)
+        - [EditAction](#editaction)
 * [Contributing](#contributing)
 * [License](#license)
 
@@ -433,7 +437,7 @@ class ListUsers extends ListRecords
 ```
 In this code, the `CreateAction` is configured to use the `UserLogger` to log activity when creating records.
 
-##### EditRecord
+##### EditAction
 
 To set the logger for the `EditAction` within the resource table's actions, you can use the `setLogger` method as shown in the example below:
 
