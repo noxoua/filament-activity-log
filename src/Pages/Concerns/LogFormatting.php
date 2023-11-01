@@ -43,10 +43,55 @@ trait LogFormatting
     /**
      * Get the type of a specific field of the activity.
      */
-    public function getFieldType(Activity $activity, string $field): ?string
+    public function getFieldType(Activity $activity, string $field): array
     {
         $loggerClass = ActivityLoggers::getLoggerByModelClass($activity->subject_type);
 
-        return $loggerClass::$types[$field] ?? null;
+        $typeName = $loggerClass::$types[$field] ?? null;
+        if (empty($typeName)) {
+            return [null, null];
+        }
+
+        $res = explode(':', $typeName);
+        $type = $res[0];
+        $values = array_filter(explode(',', $res[1] ?? null));
+
+        return [$type, $values];
+
+    }
+
+    public function resolveEnumFromName(string $enum, string $name): \UnitEnum|null
+    {
+        foreach ($enum::cases() as $unit) {
+            if (strtolower($name) === strtolower($unit->name)) {
+                return $unit;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Get the type-specific value for a field.
+     */
+    public function resolveValueByType($typeName, $typeValues, $fieldValue): mixed
+    {
+        switch ($typeName) {
+            // TODO:
+            // case 'date':
+            //     return parse_timestamp($value)?->translatedFormat($typeValues[0] ?? 'Y-m-d');
+
+            // case 'time':
+            //     return parse_timestamp($value)?->translatedFormat($typeValues[0] ?? 'H:i:s');
+
+            // case 'datetime':
+            //     return parse_timestamp($value)?->translatedFormat($typeValues[0] ?? 'Y-m-d H:i:s');
+
+            case 'enum':
+                $enum = $this->resolveEnumFromName($typeValues[0], $fieldValue);
+                return $enum?->getLabel();
+        }
+
+        return $fieldValue;
     }
 }
