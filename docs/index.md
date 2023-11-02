@@ -13,4 +13,4 @@ This package is an add-on for simplified activity logging based on [`spatie/lara
 
 The viewing page was copied from [`pxlrbt/filament-activity-log`](https://filamentphp.com/plugins/pxlrbt-activity-log) package and slightly modernized. If you only need the page for viewing activity logs, without additional functionality, use this package - [`pxlrbt/filament-activity-log`](https://filamentphp.com/plugins/pxlrbt-activity-log)
 
-![Screenshot](../assets/images/screenshot.png)
+![Screenshot](./assets/images/screenshot.png)
