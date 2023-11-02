@@ -9,8 +9,8 @@ aux_links:
 
 defaults:
   -
-    scope:
-      path: "docs/*.md"
+    # scope:
+    #   path: "docs/*.md"
     values:
       layout: "default"
 
