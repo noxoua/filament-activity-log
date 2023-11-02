@@ -2,6 +2,7 @@
 
 namespace Noxo\FilamentActivityLog\Pages\Concerns;
 
+use function Filament\Support\format_money;
 use Noxo\FilamentActivityLog\ActivityLoggers;
 use Noxo\FilamentActivityLog\Types\BooleanEnum;
 use Spatie\Activitylog\Models\Activity;
@@ -91,6 +92,10 @@ trait LogFormatting
                 return $this->resolveEnumFromName($typeArgument, $rawValue);
             case 'associative_array':
                 return (array) $rawValue;
+            case 'money':
+                return format_money(
+                    (float) $rawValue, $typeArgument ?? 'EUR'
+                );
         }
 
         return $rawValue;

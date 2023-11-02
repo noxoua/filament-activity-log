@@ -287,8 +287,9 @@ Available types:
 - only:first_name,last_name
 - pluck:first_name
 - 'enum:' . PaymentStatus::class
+- money:EUR
 
-(Note: _For your `enum` field you need to define `getLabel` method in your [enum class](https://filamentphp.com/docs/3.x/support/enums#enum-labels)_)
+(Note: _The `enum` type is compatible with the [filament enum](https://filamentphp.com/docs/3.x/support/enums). So you can use `label`, `color` and `icon` but the field must have the `badge` view._)
 
 ### Logger - Field Value Views
 
@@ -308,7 +309,6 @@ Available views:
 - badge
 - associative_array
 
-(Note: _If your `badge` field is an enum class, you can define the `getColor` method. [Details](https://filamentphp.com/docs/3.x/support/enums#enum-colors)_)
 ___
 
 <img src="https://raw.githubusercontent.com/noxoua/filament-activity-log/main/.github/resources/screenshot-views.png" width="750">
