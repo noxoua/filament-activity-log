@@ -2,10 +2,11 @@
 
 namespace Noxo\FilamentActivityLog\Pages\Concerns;
 
-use function Filament\Support\format_money;
 use Noxo\FilamentActivityLog\ActivityLoggers;
 use Noxo\FilamentActivityLog\Types\BooleanEnum;
 use Spatie\Activitylog\Models\Activity;
+
+use function Filament\Support\format_money;
 
 trait LogFormatting
 {
@@ -94,7 +95,8 @@ trait LogFormatting
                 return (array) $rawValue;
             case 'money':
                 return format_money(
-                    (float) $rawValue, $typeArgument ?? 'EUR'
+                    (float) $rawValue,
+                    $typeArgument ?? 'EUR'
                 );
         }
 
