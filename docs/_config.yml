@@ -1,6 +1,7 @@
 title: Activity Log
 description: Add-on for simplified activity logging based on spatie package.
-theme: just-the-docs
+remote_theme: just-the-docs/just-the-docs
+# theme: just-the-docs
 color_scheme: light
 
 aux_links:
