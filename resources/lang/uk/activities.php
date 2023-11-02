@@ -16,6 +16,7 @@ return [
         'field' => 'Поле',
         'old' => 'Старе',
         'new' => 'Нове',
+        'no_records_yet' => 'Поки що немає записів',
     ],
     'events' => [
         'updated' => [

@@ -20,16 +20,44 @@ abstract class ListActivities extends Page implements HasForms
 
     protected static string $view = 'filament-activity-log::list.index';
 
-    public ?array $data = [];
+    public ?array $filters = [
+        'causer' => null,
+        'subject_type' => null,
+        'subject_id' => null,
+        'event' => null,
+    ];
+
+    protected $queryString = [
+        'filters.causer' => ['except' => null, 'as' => 'causer'],
+        'filters.subject_type' => ['except' => null, 'as' => 'subject_type'],
+        'filters.subject_id' => ['except' => null, 'as' => 'subject_id'],
+        'filters.event' => ['except' => null, 'as' => 'event'],
+    ];
 
     public function mount(): void
     {
-        $this->form->fill(request()->only([
+        $values = request()->only([
             'causer',
             'subject_type',
             'subject_id',
             'event',
-        ]));
+        ]);
+
+        $this->form->fill(
+            collect($values)
+                ->filter(fn ($value) => ! empty($value) && $value !== 'null')
+                ->toArray()
+        );
+    }
+
+    public function resetFiltersForm(): void
+    {
+        $this->form->fill();
+    }
+
+    public function isFiltersBlank(): bool
+    {
+        return count(array_filter($this->filters)) === 0;
     }
 
     public function form(Forms\Form $form): Forms\Form
@@ -95,7 +123,7 @@ abstract class ListActivities extends Page implements HasForms
                     ]),
             ])
             ->debounce()
-            ->statePath('data');
+            ->statePath('filters');
     }
 
     public function getTitle(): string
