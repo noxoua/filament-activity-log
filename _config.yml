@@ -10,7 +10,7 @@ aux_links:
 defaults:
   -
     scope:
-      path: "pages/**/*.md"
+      path: "docs/*.md"
     values:
       layout: "default"
 
