@@ -4,13 +4,14 @@ remote_theme: just-the-docs/just-the-docs
 # theme: just-the-docs
 color_scheme: light
 
+aux_links_new_tab: true
 aux_links:
   Filament Plugin: "https://filamentphp.com/plugins/noxoua-activity-log"
 
 defaults:
   -
-    # scope:
-    #   path: "docs/*.md"
+    scope:
+      path: "*.md"
     values:
       layout: "default"
 
@@ -18,15 +19,29 @@ callouts_level: quiet
 callouts:
   highlight:
     color: yellow
-  important:
-    title: Important
-    color: blue
-  new:
-    title: New
-    color: green
   note:
-    title: Note
     color: purple
-  warning:
-    title: Warning
-    color: red
+  # important:
+  #   color: blue
+  # new:
+  #   color: green
+  # warning:
+  #   color: red
+
+
+compress_html:
+  ignore:
+    envs: all
+
+kramdown:
+  syntax_highlighter_opts:
+    block:
+      line_numbers: true
+
+# Footer "Edit this page on GitHub" link text
+gh_edit_link: true
+gh_edit_link_text: "Edit this page on GitHub"
+gh_edit_repository: "https://github.com/noxoua/filament-activity-log"
+gh_edit_branch: "main"
+gh_edit_source: docs
+gh_edit_view_mode: "edit"

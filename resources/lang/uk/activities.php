@@ -3,10 +3,11 @@
 return [
     'title' => 'Історія діяльності',
 
-    'date_format' => 'Y-m-d',
-    'time_format' => 'H:i:s',
+    'date_format' => 'j F, Y',
+    'time_format' => 'H:i l',
 
     'filters' => [
+        'date' => 'Дата',
         'causer' => 'Ініціатор',
         'subject_type' => 'Об\'єкт',
         'subject_id' => 'ID об\'єкту',
