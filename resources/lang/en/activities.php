@@ -3,12 +3,13 @@
 return [
     'title' => 'Activity history',
 
-    'date_format' => 'Y-m-d',
-    'time_format' => 'H:i:s',
+    'date_format' => 'j F, Y',
+    'time_format' => 'H:i l',
 
     'filters' => [
+        'date' => 'Date',
         'causer' => 'Initiator',
-        'subject_type' => 'Object',
+        'subject_type' => 'Subject',
         'subject_id' => 'Subject ID',
         'event' => 'Action',
     ],

@@ -21,6 +21,7 @@ abstract class ListActivities extends Page implements HasForms
     protected static string $view = 'filament-activity-log::list.index';
 
     public ?array $filters = [
+        'created_at' => null,
         'causer' => null,
         'subject_type' => null,
         'subject_id' => null,
@@ -28,6 +29,7 @@ abstract class ListActivities extends Page implements HasForms
     ];
 
     protected $queryString = [
+        'filters.created_at' => ['except' => null, 'as' => 'created_at'],
         'filters.causer' => ['except' => null, 'as' => 'causer'],
         'filters.subject_type' => ['except' => null, 'as' => 'subject_type'],
         'filters.subject_id' => ['except' => null, 'as' => 'subject_id'],
@@ -37,6 +39,7 @@ abstract class ListActivities extends Page implements HasForms
     public function mount(): void
     {
         $values = request()->only([
+            'created_at',
             'causer',
             'subject_type',
             'subject_id',
@@ -66,8 +69,14 @@ abstract class ListActivities extends Page implements HasForms
             ->schema([
                 Forms\Components\Section::make()
                     ->compact()
-                    ->columns(4)
+                    ->columns(5)
                     ->schema([
+                        Forms\Components\DatePicker::make('created_at')
+                            ->label(__('filament-activity-log::activities.filters.date'))
+                            ->placeholder(__('filament-activity-log::activities.filters.date'))
+                            ->native(false)
+                            ->suffixIcon('heroicon-m-calendar'),
+
                         Forms\Components\Select::make('causer')
                             ->label(__('filament-activity-log::activities.filters.causer'))
                             ->options(function () {
@@ -166,6 +175,10 @@ abstract class ListActivities extends Page implements HasForms
                 ->unless(
                     empty($state['event']),
                     fn ($query) => $query->where('event', $state['event'])
+                )
+                ->unless(
+                    empty($state['created_at']),
+                    fn ($query) => $query->whereDate('created_at', $state['created_at'])
                 )
         );
     }
