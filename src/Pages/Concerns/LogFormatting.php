@@ -85,6 +85,7 @@ trait LogFormatting
                         'datetime' => 'Y-m-d H:i:s',
                     });
                 } catch (\Exception $e) {
+                    return $rawValue;
                 }
             case 'boolean':
                 return $this->resolveEnumFromName(BooleanEnum::class, $rawValue);
