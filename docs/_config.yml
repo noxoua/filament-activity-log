@@ -1,0 +1,6 @@
+title: Activity Log
+description: Add-on for simplified activity logging based on spatie package.
+remote_theme: just-the-docs/just-the-docs
+
+aux_links:
+  Filament Plugin: "https://filamentphp.com/plugins/noxoua-activity-log"

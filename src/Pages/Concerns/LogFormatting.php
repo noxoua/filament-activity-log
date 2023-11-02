@@ -69,8 +69,7 @@ trait LogFormatting
         if (str_contains($typeString, ':')) {
             [$type, $typeArgument] = explode(':', $typeString);
         } else {
-            $type = $typeString;
-            $typeArgument = null;
+            [$type, $typeArgument] = [$typeString, null];
         }
 
         switch ($type) {
