@@ -1,6 +1,31 @@
 title: Activity Log
 description: Add-on for simplified activity logging based on spatie package.
-remote_theme: just-the-docs/just-the-docs
+theme: just-the-docs
+color_scheme: light
 
 aux_links:
   Filament Plugin: "https://filamentphp.com/plugins/noxoua-activity-log"
+
+defaults:
+  -
+    scope:
+      path: "pages/**/*.md"
+    values:
+      layout: "default"
+
+callouts_level: quiet
+callouts:
+  highlight:
+    color: yellow
+  important:
+    title: Important
+    color: blue
+  new:
+    title: New
+    color: green
+  note:
+    title: Note
+    color: purple
+  warning:
+    title: Warning
+    color: red
