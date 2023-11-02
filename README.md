@@ -306,6 +306,7 @@ Available views:
 - avatar
 - image
 - badge
+- associative_array
 
 (Note: _If your `badge` field is an enum class, you can define the `getColor` method. [Details](https://filamentphp.com/docs/3.x/support/enums#enum-colors)_)
 ___

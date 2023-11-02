@@ -89,6 +89,8 @@ trait LogFormatting
                 return $this->resolveEnumFromName(BooleanEnum::class, $rawValue);
             case 'enum':
                 return $this->resolveEnumFromName($typeArgument, $rawValue);
+            case 'associative_array':
+                return (array) $rawValue;
         }
 
         return $rawValue;
