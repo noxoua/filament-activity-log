@@ -15,6 +15,7 @@ class Field
     use Concerns\Types\Media;
     use Concerns\Types\Money;
     use Concerns\Types\Relation;
+    use Concerns\Types\Table;
 
     public string $name;
 
@@ -26,7 +27,7 @@ class Field
 
     public ?string $view = 'default';
 
-    public ?string $translatedKey = null;
+    public ?string $label = null;
 
     public function __construct(string $name, string $type = null)
     {
@@ -57,8 +58,9 @@ class Field
             'badge',
             'date',
             'money',
-            'translatedKey',
+            'label',
             'media',
+            'relation',
         ];
 
         if (in_array($type, $list)) {
@@ -66,6 +68,11 @@ class Field
         }
 
         return $this;
+    }
+
+    public function is(string $type): bool
+    {
+        return $this->type === $type;
     }
 
     public function type(string $type, mixed $options = null): static
@@ -90,9 +97,9 @@ class Field
         return $this;
     }
 
-    public function translatedKey(string $key): static
+    public function label(string $key): static
     {
-        $this->translatedKey = $key;
+        $this->label = $key;
 
         return $this;
     }

@@ -6,9 +6,11 @@ trait Displayable
 {
     public function getLabel(): mixed
     {
-        $key = $this->translatedKey ?? $this->name;
+        if (filled($this->label)) {
+            return $this->label;
+        }
 
-        return __("filament-activity-log::activities.attributes.{$key}");
+        return __("filament-activity-log::activities.attributes.{$this->name}");
     }
 
     public function display(mixed $value): mixed
@@ -16,7 +18,7 @@ trait Displayable
         $value = match ($this->type) {
             'datetime' => $this->formatDatetime($value),
             'enum' => $this->resolveEnum($value),
-            'associative_array' => (array) $value,
+            'key-value' => (array) $value,
             'money' => $this->formatMoney((float) $value),
             default => $value,
         };

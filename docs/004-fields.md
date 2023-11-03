@@ -11,86 +11,123 @@ In the context of the Logger class, you have the flexibility to define which fie
 ### Badge
 
 ```php
- $fields->schema([
-    // 'created_at' => 'badge:danger',
-    'created_at' => fn (Field $field) => $field->badge('info'),
- ])
+$fields->schema([
+   'name' => 'badge:danger',
+   // 'name' => fn (Field $field) => $field->badge('danger'),
+])
 ```
+
+![Screenshot](./assets/images/badge-screenshot.png)
+
+____
 
 
 ### Date & Time
 
 ```php
- $fields->schema([
-    // 'created_at' => 'date',
-    // 'created_at' => 'time',
-    // 'created_at' => 'datetime',
-    'created_at' => fn (Field $field) => $field
-        ->date('j F, Y')
-        ->badge(),
- ])
+$fields->schema([
+   // 'published_at' => 'date:j F, Y'',
+   // 'published_at' => 'time',
+   // 'published_at' => 'datetime',
+   'published_at' => fn (Field $field) => $field
+         ->date()
+         ->label('Publish Date'),
+])
 ```
 
+![Screenshot](./assets/images/datetime-screenshot.png)
+
+____
 
 ### Boolean
 
 ```php
- $fields->schema([
-    // 'is_active' => 'boolean',
-    'is_active' => fn (Field $field) => $field->boolean(),
- ])
+$fields->schema([
+   // 'is_visible' => 'boolean',
+   'is_visible' => fn (Field $field) => $field
+         ->boolean()
+         ->label('Visible'),
+])
 ```
 
+![Screenshot](./assets/images/boolean-screenshot.png)
+
+____
 
 ### Media
 
 ```php
- $fields->schema([
-    // 'media' => 'media',
-    'media' => fn (Field $field) => $field
-        ->media(gallery: true) // for multiple images
-        // ->circle()
-        ->square(),
- ])
+$fields->schema([
+   // 'media' => 'media',
+   'media' => fn (Field $field) => $field
+         ->media(gallery: true)
+         ->label('Images'),
+])
 ```
 
+![Screenshot](./assets/images/media-screenshot.png)
+
+____
 
 ### Money
 
 ```php
- $fields->schema([
-    // 'total' => 'money:EUR',
-    'total' => fn (Field $field) => $field->money('USD'),
- ])
+$fields->schema([
+   // 'price' => 'money:EUR',
+   'price' => fn (Field $field) => $field->money('EUR'),
+])
 ```
 
+![Screenshot](./assets/images/money-screenshot.png)
 
-### Associative Array
+____
+
+### Key-Value
 
 ```php
- $fields->schema([
-    'json' => fn (Field $field) => $field->view('associative_array'),
- ])
+$fields->schema([
+   'meta' => fn (Field $field) => $field
+         ->view('key-value')
+         ->label('Attributes'),
+])
 ```
 
+![Screenshot](./assets/images/key-value-screenshot.png)
+
+____
 
 ### Relation
 
 ```php
- $fields->schema([
-    'roles' => fn (Field $field) => $field
-        // get only role names
-        ->relation('name'),
- ])
+$fields->schema([
+   // 'categories' => 'relation:name',
+   'categories' => fn (Field $field) => $field
+         ->relation('name') // get names only
+         ->badge('info')
+         ->label('Categories'),
+])
 ```
 
-### Translated Key
+![Screenshot](./assets/images/relation-screenshot.png)
+
+____
+
+### Table
 
 ```php
- $fields->schema([
-    // 'media' => 'translatedKey:profile_photo',
-    'media' => fn (Field $field) => $field->translatedKey('profile_photo'),
- ])
+$fields->schema([
+   'items' => fn (Field $field) => $field
+         ->relation()
+         ->table()
+         ->resolveUsing(function ($model) {
+            return $model->items->map(fn ($item) => [
+               'Product' => Product::find($item->shop_product_id)->name,
+               'Quantity' => $item->qty,
+               'Unit Price' => $item->unit_price,
+            ])->toArray();
+         })
+         ->label('Items'),
+])
 ```
 
-
+![Screenshot](./assets/images/table-screenshot.png)

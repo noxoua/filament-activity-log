@@ -18,7 +18,7 @@ trait Relation
                 $relation = $model->{$this->name};
 
                 if ($relation instanceof Collection) {
-                    return $relation->pluck($column);
+                    return $relation->pluck($column)->toArray();
                 }
 
                 return $relation->{$column};
