@@ -2,20 +2,8 @@
 
 namespace Noxo\FilamentActivityLog\Fields\Concerns;
 
-trait Displayable
+trait CanDisplay
 {
-    public function getLabel(): mixed
-    {
-        if (filled($this->label)) {
-            return $this->label;
-        }
-
-        return (string) str($this->name)
-            ->kebab()
-            ->replace(['-', '_'], ' ')
-            ->ucfirst();
-    }
-
     public function display(mixed $value): mixed
     {
         $value = match ($this->type) {

@@ -4,7 +4,7 @@ namespace Noxo\FilamentActivityLog\Fields\Concerns;
 
 use Illuminate\Database\Eloquent\Model;
 
-trait Storable
+trait CanStore
 {
     public function getStorableValue(Model $record): mixed
     {
