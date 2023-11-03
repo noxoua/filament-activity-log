@@ -10,12 +10,12 @@ trait Media
 
     public bool $gallery = false;
 
-    public function media(bool $gallery = false): static
+    public function media(?bool $gallery = false): static
     {
         $this->type('media');
         $this->view('image');
         $this->relation();
-        $this->gallery = $gallery;
+        $this->gallery = (bool) $gallery;
 
         if ($gallery) {
             $this->square();
