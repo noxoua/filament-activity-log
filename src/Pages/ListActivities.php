@@ -8,6 +8,7 @@ use Filament\Forms\Contracts\HasForms;
 use Filament\Pages\Page;
 use Filament\Tables\Concerns\CanPaginateRecords;
 use Livewire\WithPagination;
+use Noxo\FilamentActivityLog\Loggers\Loggers;
 use Spatie\Activitylog\Models\Activity;
 
 abstract class ListActivities extends Page implements HasForms
@@ -79,6 +80,7 @@ abstract class ListActivities extends Page implements HasForms
 
                         Forms\Components\Select::make('causer')
                             ->label(__('filament-activity-log::activities.filters.causer'))
+                            ->native(false)
                             ->options(function () {
                                 $causers = Activity::query()
                                     ->groupBy('causer_id', 'causer_type')
@@ -95,18 +97,18 @@ abstract class ListActivities extends Page implements HasForms
 
                         Forms\Components\Select::make('subject_type')
                             ->label(__('filament-activity-log::activities.filters.subject_type'))
-                            ->options(function () {
-                                $subjects = Activity::query()
-                                    ->groupBy('subject_type')
-                                    ->pluck('subject_type')
-                                    ->map(fn ($subject) => [
-                                        'value' => $subject,
-                                        'label' => __('filament-activity-log::activities.subjects.' . str($subject)->afterLast('\\')->lower()),
-                                    ])
-                                    ->pluck('label', 'value');
-
-                                return $subjects;
-                            }),
+                            ->allowHtml()
+                            ->native(false)
+                            ->options(
+                                array_column(
+                                    array_map(fn ($logger) => [
+                                        'value' => $logger::$model,
+                                        'label' => $logger::getLabel(),
+                                    ], Loggers::$loggers),
+                                    'label',
+                                    'value',
+                                )
+                            ),
 
                         Forms\Components\TextInput::make('subject_id')
                             ->label(__('filament-activity-log::activities.filters.subject_id'))
@@ -116,6 +118,7 @@ abstract class ListActivities extends Page implements HasForms
                         Forms\Components\Select::make('event')
                             ->label(__('filament-activity-log::activities.filters.event'))
                             ->visible(fn (callable $get) => $get('subject_type'))
+                            ->native(false)
                             ->options(function (callable $get) {
                                 $events = Activity::query()
                                     ->where('subject_type', $get('subject_type'))
