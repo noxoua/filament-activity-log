@@ -23,55 +23,21 @@ return [
     'events' => [
         'updated' => [
             'title' => 'Оновлено',
-            'description' => 'Запис було оновлено в <u>:time</u>',
+            'description' => 'Запис було оновлено в <b>:time</b>',
         ],
         'created' => [
             'title' => 'Створено',
-            'description' => 'Запис було створено в <u>:time</u>',
+            'description' => 'Запис було створено в <b>:time</b>',
         ],
         'deleted' => [
             'title' => 'Видалено',
-            'description' => 'Запис було видалено в <u>:time</u>',
+            'description' => 'Запис було видалено в <b>:time</b>',
         ],
         'restored' => [
             'title' => 'Відновлено',
-            'description' => 'Запис було відновлено в <u>:time</u>',
+            'description' => 'Запис було відновлено в <b>:time</b>',
         ],
         // Your custom events...
-    ],
-    'subjects' => [
-        'user' => 'Працівник',
-        'client' => 'Клієнт',
-        'role' => 'Роль',
-        'product' => 'Товар',
-        'order' => 'Замовлення',
-        'category' => 'Категорія',
-        'invoice' => 'Рахунок',
-        'payment' => 'Платіж',
-        'employee' => 'Співробітник',
-        'shipment' => 'Відправлення',
-        // Your custom subjects...
-    ],
-    'attributes' => [
-        'roles' => 'Ролі',
-        'category' => 'Категорія',
-        'address' => 'Адреса',
-        'title' => 'Назва',
-        'description' => 'Опис',
-        'text' => 'Текст',
-        'email' => 'E-mail',
-        'excerpt' => 'Уривок',
-        'name' => 'Назва',
-        'first_name' => 'Ім\'я',
-        'last_name' => 'Прізвище',
-        'image' => 'Зображення',
-        'photo' => 'Фото',
-        'avatar' => 'Аватар',
-        'number' => 'Номер',
-        'phone' => 'Телефон',
-        'price' => 'Ціна',
-        'amount' => 'Сума',
-        // Your custom attributes...
     ],
     'boolean' => [
         'true' => 'Так',

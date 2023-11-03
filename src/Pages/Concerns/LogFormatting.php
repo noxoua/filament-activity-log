@@ -11,9 +11,9 @@ trait LogFormatting
 {
     public function getSubjectLabel(Activity $activity): string
     {
-        $subjectType = strtolower(class_basename($activity->subject_type));
+        $logger = Loggers::getLoggerByModel($activity->subject_type);
 
-        return __('filament-activity-log::activities.subjects.' . $subjectType);
+        return $logger::getLabel();
     }
 
     public function getField(Activity $activity, string $name): ?Field

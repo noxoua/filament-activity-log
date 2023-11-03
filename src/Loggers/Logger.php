@@ -4,6 +4,7 @@ namespace Noxo\FilamentActivityLog\Loggers;
 
 use Closure;
 use DragonCode\Support\Concerns\Makeable;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Model;
 use Noxo\FilamentActivityLog\Fields;
 
@@ -30,6 +31,15 @@ class Logger
             $this->newModel = $oldModel;
             $this->oldModel = $newModel;
         }
+    }
+
+    public static function getLabel(): string | Htmlable | null
+    {
+        return (string) str(static::$model)
+            ->afterLast('\\')
+            ->kebab()
+            ->replace(['-', '_'], ' ')
+            ->ucfirst();
     }
 
     /**

@@ -10,7 +10,10 @@ trait Displayable
             return $this->label;
         }
 
-        return __("filament-activity-log::activities.attributes.{$this->name}");
+        return (string) str($this->name)
+            ->kebab()
+            ->replace(['-', '_'], ' ')
+            ->ucfirst();
     }
 
     public function display(mixed $value): mixed
