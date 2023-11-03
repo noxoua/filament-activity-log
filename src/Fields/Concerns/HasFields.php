@@ -11,9 +11,6 @@ trait HasFields
      */
     protected array $fields = [];
 
-    /**
-     * @param  array<Field>  $fields
-     */
     public function schema(array $fields): static
     {
         $this->fields = array_map(function ($field, $key) {
