@@ -1,5 +1,3 @@
-@props(['value'])
-
 <div class="rounded-lg shadow-sm bg-gray-50 dark:bg-transparent ring-1 ring-gray-950/10 dark:ring-white/20">
     <table class="w-full table-auto divide-y divide-gray-200 dark:divide-white/20">
         <tbody>

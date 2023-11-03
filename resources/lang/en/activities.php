@@ -17,6 +17,7 @@ return [
         'field' => 'Field',
         'old' => 'Old',
         'new' => 'New',
+        'value' => 'Value',
         'no_records_yet' => 'There are no entries yet',
     ],
     'events' => [

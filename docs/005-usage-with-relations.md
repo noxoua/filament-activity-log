@@ -1,11 +1,11 @@
 ---
 title: Usage with Relations
-nav_order: 9
+nav_order: 5
 ---
 
 # Usage with Relations
 
-If you want to log relations as well, you should comment out the `created` and `updated` events and add `relations` that you want to log.
+If you want to log relations as well, you should comment out the `created` and `updated` events and mark fields as `relation`.
 
 ```php
 public static ?array $events = [
@@ -15,7 +15,17 @@ public static ?array $events = [
     'restored',
 ];
 
-public static ?array $relations = ['roles', 'media'];
+public static function fields(Fields $fields): Fields
+{
+    return $fields->schema([
+        'roles' => fn (Field $field) => $field
+            ->relation(),
+
+        'media' => fn (Field $field) => $field
+            ->relation()
+            ->media(),
+    ]);
+}
 ```
 
 ## Resource with pages

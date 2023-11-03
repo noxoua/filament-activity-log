@@ -30,8 +30,8 @@ class FilamentActivityLogServiceProvider extends PackageServiceProvider
 
     public function bootingPackage()
     {
-        ActivityLoggers::discover();
-        ActivityLoggers::registerEvents();
+        Loggers\Loggers::discover();
+        Loggers\Loggers::registerEvents();
 
         \Filament\Tables\Actions\EditAction::mixin(new Macros\EditAction);
         \Filament\Actions\CreateAction::mixin(new Macros\CreateAction);
