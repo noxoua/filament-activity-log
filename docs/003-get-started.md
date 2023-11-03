@@ -26,7 +26,9 @@ Once `UserLogger` is created, it immediately starts listening to model events.
 Here's a simple example of how to create a Logger for a User model:
 
 ```php
+use App\Filament\Resources\UserResource;
 use App\Models\User;
+use Illuminate\Contracts\Support\Htmlable;
 use Noxo\FilamentActivityLog\Fields\Fields;
 use Noxo\FilamentActivityLog\Fields\Field;
 use Noxo\FilamentActivityLog\Loggers\Logger;
@@ -43,6 +45,12 @@ class UserLogger extends Logger
         'deleted',
         'restored',
     ];
+
+    public static function getLabel(): string|Htmlable|null
+    {
+        // return __('User');
+        return UserResource::getModelLabel();
+    }
 
     public static function fields(Fields $fields): Fields
     {
