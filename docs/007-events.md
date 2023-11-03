@@ -1,6 +1,6 @@
 ---
 title: Events
-nav_order: 4
+nav_order: 7
 ---
 
 # Events
@@ -38,7 +38,7 @@ Here's how you can implement a custom event in your `UserLogger` class:
 1. Define the custom event method within your `UserLogger` class. In this case, we've created the `transaction_deposit` method.
 
 ```php
-class UserLogger extends ActivityLogger
+class UserLogger extends Logger
 {
     // ...
 

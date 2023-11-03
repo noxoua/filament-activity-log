@@ -3,20 +3,17 @@
 namespace {{ namespace }};
 
 use {{ modelNamespace }};
-use Noxo\FilamentActivityLog\ActivityLogger;
+use Noxo\FilamentActivityLog\Fields;
+use Noxo\FilamentActivityLog\Loggers\Logger;
 
-class {{ class }} extends ActivityLogger
+class {{ class }} extends Logger
 {
     /**
-     * The class of the model being logged.
-     *
      * @var string
      */
-    public static ?string $modelClass = {{ modelClass }}::class;
+    public static ?string $model = {{ modelClass }}::class;
 
     /**
-     * The model events that will be logged automatically.
-     *
      * @var array
      */
     public static ?array $events = [
@@ -27,48 +24,12 @@ class {{ class }} extends ActivityLogger
     ];
 
     /**
-     * The fields that will be logged for this user activity.
-     *
-     * @var array
+     * @return Fields\Fields
      */
-    public static ?array $fields = [
-        //
-    ];
-
-    /**
-     * The relations that will be logged for this user activity.
-     *
-     * @var array
-     */
-    public static ?array $relations = [
-        //
-    ];
-
-    /**
-     * The data types for specific fields, specifying how they should be logged.
-     *
-     * @var array
-     */
-    public static ?array $types = [
-        // 'media' => 'media',
-        // 'roles' => 'pluck:name',
-    ];
-
-    /**
-     * Define how to display specific fields in the activity log views.
-     *
-     * @var array
-     */
-    public static ?array $views = [
-        // 'media' => 'avatar',
-    ];
-
-    /**
-     * Define an attribute map for field names if they differ in the model.
-     *
-     * @var array
-     */
-    public static ?array $attributeMap = [
-        // 'name' => 'first_name',
-    ];
+    public static function fields(Fields\Fields $fields): Fields\Fields
+    {
+        return $fields->schema([
+            //
+        ]);
+    }
 }

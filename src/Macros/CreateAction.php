@@ -2,15 +2,21 @@
 
 namespace Noxo\FilamentActivityLog\Macros;
 
+use Noxo\FilamentActivityLog\Fields\Fields;
+
 class CreateAction
 {
     public function setLogger()
     {
         return function (string $logger): static {
-            $this->after(function ($record) use ($logger) {
-                $record = $record->load($logger::$relations ?? []);
-                $logger::make($record)->created();
-            });
+            if (! $logger::$disabled) {
+                $this->after(function ($record) use ($logger) {
+                    $record = $record->load(
+                        $logger::fields(new Fields)->getRelationNames()
+                    );
+                    $logger::make($record)->created();
+                });
+            }
 
             return $this;
         };

@@ -1,15 +1,12 @@
-@props(['value'])
-
-
 <div class="flex flex-wrap gap-2">
     @if (is_string($value) || $value instanceof \UnitEnum)
         @php
             if (is_string($value)) {
-                $color = 'primary';
+                $color = $field->badgeColor;
                 $label = $value;
                 $icon = null;
             } else {
-                $color = $value?->getColor() ?? 'primary';
+                $color = $value?->getColor() ?? $field->badgeColor;
                 $label = $value?->getLabel() ?? $value;
                 $icon = $value?->getIcon();
             }
@@ -25,7 +22,7 @@
     @elseif(is_array($value))
         @foreach ($value as $label)
             <x-filament::badge
-                color="primary"
+                :color="$field->badgeColor"
                 class="w-fit"
             >
                 {{ $label }}

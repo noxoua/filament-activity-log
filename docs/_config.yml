@@ -45,3 +45,6 @@ gh_edit_repository: "https://github.com/noxoua/filament-activity-log"
 gh_edit_branch: "main"
 gh_edit_source: docs
 gh_edit_view_mode: "edit"
+
+exclude:
+  - CNAME

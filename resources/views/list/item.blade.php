@@ -18,8 +18,15 @@
     {{ view('filament-activity-log::list.header', compact('activity', 'hasChanges')) }}
 
     @if ($hasChanges)
+        @php
+            $table = 'default';
+            if (in_array($activity->event, ['created', 'deleted'])) {
+                $table = 'simple';
+            }
+        @endphp
+
         <div x-show="isCollapsed">
-            {{ view('filament-activity-log::list.table', compact('activity', 'changes')) }}
+            {{ view('filament-activity-log::list.tables.' . $table, compact('activity', 'changes')) }}
         </div>
     @endif
 </div>

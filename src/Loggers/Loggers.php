@@ -1,21 +1,21 @@
 <?php
 
-namespace Noxo\FilamentActivityLog;
+namespace Noxo\FilamentActivityLog\Loggers;
 
 use Illuminate\Filesystem\Filesystem;
 use ReflectionClass;
 
-class ActivityLoggers
+class Loggers
 {
     public static array $loggers = [];
 
     /**
      * Get a logger by model class.
      */
-    public static function getLoggerByModelClass(string $model): ?string
+    public static function getLoggerByModel(string $model): ?string
     {
         foreach (self::$loggers as $logger) {
-            if ($logger::$modelClass === $model) {
+            if ($logger::$model === $model) {
                 return $logger;
             }
         }
@@ -28,7 +28,7 @@ class ActivityLoggers
         $config = config('filament-activity-log.loggers');
         $directory = $config['directory'];
         $namespace = $config['namespace'];
-        $baseClass = ActivityLogger::class;
+        $baseClass = Logger::class;
 
         if (blank($directory) || blank($namespace)) {
             return;
@@ -72,6 +72,10 @@ class ActivityLoggers
                 continue;
             }
 
+            if ($class::$disabled) {
+                continue;
+            }
+
             self::$loggers[] = $class;
         }
     }
@@ -79,22 +83,7 @@ class ActivityLoggers
     public static function registerEvents(): void
     {
         foreach (self::$loggers as $logger) {
-            foreach ($logger::$events as $event) {
-                if (! method_exists($logger::$modelClass, $event)) {
-                    continue;
-                }
-
-                $logger::$modelClass::{$event}(function ($model) use ($logger, $event) {
-                    if ($event === 'updated') {
-                        $old = $model::make($model->getOriginal());
-                        $new = $model::make($model->getAttributes());
-                        $old->id = $model->id;
-                        $logger::make($old, $new)->updated();
-                    } else {
-                        $logger::make($model)->{$event}();
-                    }
-                });
-            }
+            $logger::registerEvents();
         }
     }
 }

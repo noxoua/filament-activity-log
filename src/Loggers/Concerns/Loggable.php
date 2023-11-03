@@ -1,8 +1,8 @@
 <?php
 
-namespace Noxo\FilamentActivityLog\Concerns;
+namespace Noxo\FilamentActivityLog\Loggers\Concerns;
 
-trait ActivityLogging
+trait Loggable
 {
     /**
      * Log the properties if the condition is met.
@@ -33,7 +33,7 @@ trait ActivityLogging
 
         $activity = activity()
             ->event($event)
-            ->on($this->model)
+            ->on($this->newModel)
             ->withProperties($properties)
             ->log($event);
 

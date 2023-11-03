@@ -19,9 +19,9 @@ The Logger class is a fundamental component of the "Filament Activity Log" packa
 
 - **Relation Support**: If your models have relationships with other models, Logger can track and log these related models as well. This is essential for understanding complex data dependencies.
 
-- **Field Value Views**: Logger offers field value views, allowing you to specify how specific fields are displayed in the activity log views. You can use views like "avatar," "image," and "badge" to enhance the user experience.
+- **Views**: Logger offers field value views, allowing you to specify how specific fields are displayed in the activity log views. You can use views like "avatar," "image," and "badge" to enhance the user experience.
 
-- **Field Translated Keys**: For user-friendly activity logs, Logger allows you to map field keys to translated keys, ensuring that your logs are easily understandable in different languages.
+- **Translated Keys**: For user-friendly activity logs, Logger allows you to map field keys to translated keys, ensuring that your logs are easily understandable in different languages.
 
 
 ### Create a Logger
@@ -41,12 +41,16 @@ Once `UserLogger` is created, it immediately starts listening to model events.
 Here's a simple example of how to create a Logger for a User model:
 
 ```php
-use Noxo\FilamentActivityLog\ActivityLogger;
 use App\Models\User;
+use Noxo\FilamentActivityLog\Fields\Fields;
+use Noxo\FilamentActivityLog\Fields\Field;
+use Noxo\FilamentActivityLog\Loggers\Logger;
 
-class UserLogger extends ActivityLogger
+class UserLogger extends Logger
 {
-    public static ?string $modelClass = User::class;
+    // public static bool $disabled = true;
+
+    public static ?string $model = User::class;
 
     public static ?array $events = [
         // 'created',
@@ -55,27 +59,15 @@ class UserLogger extends ActivityLogger
         'restored',
     ];
 
-    public static ?array $fields = [
-        'name',
-        'email',
-        'email_verified_at',
-    ];
-
-    public static ?array $relations = [
-        'roles',
-        'media',
-    ];
-
-    public static ?array $types = [
-        'email_verified_at' => 'datetime:Y-m-d',
-        'media' => 'media',
-        'roles' => 'pluck:name',
-    ];
-
-    public static ?array $views = [
-        'email_verified_at' => 'badge',
-        'media' => 'avatar',
-        'roles' => 'badge',
-    ];
+    public static function fields(Fields $fields): Fields
+    {
+        return $fields->schema([
+            'name',
+            'email',
+            'email_verified_at' => fn (Field $field) => $field->date()->badge(),
+            'roles' => fn (Field $field) => $field->relation('name'),
+            'media' => fn (Field $field) => $field->media(),
+        ]);
+    }
 }
 ```

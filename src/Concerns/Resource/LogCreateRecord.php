@@ -2,7 +2,8 @@
 
 namespace Noxo\FilamentActivityLog\Concerns\Resource;
 
-use Noxo\FilamentActivityLog\ActivityLoggers;
+use Noxo\FilamentActivityLog\Fields\Fields;
+use Noxo\FilamentActivityLog\Loggers\Loggers;
 
 trait LogCreateRecord
 {
@@ -13,10 +14,11 @@ trait LogCreateRecord
 
     public function logAfterCreate()
     {
-        $logger = ActivityLoggers::getLoggerByModelClass(self::getResource()::getModel());
+        $logger = Loggers::getLoggerByModel(self::getResource()::getModel());
 
-        if ($logger) {
-            $record = $this->record->load($logger::$relations ?? []);
+        if ($logger && ! $logger::$disabled) {
+            $relations = $logger::fields(new Fields)->getRelationNames();
+            $record = $this->record->load($relations);
             $logger::make($record)->created();
         }
     }
