@@ -19,11 +19,21 @@ public static function fields(Fields $fields): Fields
 {
     return $fields->schema([
         'roles' => fn (Field $field) => $field
-            ->relation(),
+            ->relation('name'),
 
         'media' => fn (Field $field) => $field
-            ->relation()
             ->media(),
+
+        'items' => fn (Field $field) => $field
+            ->relation()
+            ->table()
+            ->resolveUsing(function ($model) {
+                return $model->items->map(fn ($item) => [
+                    'Product' => Product::find($item->shop_product_id)->name,
+                    'Quantity' => $item->qty,
+                    'Unit Price' => $item->unit_price,
+                ])->toArray();
+            }),
     ]);
 }
 ```

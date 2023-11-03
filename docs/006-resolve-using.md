@@ -20,7 +20,13 @@ public static function fields(Fields $fields): Fields
                     ->filter(fn($role) => $role->name !== 'super_secret_admin')
                     ->toArray();
             }),
-
+            // ->resolveUsing(function ($model) {
+            //     return $model->items->map(fn ($item) => [
+            //         'Product' => Product::find($item->shop_product_id)->name,
+            //         'Quantity' => $item->qty,
+            //         'Unit Price' => $item->unit_price,
+            //     ])->toArray();
+            // })
     ]);
 }
 ```
