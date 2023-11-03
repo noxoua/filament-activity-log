@@ -15,7 +15,7 @@ The viewing page was copied from [`pxlrbt/filament-activity-log`](https://filame
 
 ## Documentation
 
-Full documentation - [noxoua.github.io/filament-activity-log](https://noxoua.github.io/filament-activity-log/)
+Full documentation - [activity-log.noxo.app](https://activity-log.noxo.app/)
 
 
 <div class="filament-hidden">
