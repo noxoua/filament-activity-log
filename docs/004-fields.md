@@ -21,6 +21,19 @@ $fields->schema([
 
 ____
 
+### Enum
+
+```php
+$fields->schema([
+   'status' => fn (Field $field) => $field
+         ->enum(App\Enums\OrderStatus::class)
+         ->label('Status'),
+])
+```
+
+![Screenshot](./assets/images/enum-screenshot.png)
+
+____
 
 ### Date & Time
 

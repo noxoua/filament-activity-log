@@ -1,14 +1,20 @@
+@php
+    use Filament\Support\Contracts\HasColor;
+    use Filament\Support\Contracts\HasLabel;
+    use Filament\Support\Contracts\HasIcon;
+@endphp
+
 <div class="flex flex-wrap gap-2">
-    @if (is_string($value) || $value instanceof \UnitEnum)
+    @if (is_string($value) || $field->is('enum'))
         @php
             if (is_string($value)) {
-                $color = $field->badgeColor;
                 $label = $value;
+                $color = $field->badgeColor;
                 $icon = null;
             } else {
-                $color = $value?->getColor() ?? $field->badgeColor;
-                $label = $value?->getLabel() ?? $value;
-                $icon = $value?->getIcon();
+                $label = $value instanceof HasLabel ? $value->getLabel() : $value;
+                $color = $value instanceof HasColor ? $value->getColor() : $field->badgeColor;
+                $icon = $value instanceof HasIcon ? $value->getIcon() : null;
             }
         @endphp
 
