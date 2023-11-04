@@ -1,6 +1,6 @@
 <div
     @class([
-        'p-2 space-y-2 bg-white rounded-xl shadow',
+        'p-2 space-y-2 bg-white rounded-xl shadow group',
         'dark:border-gray-600 dark:bg-gray-800',
     ])
     x-data="{
@@ -13,20 +13,20 @@
         /* @var \Spatie\Activitylog\Models\Activity $activity */
         $changes = $activity->getChangesAttribute();
         $hasChanges = !empty($changes['attributes']);
+
+        /* @var \Noxo\FilamentActivityLog\Loggers\Logger $logger */
+        $logger = $this->getLogger($activity);
     @endphp
 
-    {{ view('filament-activity-log::list.header', compact('activity', 'hasChanges')) }}
+    {{ view('filament-activity-log::list.header', compact('activity', 'hasChanges', 'logger')) }}
 
     @if ($hasChanges)
         @php
-            $table = 'default';
-            if (in_array($activity->event, ['created', 'deleted'])) {
-                $table = 'simple';
-            }
+            $table = empty($changes['old']) ? 'simple' : 'default';
         @endphp
 
         <div x-show="isCollapsed">
-            {{ view('filament-activity-log::list.tables.' . $table, compact('activity', 'changes')) }}
+            {{ view('filament-activity-log::list.tables.' . $table, compact('changes', 'logger')) }}
         </div>
     @endif
 </div>

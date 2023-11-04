@@ -10,7 +10,7 @@
 
     @foreach ($changes['attributes'] as $key => $value)
         @php
-            $field = $this->getField($activity, $key);
+            $field = $logger->getFieldByName($key);
             if (!$field) {
                 continue;
             }

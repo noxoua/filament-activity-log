@@ -10,12 +10,12 @@ class Loggers
     public static array $loggers = [];
 
     /**
-     * Get a logger by model class.
+     * @return class-string<Logger>
      */
-    public static function getLoggerByModel(string $model): ?string
+    public static function getLoggerByModel(string $model, bool $force = false): ?string
     {
         foreach (self::$loggers as $logger) {
-            if ($logger::$model === $model) {
+            if ($logger::$model === $model && (! $logger::$disabled || $force)) {
                 return $logger;
             }
         }
@@ -77,13 +77,6 @@ class Loggers
             }
 
             self::$loggers[] = $class;
-        }
-    }
-
-    public static function registerEvents(): void
-    {
-        foreach (self::$loggers as $logger) {
-            $logger::registerEvents();
         }
     }
 }

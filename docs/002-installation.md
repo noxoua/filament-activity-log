@@ -1,11 +1,11 @@
 ---
 title: Installation
+permalink: /installation
 nav_order: 2
 ---
 
 # Installation
 
-## Install via Composer
 ____
 
 {: .highlight }
@@ -31,22 +31,4 @@ Optionally, you can publish the `translations` file with:
 
 ```bash
 php artisan vendor:publish --tag="filament-activity-log-translations"
-```
-
-## Adding Activity Page
-____
-
-Create a page in your pages folder `app/Filament/Pages/` and extends the `ListActivities` class.
-
-```php
-<?php
-
-namespace App\Filament\Pages;
-
-use Noxo\FilamentActivityLog\Pages\ListActivities;
-
-class Activities extends ListActivities
-{
-    //
-}
 ```

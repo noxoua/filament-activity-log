@@ -11,7 +11,7 @@ aux_links:
 defaults:
   -
     scope:
-      path: "*.md"
+      path: "**/*.md"
     values:
       layout: "default"
 
@@ -48,3 +48,4 @@ gh_edit_view_mode: "edit"
 
 exclude:
   - CNAME
+  - _includes/

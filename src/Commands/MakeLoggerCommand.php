@@ -94,6 +94,7 @@ class MakeLoggerCommand extends Command
             'namespace' => $namespace,
             'class' => $loggerClass,
             'modelClass' => $modelClass,
+            'resourceNamespace' => config('filament-activity-log.loggers.namespace'),
             'modelNamespace' => 'App\\Models' . ($modelNamespace !== '' ? "\\{$modelNamespace}" : '') . '\\' . $modelClass,
         ]);
 
