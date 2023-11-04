@@ -21,21 +21,21 @@ return [
         'no_records_yet' => 'Поки що немає записів',
     ],
     'events' => [
-        'updated' => [
-            'title' => 'Оновлено',
-            'description' => 'Запис було оновлено в <b>:time</b>',
-        ],
         'created' => [
             'title' => 'Створено',
-            'description' => 'Запис було створено в <b>:time</b>',
+            'description' => 'Запис створено',
+        ],
+        'updated' => [
+            'title' => 'Оновлено',
+            'description' => 'Запис оновлено',
         ],
         'deleted' => [
             'title' => 'Видалено',
-            'description' => 'Запис було видалено в <b>:time</b>',
+            'description' => 'Запис видалено',
         ],
         'restored' => [
             'title' => 'Відновлено',
-            'description' => 'Запис було відновлено в <b>:time</b>',
+            'description' => 'Запис відновлено',
         ],
         // Your custom events...
     ],

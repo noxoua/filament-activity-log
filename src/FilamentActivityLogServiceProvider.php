@@ -31,10 +31,7 @@ class FilamentActivityLogServiceProvider extends PackageServiceProvider
     public function bootingPackage()
     {
         Loggers\Loggers::discover();
-        Loggers\Loggers::registerEvents();
-
-        \Filament\Tables\Actions\EditAction::mixin(new Macros\EditAction);
-        \Filament\Actions\CreateAction::mixin(new Macros\CreateAction);
+        Extensions\LogActions::mount();
 
         FilamentAsset::register([
             Css::make('filament-activity-log', __DIR__ . '/../resources/dist/filament-activity-log.css'),

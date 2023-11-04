@@ -1,9 +1,12 @@
 ---
 title: Link Causer/Subject
+permalink: /link-causer-subject
 nav_order: 8
 ---
 
 # Link Causer/Subject
+
+___
 
 In Filament Activity Log, you have the ability to link the "causer" and "subject" of an activity log entry. The "causer" is typically the user who performed an action, while the "subject" is the item or entity that was acted upon. To create links to these "causer" and "subject" pages, you can use the following code as a reference:
 

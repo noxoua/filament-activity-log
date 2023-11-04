@@ -1,9 +1,13 @@
 ---
 title: Fields
+permalink: /fields
 nav_order: 4
+has_children: true
 ---
 
 # Fields
+
+___
 
 In the context of the Logger class, you have the flexibility to define which fields and relations should be logged for your model. This allows you to track changes to specific attributes and related data.
 
@@ -11,7 +15,7 @@ In the context of the Logger class, you have the flexibility to define which fie
 ### Badge
 
 ```php
-$fields->schema([
+$logger->fields([
    'name' => 'badge:danger',
    // 'name' => fn (Field $field) => $field->badge('danger'),
 ])
@@ -24,7 +28,7 @@ ____
 ### Enum
 
 ```php
-$fields->schema([
+$logger->fields([
    'status' => fn (Field $field) => $field
          ->enum(App\Enums\OrderStatus::class)
          ->label('Status'),
@@ -38,7 +42,7 @@ ____
 ### Date & Time
 
 ```php
-$fields->schema([
+$logger->fields([
    // 'published_at' => 'date:j F, Y'',
    // 'published_at' => 'time',
    // 'published_at' => 'datetime',
@@ -55,7 +59,7 @@ ____
 ### Boolean
 
 ```php
-$fields->schema([
+$logger->fields([
    // 'is_visible' => 'boolean',
    'is_visible' => fn (Field $field) => $field
          ->boolean()
@@ -70,7 +74,7 @@ ____
 ### Media
 
 ```php
-$fields->schema([
+$logger->fields([
    // 'media' => 'media',
    'media' => fn (Field $field) => $field
          ->media(gallery: true)
@@ -85,7 +89,7 @@ ____
 ### Money
 
 ```php
-$fields->schema([
+$logger->fields([
    // 'price' => 'money:EUR',
    'price' => fn (Field $field) => $field->money('EUR'),
 ])
@@ -98,7 +102,7 @@ ____
 ### Key-Value
 
 ```php
-$fields->schema([
+$logger->fields([
    'meta' => fn (Field $field) => $field
          ->view('key-value')
          ->label('Attributes'),
@@ -112,7 +116,7 @@ ____
 ### Relation
 
 ```php
-$fields->schema([
+$logger->fields([
    // 'categories' => 'relation:name',
    'categories' => fn (Field $field) => $field
          ->relation('name') // get names only
@@ -128,7 +132,7 @@ ____
 ### Table
 
 ```php
-$fields->schema([
+$logger->fields([
    'items' => fn (Field $field) => $field
          ->relation()
          ->table()

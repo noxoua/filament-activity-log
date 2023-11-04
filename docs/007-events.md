@@ -1,16 +1,12 @@
 ---
 title: Events
+permalink: /events
 nav_order: 7
 ---
 
 # Events
 
-The Logger class provides an automatic event logging mechanism through the `$events` property, which captures common events like "created," "updated," "deleted," and "restored." Additionally, it allows you to manually trigger these events from anywhere in your code. Here's a brief explanation of how to use these manual event logging methods:
-
-### Automatic Event Logging:
-
-The `$events` property specifies the events that will be automatically logged by the Logger class without the need for manual intervention. The class will capture these events and create corresponding logs when they occur.
-
+___
 
 ### Manual Event Logging:
 

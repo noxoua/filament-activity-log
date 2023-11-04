@@ -3,33 +3,30 @@
 namespace {{ namespace }};
 
 use {{ modelNamespace }};
-use Noxo\FilamentActivityLog\Fields;
+use {{ resourceNamespace }}\{{ modelClass }}Resource;
+use Illuminate\Contracts\Support\Htmlable;
 use Noxo\FilamentActivityLog\Loggers\Logger;
+use Noxo\FilamentActivityLog\ResourceLogger\Field;
+use Noxo\FilamentActivityLog\ResourceLogger\RelationManager;
+use Noxo\FilamentActivityLog\ResourceLogger\ResourceLogger;
 
 class {{ class }} extends Logger
 {
-    /**
-     * @var string
-     */
     public static ?string $model = {{ modelClass }}::class;
 
-    /**
-     * @var array
-     */
-    public static ?array $events = [
-        'created',
-        'updated',
-        'deleted',
-        'restored',
-    ];
-
-    /**
-     * @return Fields\Fields
-     */
-    public static function fields(Fields\Fields $fields): Fields\Fields
+    public static function getLabel(): string | Htmlable | null
     {
-        return $fields->schema([
-            //
-        ]);
+        return {{ modelClass }}Resource::getModelLabel();
+    }
+
+    public static function resource(ResourceLogger $logger): ResourceLogger
+    {
+        return $logger
+            ->fields([
+                //
+            ])
+            ->relationManagers([
+                //
+            ]);
     }
 }

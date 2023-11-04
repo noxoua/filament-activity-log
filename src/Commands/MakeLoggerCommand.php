@@ -4,12 +4,12 @@ namespace Noxo\FilamentActivityLog\Commands;
 
 use Filament\Facades\Filament;
 use Filament\Panel;
-use Illuminate\Console\Command;
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Arr;
-
 use function Laravel\Prompts\select;
 use function Laravel\Prompts\text;
+use Illuminate\Console\Command;
+
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Arr;
 
 class MakeLoggerCommand extends Command
 {
@@ -94,6 +94,7 @@ class MakeLoggerCommand extends Command
             'namespace' => $namespace,
             'class' => $loggerClass,
             'modelClass' => $modelClass,
+            'resourceNamespace' => config('filament-activity-log.loggers.namespace'),
             'modelNamespace' => 'App\\Models' . ($modelNamespace !== '' ? "\\{$modelNamespace}" : '') . '\\' . $modelClass,
         ]);
 

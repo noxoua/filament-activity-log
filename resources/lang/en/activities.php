@@ -21,21 +21,21 @@ return [
         'no_records_yet' => 'There are no entries yet',
     ],
     'events' => [
-        'updated' => [
-            'title' => 'Updated',
-            'description' => 'The record was updated at <b>:time</b>',
-        ],
         'created' => [
             'title' => 'Created',
-            'description' => 'The record was created at <b>:time</b>',
+            'description' => 'Record created',
+        ],
+        'updated' => [
+            'title' => 'Updated',
+            'description' => 'Record updated',
         ],
         'deleted' => [
             'title' => 'Deleted',
-            'description' => 'Record was deleted at <b>:time</b>',
+            'description' => 'Record deleted',
         ],
         'restored' => [
             'title' => 'Restored',
-            'description' => 'Record was restored at <b>:time</b>',
+            'description' => 'Record restored',
         ],
         // Your custom events...
     ],

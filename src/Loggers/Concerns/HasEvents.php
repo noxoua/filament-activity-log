@@ -4,33 +4,6 @@ namespace Noxo\FilamentActivityLog\Loggers\Concerns;
 
 trait HasEvents
 {
-    public static ?array $events = [
-        'created',
-        'updated',
-        'deleted',
-        'restored',
-    ];
-
-    public static function registerEvents(): void
-    {
-        foreach (static::$events as $event) {
-            if (! method_exists(static::$model, $event)) {
-                continue;
-            }
-
-            static::$model::{$event}(function ($model) use ($event) {
-                if ($event === 'updated') {
-                    $old = $model::make($model->getOriginal());
-                    $new = $model::make($model->getAttributes());
-                    $old->id = $model->id;
-                    static::make($old, $new)->updated();
-                } else {
-                    static::make($model)->{$event}();
-                }
-            });
-        }
-    }
-
     /**
      * Log when a model is created.
      */
