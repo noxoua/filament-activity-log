@@ -35,7 +35,7 @@ class Logger
     }
 
     /**
-     * Perform actions through a closure and update the "modelAfter."
+     * @deprecated
      */
     public function through(Closure $callback): static
     {

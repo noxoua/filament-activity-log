@@ -3,14 +3,14 @@
 namespace Noxo\FilamentActivityLog\Pages\Concerns;
 
 use Noxo\FilamentActivityLog\Loggers\Logger;
-use Noxo\FilamentActivityLog\Loggers\Loggers;
+use Noxo\FilamentActivityLog\Services\Helper;
 use Spatie\Activitylog\Models\Activity;
 
 trait HasLogger
 {
     public function getLogger(Activity $activity): Logger
     {
-        $logger = Loggers::getLoggerByModel($activity->subject_type);
+        $logger = Helper::resolveLogger($activity->subject_type, force: true);
         $loggerInstance = $logger::make();
 
         $manager = $activity->properties['relation_manager']['name'] ?? null;

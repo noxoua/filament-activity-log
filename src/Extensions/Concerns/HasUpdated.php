@@ -3,6 +3,7 @@
 namespace Noxo\FilamentActivityLog\Extensions\Concerns;
 
 use Illuminate\Database\Eloquent\Model;
+use Noxo\FilamentActivityLog\Services\Helper;
 
 trait HasUpdated
 {
@@ -12,7 +13,7 @@ trait HasUpdated
 
     public function logRecordBefore($record): void
     {
-        if (! $this->logger = $this->resolveLogger($record)) {
+        if (! $this->logger = Helper::resolveLogger($record)) {
             return;
         }
 
@@ -34,7 +35,7 @@ trait HasUpdated
     public function logManagerBefore($livewire, $record): void
     {
         $ownerRecord = $livewire->ownerRecord;
-        if (! $this->logger = $this->resolveLogger($ownerRecord)) {
+        if (! $this->logger = Helper::resolveLogger($ownerRecord)) {
             return;
         }
 

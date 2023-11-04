@@ -12,10 +12,10 @@ class Loggers
     /**
      * @return class-string<Logger>
      */
-    public static function getLoggerByModel(string $model): ?string
+    public static function getLoggerByModel(string $model, bool $force = false): ?string
     {
         foreach (self::$loggers as $logger) {
-            if ($logger::$model === $model && ! $logger::$disabled) {
+            if ($logger::$model === $model && (! $logger::$disabled || $force)) {
                 return $logger;
             }
         }

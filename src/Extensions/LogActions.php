@@ -12,7 +12,6 @@ class LogActions
     use Concerns\HasDeleted;
     use Concerns\HasRestored;
     use Concerns\HasUpdated;
-    use Concerns\LoggerResolver;
 
     public static function mount(): void
     {

@@ -2,11 +2,13 @@
 
 namespace Noxo\FilamentActivityLog\Extensions\Concerns;
 
+use Noxo\FilamentActivityLog\Services\Helper;
+
 trait HasCreated
 {
     public function logRecordCreated($record): void
     {
-        if (! $logger = $this->resolveLogger($record)) {
+        if (! $logger = Helper::resolveLogger($record)) {
             return;
         }
 
@@ -17,7 +19,7 @@ trait HasCreated
     public function logManagerCreated($livewire, $record): void
     {
         $ownerRecord = $livewire->ownerRecord;
-        if (! $logger = $this->resolveLogger($ownerRecord)) {
+        if (! $logger = Helper::resolveLogger($ownerRecord)) {
             return;
         }
 

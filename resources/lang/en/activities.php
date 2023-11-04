@@ -23,19 +23,19 @@ return [
     'events' => [
         'created' => [
             'title' => 'Created',
-            'description' => 'Record created',
+            'description' => 'Entry created',
         ],
         'updated' => [
             'title' => 'Updated',
-            'description' => 'Record updated',
+            'description' => 'Entry updated',
         ],
         'deleted' => [
             'title' => 'Deleted',
-            'description' => 'Record deleted',
+            'description' => 'Entry deleted',
         ],
         'restored' => [
             'title' => 'Restored',
-            'description' => 'Record restored',
+            'description' => 'Entry restored',
         ],
         // Your custom events...
     ],

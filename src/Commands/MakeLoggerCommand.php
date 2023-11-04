@@ -4,12 +4,12 @@ namespace Noxo\FilamentActivityLog\Commands;
 
 use Filament\Facades\Filament;
 use Filament\Panel;
-use function Laravel\Prompts\select;
-use function Laravel\Prompts\text;
 use Illuminate\Console\Command;
-
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
+
+use function Laravel\Prompts\select;
+use function Laravel\Prompts\text;
 
 class MakeLoggerCommand extends Command
 {

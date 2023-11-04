@@ -2,11 +2,13 @@
 
 namespace Noxo\FilamentActivityLog\Extensions\Concerns;
 
+use Noxo\FilamentActivityLog\Services\Helper;
+
 trait HasDeleted
 {
     public function logRecordDeleted($record): void
     {
-        if (! $logger = $this->resolveLogger($record)) {
+        if (! $logger = Helper::resolveLogger($record)) {
             return;
         }
 
@@ -17,7 +19,7 @@ trait HasDeleted
     public function logManagerDeleted($livewire, $record): void
     {
         $ownerRecord = $livewire->ownerRecord;
-        if (! $logger = $this->resolveLogger($ownerRecord)) {
+        if (! $logger = Helper::resolveLogger($ownerRecord)) {
             return;
         }
 

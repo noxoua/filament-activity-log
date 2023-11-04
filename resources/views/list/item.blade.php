@@ -22,10 +22,7 @@
 
     @if ($hasChanges)
         @php
-            $table = 'default';
-            if (in_array($activity->event, ['created', 'deleted'])) {
-                $table = 'simple';
-            }
+            $table = empty($changes['old']) ? 'simple' : 'default';
         @endphp
 
         <div x-show="isCollapsed">
