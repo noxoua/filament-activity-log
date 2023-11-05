@@ -23,6 +23,8 @@ callouts:
     color: purple
   info:
     color: blue
+  new:
+    color: green
 
 
 compress_html:

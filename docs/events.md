@@ -1,7 +1,7 @@
 ---
 title: Events
 permalink: /events
-nav_order: 7
+nav_order: 8
 ---
 
 # Events
