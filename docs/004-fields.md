@@ -104,7 +104,7 @@ ____
 ```php
 $logger->fields([
    Field::make('meta')
-         ->view('key-value')
+         ->keyValue(differenceOnly: true)
          ->label('Attributes'),
 ])
 ```
@@ -118,12 +118,48 @@ ____
 ```php
 $logger->fields([
    // 'categories' => 'relation:name',
-   Field::make('categories')
-         ->relation('name') // get names only
-         ->badge('info')
+   Field::make('categories.name') // hasMany
+         ->relation()
          ->label('Categories'),
+
+   // 'category.name',
+   Field::make('category.name') // hasOne
+         ->relation()
+         ->label('Category'),
 ])
 ```
+
+{: .note }
+If you have `preloadRelations`, you can skip `relation`, and vice versa.
+
+
+#### With preload relations
+
+When you use `preloadRelations`, you can directly define the relation field without the need for `relation`:
+
+```php
+$logger
+   ->preloadRelations('categories')
+   ->fields([
+      Field::make('categories.name')->label('Categories'),
+   ])
+```
+
+#### With relation
+
+If you prefer to use `relation`, it works similarly to `preloadRelations`:
+
+```php
+$logger->fields([
+   Field::make('categories.name')
+      ->relation()
+      ->label('Categories'),
+])
+```
+
+{: .info }
+`preloadRelations` and `relation` work similarly to Laravel's eager loading.
+
 
 ![Screenshot](./assets/images/relation-screenshot.png)
 

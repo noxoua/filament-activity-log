@@ -15,7 +15,13 @@ trait HasRelationManagers
     public function relationManagers(array $relationManagers): static
     {
         $this->relationManagers = array_map(
-            static fn (Closure $closure, string $name) => $closure(new RelationManager($name)),
+            function (Closure|RelationManager $closure, ?string $name) {
+                if ($closure instanceof RelationManager) {
+                    return $closure;
+                }
+
+                return $closure(new RelationManager($name));
+            },
             $relationManagers,
             array_keys($relationManagers),
         );

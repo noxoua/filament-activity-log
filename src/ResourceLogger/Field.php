@@ -19,6 +19,7 @@ class Field
     use Concerns\Types\Date;
     use Concerns\Types\Difference;
     use Concerns\Types\Enum;
+    use Concerns\Types\KeyValue;
     use Concerns\Types\Media;
     use Concerns\Types\Money;
     use Concerns\Types\Relation;

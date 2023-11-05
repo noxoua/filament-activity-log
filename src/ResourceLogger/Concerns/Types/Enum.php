@@ -13,7 +13,7 @@ trait Enum
         $this->type('enum', $enum);
         $this->view('badge');
 
-        $this->resolveStateUsing(fn (Model $model) => $model->{$this->name}?->name);
+        $this->resolveStateUsing(fn (Model $record) => data_get($record, $this->name)?->name);
 
         $this->formatStateUsing(fn ($state): ?UnitEnum => Helper::resolveEnum($this->options, $state));
 

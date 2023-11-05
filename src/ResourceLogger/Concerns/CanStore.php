@@ -12,6 +12,6 @@ trait CanStore
             return call_user_func($this->resolveStateCallback, $record);
         }
 
-        return $record->{$this->name};
+        return data_get($record, $this->name);
     }
 }

@@ -14,14 +14,14 @@ trait Relation
         $this->isRelation = true;
 
         if ($column) {
-            $this->resolveStateUsing(function (Model $model) use ($column): mixed {
-                $relation = $model->{$this->name};
+            $this->resolveStateUsing(function (Model $record) use ($column): mixed {
+                $relation = data_get($record, $this->name);
 
                 if ($relation instanceof Collection) {
                     return $relation->pluck($column)->toArray();
                 }
 
-                return $relation->{$column};
+                return data_get($relation, $column);
             });
         }
 

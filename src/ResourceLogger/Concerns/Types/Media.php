@@ -21,8 +21,8 @@ trait Media
             $this->square();
         }
 
-        $this->resolveStateUsing(function (Model $model): mixed {
-            $relation = $model->{$this->name};
+        $this->resolveStateUsing(function (Model $record): mixed {
+            $relation = data_get($record, $this->name);
 
             if ($this->gallery) {
                 return $relation->pluck('original_url')->toArray();

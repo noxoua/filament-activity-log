@@ -17,17 +17,24 @@ class LogActions
     {
         $self = new static;
 
+        // TODO:
+
         // * Table Actions
         // TableActions\AssociateAction::configureUsing(fn ($action) => $self->associate($action));
         // TableActions\AttachAction::configureUsing(fn ($action) => $self->attach($action));
         TableActions\CreateAction::configureUsing(fn ($action) => $self->create($action));
         TableActions\DeleteAction::configureUsing(fn ($action) => $self->delete($action));
+        // TableActions\DeleteBulkAction::configureUsing(fn ($action) => $self->delete($action));
         // TableActions\DetachAction::configureUsing(fn ($action) => $self->detach($action));
+        // TableActions\DetachBulkAction::configureUsing(fn ($action) => $self->detach($action));
         // TableActions\DissociateAction::configureUsing(fn ($action) => $self->dissociate($action));
+        // TableActions\DissociateBulkAction::configureUsing(fn ($action) => $self->dissociate($action));
         TableActions\EditAction::configureUsing(fn ($action) => $self->edit($action));
         TableActions\ForceDeleteAction::configureUsing(fn ($action) => $self->delete($action));
+        // TableActions\ForceDeleteBulkAction::configureUsing(fn ($action) => $self->delete($action));
         TableActions\ReplicateAction::configureUsing(fn ($action) => $self->create($action));
         TableActions\RestoreAction::configureUsing(fn ($action) => $self->restore($action));
+        // TableActions\RestoreBulkAction::configureUsing(fn ($action) => $self->restore($action));
 
         // * Page Actions
         PageActions\CreateAction::configureUsing(fn ($action) => $self->create($action));

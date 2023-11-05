@@ -28,6 +28,10 @@ trait Difference
         $this->type('difference', compact('method', 'options'));
 
         $this->formatStateUsing(function ($state) {
+            if (is_null($state)) {
+                $state = '';
+            }
+
             // TODO: not working with array
             // * resources/views/components/difference.blade.php
             return json_encode($state);

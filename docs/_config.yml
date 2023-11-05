@@ -21,6 +21,8 @@ callouts:
     color: yellow
   note:
     color: purple
+  info:
+    color: blue
 
 
 compress_html:
