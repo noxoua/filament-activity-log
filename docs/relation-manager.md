@@ -1,7 +1,7 @@
 ---
 title: Relation Manager
 permalink: /relation-manager
-nav_order: 5
+nav_order: 6
 ---
 
 # Relation Manager

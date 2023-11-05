@@ -12,6 +12,8 @@ trait Table
         $this->view('table');
         $this->tableDifferenceOnly = $differenceOnly;
 
+        $this->formatStateUsing('array');
+
         return $this;
     }
 
@@ -24,8 +26,7 @@ trait Table
         foreach ($array1 as $key1 => $row1) {
             foreach ($array2 as $key2 => $row2) {
                 if ($row1 === $row2) {
-                    unset($array1[$key1]);
-                    unset($array2[$key2]);
+                    unset($array1[$key1], $array2[$key2]);
                 }
             }
         }
