@@ -17,7 +17,7 @@ trait HasState
         return $this;
     }
 
-    public function formatStateUsing(string|Closure $callback): static
+    public function formatStateUsing(string | Closure $callback): static
     {
         if (is_string($callback)) {
             $callback = match ($callback) {
