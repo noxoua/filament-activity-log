@@ -51,7 +51,7 @@ trait HasFields
             }
         }
 
-        return $relations;
+        return array_merge($relations, $this->preloadRelations);
     }
 
     public function getFieldByName(string $name): ?Field

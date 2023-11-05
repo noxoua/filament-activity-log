@@ -11,7 +11,7 @@ trait Boolean
         $this->enum(config('filament-activity-log.boolean'));
         $this->view('badge');
 
-        $this->resolveStateUsing(fn (Model $model) => $model->{$this->name} ? 'true' : 'false');
+        $this->resolveStateUsing(fn (Model $record) => data_get($record, $this->name) ? 'true' : 'false');
 
         return $this;
     }

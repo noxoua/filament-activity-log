@@ -41,6 +41,10 @@ trait HasEvents
                 [$beforeValue, $afterValue] = $field->resolveTableDifference($beforeValue, $afterValue);
             }
 
+            if ($field->is('key-value') && $field->keyValueDifferenceOnly) {
+                [$beforeValue, $afterValue] = $field->resolveKeyValueDifference($beforeValue, $afterValue);
+            }
+
             if ($beforeValue !== $afterValue) {
                 $old[$field->name] = $beforeValue;
                 $new[$field->name] = $afterValue;

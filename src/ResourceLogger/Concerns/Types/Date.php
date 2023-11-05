@@ -27,7 +27,7 @@ trait Date
         $format ??= 'j F, Y H:i:s';
         $this->type('datetime', $format);
 
-        $this->resolveStateUsing(fn (Model $model) => $model->{$this->name}?->toISOString());
+        $this->resolveStateUsing(fn (Model $record) => data_get($record, $this->name)?->toISOString());
 
         $this->formatStateUsing(function ($state): ?string {
             if (blank($state)) {

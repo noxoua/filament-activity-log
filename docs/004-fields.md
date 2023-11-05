@@ -104,7 +104,7 @@ ____
 ```php
 $logger->fields([
    Field::make('meta')
-         ->view('key-value')
+         ->keyValue(differenceOnly: true)
          ->label('Attributes'),
 ])
 ```
@@ -118,10 +118,14 @@ ____
 ```php
 $logger->fields([
    // 'categories' => 'relation:name',
-   Field::make('categories')
-         ->relation('name') // get names only
-         ->badge('info')
+   Field::make('categories') // hasMany
+         ->relation('name')
          ->label('Categories'),
+
+   // 'category.name',
+   Field::make('category.name') // hasOne
+         ->relation()
+         ->label('Category'),
 ])
 ```
 
