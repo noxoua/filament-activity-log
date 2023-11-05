@@ -27,23 +27,22 @@ trait Date
         $format ??= 'j F, Y H:i:s';
         $this->type('datetime', $format);
 
-        $this->resolveUsing(fn (Model $model) => $model->{$this->name}?->toISOString());
+        $this->resolveStateUsing(fn (Model $model) => $model->{$this->name}?->toISOString());
+
+        $this->formatStateUsing(function ($state): ?string {
+            if (blank($state)) {
+                return null;
+            }
+
+            try {
+                $state = \Carbon\Carbon::parse($state);
+                $state = $state?->translatedFormat($this->options);
+            } catch (\Exception $e) {
+            }
+
+            return $state;
+        });
 
         return $this;
-    }
-
-    public function formatDatetime(?string $value): ?string
-    {
-        if (blank($value)) {
-            return null;
-        }
-
-        try {
-            $value = \Carbon\Carbon::parse($value);
-            $value = $value?->translatedFormat($this->options);
-        } catch (\Exception $e) {
-        }
-
-        return $value;
     }
 }

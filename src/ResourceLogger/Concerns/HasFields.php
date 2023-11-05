@@ -14,6 +14,10 @@ trait HasFields
     public function fields(array $fields): static
     {
         $this->fields = array_map(function ($field, $key) {
+            if ($field instanceof Field) {
+                return $field;
+            }
+
             if (is_int($key)) {
                 return new Field($field);
             } elseif (is_string($field)) {

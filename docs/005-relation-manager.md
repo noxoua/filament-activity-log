@@ -15,12 +15,8 @@ $logger->relationManagers([
     'accessories' => fn (RelationManager $relationManager) => $relationManager
         ->label('Accessory')
         ->fields([
-            'name' => fn (Field $field) => $field
-                ->label(__('Label')),
-
-            'price' => fn (Field $field) => $field
-                ->label(__('Price'))
-                ->money('EUR'),
+            Field::make('name'),
+            Field::make('price'),
         ]),
 ]);
 ```

@@ -37,7 +37,7 @@ trait HasEvents
             $beforeValue = $field->getStorableValue($this->oldModel);
             $afterValue = $field->getStorableValue($this->newModel);
 
-            if ($field->is('table')) {
+            if ($field->is('table') && $field->tableDifferenceOnly) {
                 [$beforeValue, $afterValue] = $field->resolveTableDifference($beforeValue, $afterValue);
             }
 

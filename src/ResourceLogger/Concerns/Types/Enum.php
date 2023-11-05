@@ -13,13 +13,10 @@ trait Enum
         $this->type('enum', $enum);
         $this->view('badge');
 
-        $this->resolveUsing(fn (Model $model) => $model->{$this->name}?->name);
+        $this->resolveStateUsing(fn (Model $model) => $model->{$this->name}?->name);
+
+        $this->formatStateUsing(fn ($state): ?UnitEnum => Helper::resolveEnum($this->options, $state));
 
         return $this;
-    }
-
-    public function resolveEnum(?string $value): ?UnitEnum
-    {
-        return Helper::resolveEnum($this->options, $value);
     }
 }

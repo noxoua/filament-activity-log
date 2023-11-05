@@ -17,7 +17,7 @@ In the context of the Logger class, you have the flexibility to define which fie
 ```php
 $logger->fields([
    'name' => 'badge:danger',
-   // 'name' => fn (Field $field) => $field->badge('danger'),
+   // Field::make('name')->badge('danger'),
 ])
 ```
 
@@ -29,7 +29,7 @@ ____
 
 ```php
 $logger->fields([
-   'status' => fn (Field $field) => $field
+   Field::make('status')
          ->enum(App\Enums\OrderStatus::class)
          ->label('Status'),
 ])
@@ -46,7 +46,7 @@ $logger->fields([
    // 'published_at' => 'date:j F, Y'',
    // 'published_at' => 'time',
    // 'published_at' => 'datetime',
-   'published_at' => fn (Field $field) => $field
+   Field::make('published_at')
          ->date()
          ->label('Publish Date'),
 ])
@@ -61,7 +61,7 @@ ____
 ```php
 $logger->fields([
    // 'is_visible' => 'boolean',
-   'is_visible' => fn (Field $field) => $field
+   Field::make('is_visible')
          ->boolean()
          ->label('Visible'),
 ])
@@ -76,7 +76,7 @@ ____
 ```php
 $logger->fields([
    // 'media' => 'media',
-   'media' => fn (Field $field) => $field
+   Field::make('media')
          ->media(gallery: true)
          ->label('Images'),
 ])
@@ -91,7 +91,7 @@ ____
 ```php
 $logger->fields([
    // 'price' => 'money:EUR',
-   'price' => fn (Field $field) => $field->money('EUR'),
+   Field::make('price')->money('EUR'),
 ])
 ```
 
@@ -103,7 +103,7 @@ ____
 
 ```php
 $logger->fields([
-   'meta' => fn (Field $field) => $field
+   Field::make('meta')
          ->view('key-value')
          ->label('Attributes'),
 ])
@@ -118,7 +118,7 @@ ____
 ```php
 $logger->fields([
    // 'categories' => 'relation:name',
-   'categories' => fn (Field $field) => $field
+   Field::make('categories')
          ->relation('name') // get names only
          ->badge('info')
          ->label('Categories'),
@@ -133,11 +133,11 @@ ____
 
 ```php
 $logger->fields([
-   'items' => fn (Field $field) => $field
+   Field::make('items')
          ->relation()
-         ->table()
-         ->resolveUsing(function ($model) {
-            return $model->items->map(fn ($item) => [
+         ->table(differenceOnly: true)
+         ->resolveStateUsing(static function (Model $record) {
+            return $record->items->map(fn ($item) => [
                'Product' => Product::find($item->shop_product_id)->name,
                'Quantity' => $item->qty,
                'Unit Price' => $item->unit_price,

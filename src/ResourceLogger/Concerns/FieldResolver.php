@@ -2,13 +2,9 @@
 
 namespace Noxo\FilamentActivityLog\ResourceLogger\Concerns;
 
-use Closure;
-
-trait CanResolve
+trait FieldResolver
 {
-    public ?Closure $resolveCallback = null;
-
-    public function resolveFromString(string $string): static
+    public function resolveField(string $string): static
     {
         if (str_contains($string, ':')) {
             [$type, $options] = explode(':', $string);
@@ -29,13 +25,6 @@ trait CanResolve
         if (in_array($type, $list)) {
             $this->{$type}($options);
         }
-
-        return $this;
-    }
-
-    public function resolveUsing(Closure $callback): static
-    {
-        $this->resolveCallback = $callback;
 
         return $this;
     }
