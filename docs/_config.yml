@@ -21,12 +21,6 @@ callouts:
     color: yellow
   note:
     color: purple
-  # important:
-  #   color: blue
-  # new:
-  #   color: green
-  # warning:
-  #   color: red
 
 
 compress_html:

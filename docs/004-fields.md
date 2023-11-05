@@ -148,3 +148,19 @@ $logger->fields([
 ```
 
 ![Screenshot](./assets/images/table-screenshot.png)
+
+____
+
+### Difference
+
+```php
+$logger->fields([
+   Field::make('description')
+         ->difference(),
+])
+```
+
+{: .note }
+For now, it is compatible with <u>text only</u>.
+
+![Screenshot](./assets/images/difference-screenshot.png)
