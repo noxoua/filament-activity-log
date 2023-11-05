@@ -11,11 +11,8 @@ trait Money
         $this->type('money', $currency);
         $this->view('badge');
 
-        return $this;
-    }
+        $this->formatStateUsing(fn ($state): ?string => format_money($state, $this->options));
 
-    public function formatMoney(float $value): string
-    {
-        return format_money($value, $this->options);
+        return $this;
     }
 }

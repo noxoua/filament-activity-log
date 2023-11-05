@@ -21,7 +21,7 @@ trait Media
             $this->square();
         }
 
-        $this->resolveUsing(function (Model $model): mixed {
+        $this->resolveStateUsing(function (Model $model): mixed {
             $relation = $model->{$this->name};
 
             if ($this->gallery) {

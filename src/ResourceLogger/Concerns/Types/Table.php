@@ -4,10 +4,13 @@ namespace Noxo\FilamentActivityLog\ResourceLogger\Concerns\Types;
 
 trait Table
 {
-    public function table(): static
+    public bool $tableDifferenceOnly = true;
+
+    public function table(bool $differenceOnly = true): static
     {
         $this->type('table');
         $this->view('table');
+        $this->tableDifferenceOnly = $differenceOnly;
 
         return $this;
     }

@@ -8,8 +8,8 @@ trait CanStore
 {
     public function getStorableValue(Model $record): mixed
     {
-        if ($this->resolveCallback) {
-            return call_user_func($this->resolveCallback, $record);
+        if ($this->resolveStateCallback) {
+            return call_user_func($this->resolveStateCallback, $record);
         }
 
         return $record->{$this->name};

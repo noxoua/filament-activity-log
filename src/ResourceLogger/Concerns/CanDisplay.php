@@ -6,13 +6,9 @@ trait CanDisplay
 {
     public function display(mixed $value): mixed
     {
-        $value = match ($this->type) {
-            'datetime' => $this->formatDatetime($value),
-            'enum' => $this->resolveEnum($value),
-            'key-value' => (array) $value,
-            'money' => $this->formatMoney((float) $value),
-            default => $value,
-        };
+        if ($this->formatStateCallback) {
+            $value = call_user_func($this->formatStateCallback, $value);
+        }
 
         $view = is_null($value) ? 'default' : $this->view;
 

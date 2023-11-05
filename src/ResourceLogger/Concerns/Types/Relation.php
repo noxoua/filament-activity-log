@@ -14,7 +14,7 @@ trait Relation
         $this->isRelation = true;
 
         if ($column) {
-            $this->resolveUsing(function (Model $model) use ($column): mixed {
+            $this->resolveStateUsing(function (Model $model) use ($column): mixed {
                 $relation = $model->{$this->name};
 
                 if ($relation instanceof Collection) {
