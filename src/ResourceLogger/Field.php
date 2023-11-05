@@ -17,6 +17,7 @@ class Field
     use Concerns\Types\Badge;
     use Concerns\Types\Boolean;
     use Concerns\Types\Date;
+    use Concerns\Types\Difference;
     use Concerns\Types\Enum;
     use Concerns\Types\Media;
     use Concerns\Types\Money;
