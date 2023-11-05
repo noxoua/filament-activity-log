@@ -1,6 +1,6 @@
 <div class="filament-hidden">
 
-![Header](https://raw.githubusercontent.com/noxoua/filament-activity-log/main/docs/assets/images/header.png)
+![Header](https://raw.githubusercontent.com/noxoua/filament-activity-log/main/docs/assets/images/screenshot.png)
 
 # Filament Activity Log
 
