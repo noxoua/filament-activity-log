@@ -35,18 +35,15 @@ class ProductLogger extends Logger
     public static function resource(ResourceLogger $logger): ResourceLogger
     {
         return $logger
-            ->preloadRelations(
-                // Preload your relationships,
-                // this is necessary to log the data correctly.
-                'categories',
-            )
             // Resource Fields
             ->fields([
                 Field::make('title')
                     ->label(__('Title')),
 
                 Field::make('categories.name')
-                    ->label(__('Categories')),
+                    ->label(__('Categories'))
+                    ->hasMany('categories')
+                    ->badge(),
 
                 Field::make('media')
                     ->label(__('Images'))
@@ -68,7 +65,6 @@ class ProductLogger extends Logger
             ->relationManagers([
                 RelationManager::make('accessories')
                     ->label('Accessory')
-                    // ->preloadRelations()
                     ->fields([
                         Field::make('name')
                             ->label(__('Label')),

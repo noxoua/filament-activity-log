@@ -3,27 +3,31 @@
 namespace Noxo\FilamentActivityLog\ResourceLogger\Concerns\Types;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
 
 trait Relation
 {
-    public bool $isRelation = false;
+    public ?string $relationName = null;
 
-    public function relation(string $column = null): static
+    public function hasOne(string $relation): static
     {
-        $this->isRelation = true;
+        $this->relationName = $relation;
 
-        if ($column) {
-            $this->resolveStateUsing(function (Model $record) use ($column): mixed {
-                $relation = data_get($record, $this->name);
+        $this->resolveStateUsing(fn (Model $record): mixed => data_get($record, $this->name));
 
-                if ($relation instanceof Collection) {
-                    return $relation->pluck($column)->toArray();
-                }
+        return $this;
+    }
 
-                return data_get($relation, $column);
-            });
-        }
+    public function hasMany(string $relation): static
+    {
+        $this->relationName = $relation;
+
+        $this->resolveStateUsing(
+            fn (Model $record): mixed => data_get($record, $relation)
+                    ?->pluck(
+                    (string) str($this->name)->after("{$relation}.")
+                )
+                ->toArray()
+        );
 
         return $this;
     }
