@@ -23,7 +23,7 @@ trait Relation
 
         $this->resolveStateUsing(
             fn (Model $record): mixed => data_get($record, $relation)
-                    ?->pluck(
+                ?->pluck(
                     (string) str($this->name)->after("{$relation}.")
                 )
                 ->toArray()
