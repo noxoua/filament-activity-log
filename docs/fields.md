@@ -117,49 +117,22 @@ ____
 
 ```php
 $logger->fields([
-   // 'categories' => 'relation:name',
-   Field::make('categories.name') // hasMany
-         ->relation()
-         ->label('Categories'),
+   Field::make('roles.name')
+         ->hasMany('roles')
+         ->label(__('Roles'))
+         ->badge(),
 
-   // 'category.name',
-   Field::make('category.name') // hasOne
-         ->relation()
-         ->label('Category'),
+   Field::make('permissions.name')
+         ->hasMany('permissions')
+         ->label(__('Permissions'))
+         ->badge(),
+
+   Field::make('status.name')
+         ->hasOne('status')
+         ->label(__('Status'))
+         ->badge(),
 ])
 ```
-
-{: .note }
-If you have `preloadRelations`, you can skip `relation`, and vice versa.
-
-
-#### With preload relations
-
-When you use `preloadRelations`, you can directly define the relation field without the need for `relation`:
-
-```php
-$logger
-   ->preloadRelations('categories')
-   ->fields([
-      Field::make('categories.name')->label('Categories'),
-   ])
-```
-
-#### With relation
-
-If you prefer to use `relation`, it works similarly to `preloadRelations`:
-
-```php
-$logger->fields([
-   Field::make('categories.name')
-      ->relation()
-      ->label('Categories'),
-])
-```
-
-{: .info }
-`preloadRelations` and `relation` work similarly to Laravel's eager loading.
-
 
 ![Screenshot](./assets/images/relation-screenshot.png)
 
@@ -168,19 +141,21 @@ ____
 ### Table
 
 ```php
-$logger->fields([
-   Field::make('items')
-         ->relation()
-         ->table(differenceOnly: true)
-         ->resolveStateUsing(static function (Model $record) {
-            return $record->items->map(fn ($item) => [
-               'Product' => Product::find($item->shop_product_id)->name,
-               'Quantity' => $item->qty,
-               'Unit Price' => $item->unit_price,
-            ])->toArray();
-         })
-         ->label('Items'),
-])
+$logger
+   ->preloadRelations('items.product')
+   ->fields([
+      Field::make('items')
+            ->hasMany('items')
+            ->table(differenceOnly: true)
+            ->resolveStateUsing(static function (Model $record) {
+               return $record->items->map(fn ($item) => [
+                  'Product' => $item->product->name,
+                  'Quantity' => $item->qty,
+                  'Unit Price' => $item->unit_price,
+               ])->toArray();
+            })
+            ->label('Items'),
+   ])
 ```
 
 ![Screenshot](./assets/images/table-screenshot.png)

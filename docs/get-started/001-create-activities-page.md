@@ -20,7 +20,16 @@ use Noxo\FilamentActivityLog\Pages\ListActivities;
 
 class Activities extends ListActivities
 {
-    //
+    // public function getTitle(): string
+    // {
+    //     return __('filament-activity-log::activities.title');
+    // }
+
+    // public static function getNavigationLabel(): string
+    // {
+    //     return __('filament-activity-log::activities.title');
+    // }
+
 }
 ```
 

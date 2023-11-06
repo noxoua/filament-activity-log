@@ -46,8 +46,8 @@ trait HasFields
         $relations = [];
 
         foreach ($this->fields as $field) {
-            if ($field instanceof Field && $field->isRelation) {
-                $relations[] = $field->name;
+            if ($field instanceof Field && $field->relationName) {
+                $relations[] = $field->relationName;
             }
         }
 

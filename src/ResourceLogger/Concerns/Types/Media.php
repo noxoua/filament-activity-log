@@ -14,8 +14,8 @@ trait Media
     {
         $this->type('media');
         $this->view('image');
-        $this->relation();
         $this->gallery = (bool) $gallery;
+        $this->{$gallery ? 'hasMany' : 'hasOne'}('media');
 
         if ($gallery) {
             $this->square();
