@@ -1,0 +1,16 @@
+<div class="d-flex" style="align-items: center;">
+    <button class="btn js-toggle-dark-mode">Dark/Light</button>
+</div>
+
+<script>
+    const toggleDarkMode = document.querySelector('.js-toggle-dark-mode');
+
+    function setTheme(theme) {
+        jtd.setTheme(theme);
+        localStorage.setItem('theme', theme);
+        toggleDarkMode.textContent = theme === 'dark' ? 'Light' : 'Dark';
+    }
+
+    setTheme(localStorage.getItem('theme') || 'light');
+    toggleDarkMode.addEventListener('click', () => setTheme(jtd.getTheme() === 'dark' ? 'light' : 'dark'));
+</script>
