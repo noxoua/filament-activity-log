@@ -36,9 +36,9 @@ trait HasListFilters
         $this->form->fill();
     }
 
-    public function isFiltersBlank(): bool
+    public function hasActiveFilters(): bool
     {
-        return count(array_filter($this->filters)) === 0;
+        return count(array_filter($this->filters)) > 0;
     }
 
     public function fillFilters(): void

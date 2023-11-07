@@ -6,7 +6,7 @@
     <div class="relative">
         {{ $this->form }}
 
-        @if (!$this->isFiltersBlank())
+        @if ($this->hasActiveFilters())
             <div class="absolute top-1 right-4">
                 <x-filament::link :attributes="\Filament\Support\prepare_inherited_attributes(
                     new \Illuminate\View\ComponentAttributeBag([
@@ -14,7 +14,6 @@
                         'tag' => 'button',
                         'wire:click' => 'resetFiltersForm',
                         'wire:loading.remove.delay.' . config('filament.livewire_loading_delay', 'default') => '',
-                        'wire:target' => 'filters,resetFiltersForm',
                     ]),
                 )">
                     {{ __('filament-tables::table.filters.actions.reset.label') }}
