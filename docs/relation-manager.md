@@ -8,11 +8,18 @@ nav_order: 6
 
 ___
 
-In Filament, you can create special "relation managers" for handling related data in your resource. Imagine you have a resource with a relation called `accessories`. Here's a straightforward example of defining such a relation manager:
+{: .note }
+Keep in mind `RelationManager` has nothing to do with regular relations in your resource. Learn more about [Filament Relation Managers](https://filamentphp.com/docs/3.x/panels/getting-started#introducing-relation-managers){:target="_blank"}.
+
+
+___
+
+
+Imagine you have a resource with a relation called `accessories`. Here's a straightforward example of defining such a relation manager:
 
 ```php
 $logger->relationManagers([
-    'accessories' => fn (RelationManager $relationManager) => $relationManager
+    RelationManager::make('accessories')
         ->label('Accessory')
         ->fields([
             Field::make('name'),
@@ -20,5 +27,3 @@ $logger->relationManagers([
         ]),
 ]);
 ```
-
-By creating relation managers, you can organize and format related data the way you want in your Filament application.

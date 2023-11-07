@@ -6,7 +6,7 @@ color_scheme: light
 
 aux_links_new_tab: true
 aux_links:
-  Filament Plugin: "https://filamentphp.com/plugins/noxoua-activity-log"
+  GitHub: https://github.com/noxoua/filament-activity-log
 
 defaults:
   -

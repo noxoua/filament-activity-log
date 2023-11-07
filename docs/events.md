@@ -13,13 +13,13 @@ ___
 In addition to automatic event logging, you have the flexibility to manually trigger these events using the Logger class. Here's how to use the manual event logging methods:
 
 
-- `UserLogger::make($record)->created();`: Manually logs a "created" event for the given $record. This can be used to log the creation of a new record.
+- `UserLogger::make($record)->created()`: Manually logs a "created" event for the given $record. This can be used to log the creation of a new record.
 
-- `UserLogger::make($old_record, $new_record)->updated();`: Manually logs an "updated" event, capturing changes between the $old_record (before the update) and the $new_record (after the update). This allows you to log updates to a record.
+- `UserLogger::make($old_record, $new_record)->updated()`: Manually logs an "updated" event, capturing changes between the $old_record (before the update) and the $new_record (after the update). This allows you to log updates to a record.
 
-- `UserLogger::make($record)->deleted();`: Manually logs a "deleted" event for the given $record, indicating that the record has been deleted.
+- `UserLogger::make($record)->deleted()`: Manually logs a "deleted" event for the given $record, indicating that the record has been deleted.
 
-- `UserLogger::make($record)->restored();`: Manually logs a "restored" event, typically used when a previously deleted record is restored.
+- `UserLogger::make($record)->restored()`: Manually logs a "restored" event, typically used when a previously deleted record is restored.
 
 By providing these manual event logging methods, the Logger class offers fine-grained control over when and how specific events are logged, allowing you to capture custom events and changes in your application as needed.
 
