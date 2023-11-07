@@ -4,10 +4,10 @@
         'dark:border-gray-600 dark:bg-gray-800',
     ])
     x-data="{
-        isCollapsed: true,
+        isCollapsed: @json($this->isCollapsible ? $this->isCollapsed : false),
     }"
-    @collapse-all.window="() => isCollapsed = false"
-    @expand-all.window="() => isCollapsed = true"
+    @collapse-all.window="() => isCollapsed = true"
+    @expand-all.window="() => isCollapsed = false"
 >
     @php
         /* @var \Spatie\Activitylog\Models\Activity $activity */
@@ -25,7 +25,7 @@
             $table = empty($changes['old']) ? 'simple' : 'default';
         @endphp
 
-        <div x-show="isCollapsed">
+        <div x-show="!isCollapsed">
             {{ view('filament-activity-log::list.tables.' . $table, compact('changes', 'logger')) }}
         </div>
     @endif
