@@ -23,7 +23,7 @@
         @endif
     </div>
 
-    @if ($activities->isNotEmpty())
+    @if ($activities->isNotEmpty() && $this->isCollapsible)
         <div class="flex justify-end gap-x-3">
             <x-filament::link
                 color="gray"

@@ -1,10 +1,12 @@
 <div
     @class([
         'flex justify-between items-center',
-        $hasChanges ? 'cursor-pointer' : '',
+        $hasChanges && $this->isCollapsible ? 'cursor-pointer' : '',
     ])
-    @if ($hasChanges) @click="() => isCollapsed = !isCollapsed" @endif
->
+    @if ($hasChanges && $this->isCollapsible)
+    @click="() => isCollapsed = !isCollapsed"
+    @endif
+    >
     <div class="flex items-center gap-x-2">
         @if ($activity->causer)
             <x-filament-panels::avatar.user
@@ -65,11 +67,11 @@
             <span>#{{ $activity->subject_id }}</span>
         </div>
 
-        @if ($hasChanges)
+        @if ($hasChanges && $this->isCollapsible)
             <x-filament::icon
                 icon="heroicon-m-chevron-up"
                 class="h-6 w-6 text-gray-500 dark:text-gray-400 transition"
-                x-bind:class="{ '-rotate-180': isCollapsed }"
+                x-bind:class="{ '-rotate-180': !isCollapsed }"
             />
         @endif
     </div>

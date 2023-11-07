@@ -14,6 +14,7 @@ use Spatie\Activitylog\Models\Activity;
 abstract class ListActivities extends Page implements HasForms
 {
     use CanPaginateRecords;
+    use Concerns\CanCollapse;
     use Concerns\HasListFilters;
     use Concerns\HasLogger;
     use Concerns\UrlHandling;
@@ -21,6 +22,8 @@ abstract class ListActivities extends Page implements HasForms
     use WithPagination;
 
     protected static string $view = 'filament-activity-log::list.index';
+
+    protected static ?string $navigationIcon = 'heroicon-s-finger-print';
 
     public function getTitle(): string
     {
