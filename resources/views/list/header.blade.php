@@ -11,7 +11,7 @@
         @if ($activity->causer)
             <x-filament-panels::avatar.user
                 :user="$activity->causer"
-                class="!w-10 !h-10"
+                size="lg"
             />
         @endif
         <div class="flex flex-col text-left">
