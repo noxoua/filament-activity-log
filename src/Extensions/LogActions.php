@@ -21,17 +21,17 @@ class LogActions
         // TableActions\AttachAction::class => 'attach',
         TableActions\CreateAction::class => 'create',
         TableActions\DeleteAction::class => 'delete',
-        // TableActions\DeleteBulkAction::class => 'delete',
+        TableActions\DeleteBulkAction::class => 'deleteBulk',
         // TableActions\DetachAction::class => 'detach',
         // TableActions\DetachBulkAction::class => 'detach',
         // TableActions\DissociateAction::class => 'dissociate',
         // TableActions\DissociateBulkAction::class => 'dissociate',
         TableActions\EditAction::class => 'edit',
         TableActions\ForceDeleteAction::class => 'delete',
-        // TableActions\ForceDeleteBulkAction::class => 'delete',
+        TableActions\ForceDeleteBulkAction::class => 'deleteBulk',
         TableActions\ReplicateAction::class => 'create',
         TableActions\RestoreAction::class => 'restore',
-        // TableActions\RestoreBulkAction::class => 'restore',
+        TableActions\RestoreBulkAction::class => 'restoreBulk',
 
         // * ----------- Page Actions -----------
         PageActions\CreateAction::class => 'create',
@@ -88,6 +88,15 @@ class LogActions
         });
     }
 
+    public function deleteBulk($action): void
+    {
+        $action->before(function ($livewire, $records): void {
+            $livewire instanceof RelationManager
+                ? $records->map(fn ($record) => $this->logManagerDeleted($livewire, $record))
+                : $records->map(fn ($record) => $this->logRecordDeleted($record));
+        });
+    }
+
     public function edit($action): void
     {
         $action->beforeFormValidated(function ($livewire, $record): void {
@@ -109,6 +118,15 @@ class LogActions
             $livewire instanceof RelationManager
                 ? $this->logManagerRestored($livewire, $record)
                 : $this->logRecordRestored($record);
+        });
+    }
+
+    public function restoreBulk($action): void
+    {
+        $action->after(function ($livewire, $records): void {
+            $livewire instanceof RelationManager
+                ? $records->map(fn ($record) => $this->logManagerRestored($livewire, $record))
+                : $records->map(fn ($record) => $this->logRecordRestored($record));
         });
     }
 }
