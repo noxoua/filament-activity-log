@@ -37,6 +37,14 @@ return [
             'title' => 'Відновлено',
             'description' => 'Запис відновлено',
         ],
+        'attached' => [
+            'title' => 'Прикріплено',
+            'description' => 'Запис прикріплено',
+        ],
+        'detached' => [
+            'title' => 'Відокремлено',
+            'description' => 'Запис відокремлено',
+        ],
         // Your custom events...
     ],
     'boolean' => [

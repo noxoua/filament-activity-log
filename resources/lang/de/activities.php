@@ -37,6 +37,14 @@ return [
             'title' => 'Wiederhergestellt',
             'description' => 'Eintrag wiederhergestellt',
         ],
+        'attached' => [
+            'title' => 'Angehängt',
+            'description' => 'Eintrag angehängt',
+        ],
+        'detached' => [
+            'title' => 'Freistehend',
+            'description' => 'Eintrag getrennt',
+        ],
         // Your custom events...
     ],
     'boolean' => [

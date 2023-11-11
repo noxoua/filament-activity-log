@@ -37,6 +37,14 @@ return [
             'title' => 'Restored',
             'description' => 'Entry restored',
         ],
+        'attached' => [
+            'title' => 'Attached',
+            'description' => 'Entry attached',
+        ],
+        'detached' => [
+            'title' => 'Detached',
+            'description' => 'Entry detached',
+        ],
         // Your custom events...
     ],
     'boolean' => [

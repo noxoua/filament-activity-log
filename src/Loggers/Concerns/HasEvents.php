@@ -89,4 +89,26 @@ trait HasEvents
             event: 'restored',
         );
     }
+
+    /**
+     * Log when a model is attached.
+     */
+    public function attached(): void
+    {
+        $this->log(
+            ['old' => [], 'attributes' => []],
+            event: 'attached',
+        );
+    }
+
+    /**
+     * Log when a model is detached.
+     */
+    public function detached(): void
+    {
+        $this->log(
+            ['old' => [], 'attributes' => []],
+            event: 'detached',
+        );
+    }
 }

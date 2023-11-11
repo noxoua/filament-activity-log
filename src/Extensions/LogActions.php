@@ -10,6 +10,7 @@ use Filament\Tables\Columns;
 
 class LogActions
 {
+    use Concerns\HasAssociations;
     use Concerns\HasCreated;
     use Concerns\HasDeleted;
     use Concerns\HasRestored;
@@ -18,14 +19,14 @@ class LogActions
     public array $targets = [
         // * ----------- Table Actions -----------
         // TableActions\AssociateAction::class => 'associate',
-        // TableActions\AttachAction::class => 'attach',
+        TableActions\AttachAction::class => 'attach',
         TableActions\CreateAction::class => 'create',
         TableActions\DeleteAction::class => 'delete',
         TableActions\DeleteBulkAction::class => 'deleteBulk',
-        // TableActions\DetachAction::class => 'detach',
-        // TableActions\DetachBulkAction::class => 'detach',
+        TableActions\DetachAction::class => 'detach',
+        TableActions\DetachBulkAction::class => 'detachBulk',
         // TableActions\DissociateAction::class => 'dissociate',
-        // TableActions\DissociateBulkAction::class => 'dissociate',
+        // TableActions\DissociateBulkAction::class => 'dissociateBulk',
         TableActions\EditAction::class => 'edit',
         TableActions\ForceDeleteAction::class => 'delete',
         TableActions\ForceDeleteBulkAction::class => 'deleteBulk',
@@ -53,6 +54,27 @@ class LogActions
         foreach ($this->targets as $class => $action) {
             $class::configureUsing(Closure::fromCallable([$this, $action]));
         }
+    }
+
+    public function attach($action): void
+    {
+        $action->after(function ($livewire, $record): void {
+            $this->logAttach($livewire, $record);
+        });
+    }
+
+    public function detach($action): void
+    {
+        $action->after(function ($livewire, $record): void {
+            $this->logDetach($livewire, $record);
+        });
+    }
+
+    public function detachBulk($action): void
+    {
+        $action->after(function ($livewire, $records): void {
+            $records->map(fn ($record) => $this->logDetach($livewire, $record));
+        });
     }
 
     public function editableColumn($column): void
