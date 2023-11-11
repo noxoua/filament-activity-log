@@ -10,6 +10,7 @@
             <x-filament::badge
                 :color="$field->badgeColor"
                 class="w-fit"
+                :tooltip="$label"
             >
                 {{ $label }}
             </x-filament::badge>
@@ -25,6 +26,7 @@
             :color="$color"
             :icon="$icon"
             class="w-fit"
+            :tooltip="$label"
         >
             {{ $label }}
         </x-filament::badge>
@@ -32,6 +34,7 @@
         <x-filament::badge
             :color="$field->badgeColor"
             class="w-fit"
+            :tooltip="$value"
         >
             {{ $value }}
         </x-filament::badge>
