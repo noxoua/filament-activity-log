@@ -32,7 +32,7 @@ class FilamentActivityLogServiceProvider extends PackageServiceProvider
     public function bootingPackage()
     {
         Loggers\Loggers::discover();
-        Extensions\LogActions::mount();
+        app(Extensions\LogActions::class)->configure();
 
         FilamentAsset::register([
             Css::make('filament-activity-log-styles', __DIR__ . '/../resources/dist/filament-activity-log.css'),

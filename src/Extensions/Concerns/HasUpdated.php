@@ -39,8 +39,12 @@ trait HasUpdated
             return;
         }
 
-        $manager = $this->logger::getRelationManager($livewire->getRelationshipName());
-        $this->model_old = clone $record->load($manager->getRelationNames());
+        $manager = $this->logger::getRelationManager(
+            get_class($livewire)::getRelationshipName()
+        );
+        if ($manager) {
+            $this->model_old = clone $record->load($manager->getRelationNames());
+        }
     }
 
     public function logManagerAfter($livewire, $record): void
@@ -49,12 +53,17 @@ trait HasUpdated
             return;
         }
 
-        $manager = $this->logger::getRelationManager($livewire->getRelationshipName());
-        $record->load($manager->getRelationNames());
+        $manager = $this->logger::getRelationManager(
+            get_class($livewire)::getRelationshipName()
+        );
 
-        $this->logger::make($this->model_old, $record)
-            ->relationManager($manager)
-            ->ownerRecord($livewire->ownerRecord)
-            ->updated();
+        if ($manager) {
+            $record->load($manager->getRelationNames());
+
+            $this->logger::make($this->model_old, $record)
+                ->relationManager($manager)
+                ->ownerRecord($livewire->ownerRecord)
+                ->updated();
+        }
     }
 }
