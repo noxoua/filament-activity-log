@@ -146,16 +146,13 @@ $logger
    ->fields([
       Field::make('items')
             ->hasMany('items')
-            ->table(differenceOnly: true)
-            ->resolveStateUsing(static function (Model $record) {
-               return $record->items->map(fn ($item) => [
-                  'Product' => $item->product->name,
-                  'Quantity' => $item->qty,
-                  'Unit Price' => $item->unit_price,
-               ])->toArray();
-            })
+            ->table([
+                Field::make('product.name')->hasOne('product'),
+                Field::make('qty'),
+                Field::make('unit_price'),
+            ])
             ->label('Items'),
-   ])
+        ]),
 ```
 
 ![Screenshot](./assets/images/table-screenshot.png)
