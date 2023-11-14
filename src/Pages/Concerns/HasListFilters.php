@@ -7,6 +7,7 @@ use Exception;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Blade;
 use Malzariey\FilamentDaterangepickerFilter\Fields\DateRangePicker;
 use Noxo\FilamentActivityLog\Loggers\Loggers;
 use Spatie\Activitylog\Models\Activity;
@@ -130,14 +131,13 @@ trait HasListFilters
                     ->get(['causer_id', 'causer_type'])
                     ->map(fn ($activity) => [
                         'value' => "{$activity->causer_type}:{$activity->causer_id}",
-                        'label' => '<div>' .
-                            (
-                                ($src = $activity->causer?->getFilamentAvatarUrl()) ?
-                                '<img src="' . $src . '" class="w-5 h-5 rounded-full inline mr-2"/>'
-                                : ''
-                            ) .
-                            $activity->causer?->name .
-                            '</div>',
+                        'label' => Blade::render(
+                            '<x-filament::avatar
+                                src="' . filament()->getUserAvatarUrl($activity->causer) . '"
+                                size="xs"
+                                class="inline mr-2"
+                            /> ' . $activity->causer?->name
+                        ),
                     ])
                     ->pluck('label', 'value');
 

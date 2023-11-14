@@ -23,12 +23,17 @@ trait HasCreated
             return;
         }
 
-        $manager = $logger::getRelationManager($livewire->getRelationshipName());
-        $record->load($manager->getRelationNames());
+        $manager = $logger::getRelationManager(
+            get_class($livewire)::getRelationshipName()
+        );
 
-        $logger::make($record)
-            ->relationManager($manager)
-            ->ownerRecord($ownerRecord)
-            ->created();
+        if ($manager) {
+            $record->load($manager->getRelationNames());
+
+            $logger::make($record)
+                ->relationManager($manager)
+                ->ownerRecord($ownerRecord)
+                ->created();
+        }
     }
 }
