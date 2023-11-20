@@ -21,10 +21,15 @@
                 <x-filament-tables::row @class(['bg-gray-100/30 dark:bg-gray-900/20' => $loop->even])>
                     @foreach ($fields as $field)
                         <x-filament-tables::cell class="p-2 align-top">
+                            @php
+                                $rawValue = $item[$field->name] ?? data_get($item, $field->name);
+                                $dispayValue = $field->display($rawValue);
+                            @endphp
+
                             @if ($isHtmlAllowed)
-                                {!! $field->display(data_get($item, $field->name)) !!}
+                                {!! $dispayValue !!}
                             @else
-                                {{ $field->display(data_get($item, $field->name)) }}
+                                {{ $dispayValue }}
                             @endif
                         </x-filament-tables::cell>
                     @endforeach
