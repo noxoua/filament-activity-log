@@ -1,3 +1,7 @@
+@php
+    $isHtmlAllowed = $field->isHtmlAllowed();
+@endphp
+
 <div class="rounded-lg shadow-sm bg-gray-50 dark:bg-transparent ring-1 ring-gray-950/10 dark:ring-white/20">
     <table class="w-full table-auto">
         <tbody class="divide-y divide-gray-200 dark:divide-white/20">
@@ -8,7 +12,11 @@
                     </td>
 
                     <td class="font-mono text-xs p-2">
-                        {{ $_value }}
+                        @if ($isHtmlAllowed)
+                            {!! $_value !!}
+                        @else
+                            {{ $_value }}
+                        @endif
                     </td>
                 </tr>
             @endforeach

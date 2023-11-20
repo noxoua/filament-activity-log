@@ -1,6 +1,7 @@
 @if (!empty($value))
     @php
         $fields = $field->table->getFields();
+        $isHtmlAllowed = $field->isHtmlAllowed();
     @endphp
 
     <div class="w-full overflow-x-scroll border border-gray-200 dark:border-white/5 rounded-lg">
@@ -20,7 +21,11 @@
                 <x-filament-tables::row @class(['bg-gray-100/30 dark:bg-gray-900/20' => $loop->even])>
                     @foreach ($fields as $field)
                         <x-filament-tables::cell class="p-2 align-top">
-                            {{ $field->display(data_get($item, $field->name)) }}
+                            @if ($isHtmlAllowed)
+                                {!! $field->display(data_get($item, $field->name)) !!}
+                            @else
+                                {{ $field->display(data_get($item, $field->name)) }}
+                            @endif
                         </x-filament-tables::cell>
                     @endforeach
                 </x-filament-tables::row>

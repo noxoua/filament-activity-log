@@ -3,6 +3,8 @@
 namespace Noxo\FilamentActivityLog\ResourceLogger;
 
 use DragonCode\Support\Concerns\Makeable;
+use Filament\Forms\Components\Concerns\CanAllowHtml;
+use Filament\Support\Concerns\EvaluatesClosures;
 
 class Field
 {
@@ -25,6 +27,8 @@ class Field
     use Concerns\Types\Relation;
     use Concerns\Types\Table;
     use Makeable;
+    use CanAllowHtml;
+    use EvaluatesClosures;
 
     public function __construct(string $name, string $type = null)
     {

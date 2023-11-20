@@ -2,6 +2,8 @@
     use Filament\Support\Contracts\HasColor;
     use Filament\Support\Contracts\HasLabel;
     use Filament\Support\Contracts\HasIcon;
+
+    $isHtmlAllowed = $field->isHtmlAllowed();
 @endphp
 
 <div class="flex flex-wrap gap-2">
@@ -12,7 +14,11 @@
                 class="w-fit"
                 :tooltip="$label"
             >
-                {{ $label }}
+                @if ($isHtmlAllowed)
+                    {!! $label !!}
+                @else
+                    {{ $label }}
+                @endif
             </x-filament::badge>
         @endforeach
     @elseif($field->is('enum'))
@@ -28,7 +34,11 @@
             class="w-fit"
             :tooltip="$label"
         >
-            {{ $label }}
+            @if ($isHtmlAllowed)
+                {!! $label !!}
+            @else
+                {{ $label }}
+            @endif
         </x-filament::badge>
     @else
         <x-filament::badge
@@ -36,8 +46,11 @@
             class="w-fit"
             :tooltip="$value"
         >
-            {{ $value }}
+            @if ($isHtmlAllowed)
+                {!! $value !!}
+            @else
+                {{ $value }}
+            @endif
         </x-filament::badge>
     @endif
-
 </div>

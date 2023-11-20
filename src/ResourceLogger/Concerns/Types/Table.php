@@ -14,12 +14,12 @@ trait Table
     public function table(
         array $fields,
         Closure $resolveRecords = null,
-        bool $tableDifferenceOnly = true,
+        bool $differenceOnly = true,
     ): static {
         $this->type('table');
         $this->view('table');
         $this->table = TableField::make($fields);
-        $this->tableDifferenceOnly = $tableDifferenceOnly;
+        $this->tableDifferenceOnly = $differenceOnly;
 
         $this->formatStateUsing('array');
         $this->resolveStateUsing(function ($record) use ($resolveRecords) {
