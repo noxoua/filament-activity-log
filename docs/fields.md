@@ -109,6 +109,19 @@ $logger->fields([
 ])
 ```
 
+ #### Key-Value with fields
+```php
+$logger->fields([
+   Field::make('recipient')
+         ->hasOne('recipient')
+         ->keyValue([
+            Field::make('recipient.full_name'),
+            Field::make('recipient.phone'),
+            Field::make('recipient.shipping_provider'),
+         ]),
+])
+```
+
 ![Screenshot](./assets/images/key-value-screenshot.png)
 
 ____

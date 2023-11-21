@@ -39,9 +39,10 @@ class Logger
      */
     public function through(Closure $callback): static
     {
-        $callback(clone $this->oldModel);
+        $callback(clone $this->newModel);
 
-        $this->newModel = $this->oldModel->fresh();
+        $this->oldModel = clone $this->newModel;
+        $this->newModel->refresh();
 
         return $this;
     }

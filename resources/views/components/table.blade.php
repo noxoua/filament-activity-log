@@ -1,22 +1,40 @@
 @if (!empty($value))
-    <x-filament-tables::table class="w-full overflow-hidden text-sm">
-        <x-slot:header>
-            @foreach (array_keys($value[0]) as $key)
-                <x-filament-tables::header-cell class="!py-2">
-                    {{ $key }}
-                </x-filament-tables::header-cell>
+    @php
+        $fields = $field->table->getFields();
+        $isHtmlAllowed = $field->isHtmlAllowed();
+    @endphp
+
+    <div class="w-full overflow-x-scroll border border-gray-200 dark:border-white/5 rounded-lg">
+        <x-filament-tables::table>
+            <x-slot:header>
+                <x-filament-tables::row>
+                    @foreach ($fields as $field)
+                        <x-filament-tables::header-cell class="!p-2">
+                            {{ $field->getLabel() }}
+                        </x-filament-tables::header-cell>
+                    @endforeach
+                </x-filament-tables::row>
+            </x-slot:header>
+
+
+            @foreach ($value as $item)
+                <x-filament-tables::row @class(['bg-gray-100/30 dark:bg-gray-900/20' => $loop->even])>
+                    @foreach ($fields as $field)
+                        <x-filament-tables::cell class="p-2 align-top">
+                            @php
+                                $rawValue = $item[$field->name] ?? data_get($item, $field->name);
+                                $dispayValue = $field->display($rawValue);
+                            @endphp
+
+                            @if ($isHtmlAllowed)
+                                {!! $dispayValue !!}
+                            @else
+                                {{ $dispayValue }}
+                            @endif
+                        </x-filament-tables::cell>
+                    @endforeach
+                </x-filament-tables::row>
             @endforeach
-        </x-slot:header>
-
-
-        @foreach ($value as $item)
-            <x-filament-tables::row @class(['bg-gray-100/30 dark:bg-gray-900' => $loop->even])>
-                @foreach ($item as $_value)
-                    <x-filament-tables::cell class="px-4 py-2 align-top sm:first-of-type:ps-6 sm:last-of-type:pe-6">
-                        {{ $_value }}
-                    </x-filament-tables::cell>
-                @endforeach
-            </x-filament-tables::row>
-        @endforeach
-    </x-filament-tables::table>
+        </x-filament-tables::table>
+    </div>
 @endif
