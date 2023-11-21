@@ -7,6 +7,7 @@ use Noxo\FilamentActivityLog\ResourceLogger\Types\KeyValueField;
 trait KeyValue
 {
     public ?KeyValueField $keyValue = null;
+
     public bool $keyValueDifferenceOnly = true;
 
     public function keyValue(

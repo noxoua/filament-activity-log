@@ -8,6 +8,7 @@ use Filament\Support\Concerns\EvaluatesClosures;
 
 class Field
 {
+    use CanAllowHtml;
     use Concerns\CanDisplay;
     use Concerns\CanStore;
     use Concerns\FieldResolver;
@@ -26,9 +27,8 @@ class Field
     use Concerns\Types\Money;
     use Concerns\Types\Relation;
     use Concerns\Types\Table;
-    use Makeable;
-    use CanAllowHtml;
     use EvaluatesClosures;
+    use Makeable;
 
     public function __construct(string $name, string $type = null)
     {
