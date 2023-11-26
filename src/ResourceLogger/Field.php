@@ -15,6 +15,7 @@ class Field
     use Concerns\HasLabel;
     use Concerns\HasName;
     use Concerns\HasState;
+    use Concerns\HasTemplate;
     use Concerns\HasType;
     use Concerns\HasView;
     use Concerns\Types\Badge;

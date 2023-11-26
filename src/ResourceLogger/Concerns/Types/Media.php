@@ -13,7 +13,7 @@ trait Media
     public function media(?bool $gallery = false): static
     {
         $this->type('media');
-        $this->view('image');
+        $this->template('image');
         $this->gallery = (bool) $gallery;
         $this->{$gallery ? 'hasMany' : 'hasOne'}('media');
 

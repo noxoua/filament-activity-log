@@ -14,11 +14,9 @@ trait CanDisplay
             return $value;
         }
 
-        $view = is_null($value) ? 'default' : $this->view;
+        $template = is_null($value) ? 'default' : $this->template;
+        $view = $this->view ?? 'filament-activity-log::components.' . $template;
 
-        return view('filament-activity-log::components.' . $view, [
-            'value' => $value,
-            'field' => $this,
-        ]);
+        return view($view, ['value' => $value, 'field' => $this]);
     }
 }

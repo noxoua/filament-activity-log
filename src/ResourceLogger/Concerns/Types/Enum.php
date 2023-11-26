@@ -11,9 +11,13 @@ trait Enum
     public function enum(string $enum): static
     {
         $this->type('enum', $enum);
-        $this->view('badge');
+        $this->template('badge');
 
-        $this->resolveStateUsing(fn (Model $record) => data_get($record, $this->name)?->name);
+        $this->resolveStateUsing(function (Model $record) {
+            $value = data_get($record, $this->name);
+
+            return $value->name ?? $value;
+        });
 
         $this->formatStateUsing(fn ($state): ?UnitEnum => Helper::resolveEnum($this->options, $state));
 
