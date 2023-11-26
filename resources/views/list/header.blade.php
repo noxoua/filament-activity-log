@@ -9,7 +9,7 @@
         @if ($activity->causer)
             <x-filament-panels::avatar.user
                 :user="$activity->causer"
-                size="lg"
+                size="md"
             />
         @endif
         <div class="flex flex-col text-left">

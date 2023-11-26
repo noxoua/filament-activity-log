@@ -134,7 +134,7 @@ trait HasListFilters
                         'label' => Blade::render(
                             '<x-filament::avatar
                                 src="' . filament()->getUserAvatarUrl($activity->causer) . '"
-                                size="xs"
+                                size="sm"
                                 class="inline mr-2"
                             /> ' . $activity->causer?->name
                         ),
