@@ -8,7 +8,7 @@ trait Badge
 
     public function badge(string $color = null): static
     {
-        $this->view('badge');
+        $this->template('badge');
         if ($color) {
             $this->badgeColor = $color;
         }

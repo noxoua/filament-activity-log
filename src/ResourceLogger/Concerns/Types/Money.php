@@ -2,16 +2,20 @@
 
 namespace Noxo\FilamentActivityLog\ResourceLogger\Concerns\Types;
 
-use function Filament\Support\format_money;
+use Illuminate\Support\Number;
 
 trait Money
 {
     public function money(string $currency = 'EUR'): static
     {
         $this->type('money', $currency);
-        $this->view('badge');
+        $this->template('badge');
 
-        $this->formatStateUsing(fn ($state): ?string => format_money((float) $state, $this->options));
+        $this->formatStateUsing(fn ($state): ?string => Number::currency(
+            (float) $state,
+            $this->options,
+            app()->getLocale()
+        ));
 
         return $this;
     }

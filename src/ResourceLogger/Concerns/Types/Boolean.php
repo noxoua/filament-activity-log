@@ -9,7 +9,7 @@ trait Boolean
     public function boolean(): static
     {
         $this->enum(config('filament-activity-log.boolean'));
-        $this->view('badge');
+        $this->template('badge');
 
         $this->resolveStateUsing(fn (Model $record) => data_get($record, $this->name) ? 'true' : 'false');
 

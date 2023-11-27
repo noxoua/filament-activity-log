@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Logger
 {
+    use Concerns\HasCaused;
     use Concerns\HasEvents;
     use Concerns\HasLabel;
     use Concerns\HasRelationManager;

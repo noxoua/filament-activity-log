@@ -13,9 +13,6 @@
         /* @var \Spatie\Activitylog\Models\Activity $activity */
         $changes = $activity->getChangesAttribute();
         $hasChanges = !empty($changes['attributes']);
-
-        /* @var \Noxo\FilamentActivityLog\Loggers\Logger $logger */
-        $logger = $this->getLogger($activity);
     @endphp
 
     {{ view('filament-activity-log::list.header', compact('activity', 'hasChanges', 'logger')) }}

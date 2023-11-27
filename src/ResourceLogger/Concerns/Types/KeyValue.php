@@ -15,7 +15,7 @@ trait KeyValue
         bool $differenceOnly = true,
     ): static {
         $this->type('key-value');
-        $this->view('key-value');
+        $this->template('key-value');
         $this->formatStateUsing('array');
         $this->keyValueDifferenceOnly = $differenceOnly;
 

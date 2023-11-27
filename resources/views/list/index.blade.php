@@ -52,6 +52,12 @@
         @forelse ($activities as $activity)
             @php
                 $date = $activity->created_at->translatedFormat(__('filament-activity-log::activities.date_format'));
+
+                /* @var \Noxo\FilamentActivityLog\Loggers\Logger $logger */
+                $logger = $this->getLogger($activity);
+                if (!$logger) {
+                    continue;
+                }
             @endphp
 
             @if ($date != $prevDate)
@@ -69,7 +75,7 @@
                 @endphp
             @endif
 
-            {{ view('filament-activity-log::list.item', compact('activity')) }}
+            {{ view('filament-activity-log::list.item', compact('activity', 'logger')) }}
         @empty
 
             <div @class([

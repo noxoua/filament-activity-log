@@ -17,7 +17,7 @@ trait Table
         bool $differenceOnly = true,
     ): static {
         $this->type('table');
-        $this->view('table');
+        $this->template('table');
         $this->table = TableField::make($fields);
         $this->tableDifferenceOnly = $differenceOnly;
 

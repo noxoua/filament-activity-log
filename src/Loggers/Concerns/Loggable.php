@@ -46,8 +46,13 @@ trait Loggable
         $activity = activity()
             ->event($event)
             ->on($modelOn)
-            ->withProperties($properties)
-            ->log($event);
+            ->withProperties($properties);
+
+        if ($this->causedBy) {
+            $activity->causedBy($this->causedBy);
+        }
+
+        $activity->log($event);
 
         // $this?->afterLog($activity);
     }
