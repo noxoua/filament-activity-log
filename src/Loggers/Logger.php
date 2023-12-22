@@ -24,7 +24,7 @@ class Logger
 
     protected ?Model $oldModel;
 
-    public function __construct(Model $newModel = null, Model $oldModel = null)
+    public function __construct(?Model $newModel = null, ?Model $oldModel = null)
     {
         if (is_null($oldModel)) {
             $this->newModel = $newModel;

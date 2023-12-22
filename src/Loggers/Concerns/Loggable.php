@@ -29,7 +29,7 @@ trait Loggable
     /**
      * Log the properties.
      */
-    public function log(array $properties, string $event, Model $modelOn = null): void
+    public function log(array $properties, string $event, ?Model $modelOn = null): void
     {
         $modelOn ??= $this->newModel;
 

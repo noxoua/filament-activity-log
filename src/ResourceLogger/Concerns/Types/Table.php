@@ -13,7 +13,7 @@ trait Table
 
     public function table(
         array $fields,
-        Closure $resolveRecords = null,
+        ?Closure $resolveRecords = null,
         bool $differenceOnly = true,
     ): static {
         $this->type('table');

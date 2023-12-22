@@ -32,7 +32,7 @@ class Field
     use EvaluatesClosures;
     use Makeable;
 
-    public function __construct(string $name, string $type = null)
+    public function __construct(string $name, ?string $type = null)
     {
         $this->name($name);
 
