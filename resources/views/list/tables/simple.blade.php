@@ -22,12 +22,12 @@
             }
         @endphp
 
-        <x-filament-tables::row @class(['bg-gray-100/30 dark:bg-gray-900' => $loop->even])>
+        <x-filament-tables::row>
             <x-filament-tables::cell class="px-4 py-2 align-top sm:first-of-type:ps-6 sm:last-of-type:pe-6">
                 {{ $field->getLabel() }}
             </x-filament-tables::cell>
 
-            <x-filament-tables::cell class="px-4 py-2 align-top overflow-x-scroll">
+            <x-filament-tables::cell class="px-4 py-2 align-top overflow-x-auto">
                 {{ $field->display($value) }}
             </x-filament-tables::cell>
         </x-filament-tables::row>

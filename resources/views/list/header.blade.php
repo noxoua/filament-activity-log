@@ -20,6 +20,18 @@
         </div>
     </div>
 
+    @if (is_array($inlineField))
+        @php
+            [$field, $oldValue, $newValue] = $inlineField;
+        @endphp
+
+        <div class="flex items-center gap-8">
+            <div>{{ $field->display($oldValue) }}</div>
+            <div>{{ $field->getLabel() }}</div>
+            <div>{{ $field->display($newValue) }}</div>
+        </div>
+    @endif
+
     <div class="flex gap-x-2">
         @php
             $subject_label = $logger->getLabel();
