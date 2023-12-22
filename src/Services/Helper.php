@@ -23,15 +23,14 @@ final class Helper
     /**
      * @return class-string<Logger>
      */
-    public static function resolveLogger(string|Model $record, bool $force = false): ?string
+    public static function resolveLogger(string | Model $record, bool $force = false): ?string
     {
         $name = is_string($record) ? $record : get_class($record);
 
         return Loggers::getLoggerByModel($name, $force);
     }
 
-
-    public static function resolveInlineField($logger, array $attributes, array $old = []): array|null
+    public static function resolveInlineField($logger, array $attributes, array $old = []): ?array
     {
         foreach ($attributes as $key => $newValue) {
             $field = $logger->getFieldByName($key);
