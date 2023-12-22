@@ -199,6 +199,6 @@ $logger->fields([
 ```
 
 {: .note }
-Changes are displayed inside the header. <u>Only works if only one field has been changed</u>.
+Change is displayed inside the header. <u>Only works if only one field has been changed</u>.
 
 ![Screenshot](./assets/images/inline-screenshot.png)
