@@ -25,9 +25,12 @@
             [$field, $oldValue, $newValue] = $inlineField;
         @endphp
 
-        <div class="flex items-center gap-8 border p-2 rounded-md">
+        <div @class([
+            'flex items-center gap-8 border p-2 rounded-md dark:border-white/10',
+            'opacity-70 transition group-hover:opacity-100',
+        ])>
             <div>{{ $field->display($oldValue) }}</div>
-            <div>{{ $field->getLabel() }}</div>
+            <div class="dark:text-white/70">{{ $field->getLabel() }}</div>
             <div>{{ $field->display($newValue) }}</div>
         </div>
     @endif
