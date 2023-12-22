@@ -185,3 +185,20 @@ $logger->fields([
 For now, it is compatible with <u>text only</u>.
 
 ![Screenshot](./assets/images/difference-screenshot.png)
+
+____
+
+### Inline
+
+```php
+$logger->fields([
+   Field::make('active')
+         ->boolean()
+         ->inline(), // <----- here
+])
+```
+
+{: .note }
+Changes are displayed inside the header. <u>Only works if only one field has been changed</u>.
+
+![Screenshot](./assets/images/inline-screenshot.png)

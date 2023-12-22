@@ -4,7 +4,7 @@
         $isHtmlAllowed = $field->isHtmlAllowed();
     @endphp
 
-    <div class="w-full overflow-x-scroll border border-gray-200 dark:border-white/5 rounded-lg">
+    <div class="w-full overflow-x-auto border border-gray-200 dark:border-white/5 rounded-lg">
         <x-filament-tables::table>
             <x-slot:header>
                 <x-filament-tables::row>
@@ -18,7 +18,7 @@
 
 
             @foreach ($value as $item)
-                <x-filament-tables::row @class(['bg-gray-100/30 dark:bg-gray-900/20' => $loop->even])>
+                <x-filament-tables::row>
                     @foreach ($fields as $field)
                         <x-filament-tables::cell class="p-2 align-top">
                             @php
