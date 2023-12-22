@@ -6,7 +6,7 @@ trait Badge
 {
     public string $badgeColor = 'primary';
 
-    public function badge(string $color = null): static
+    public function badge(?string $color = null): static
     {
         $this->template('badge');
         if ($color) {

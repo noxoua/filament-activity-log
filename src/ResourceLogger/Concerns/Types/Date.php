@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 trait Date
 {
-    public function date(string $format = null): static
+    public function date(?string $format = null): static
     {
         $format ??= 'j F, Y';
         $this->datetime($format);
@@ -14,7 +14,7 @@ trait Date
         return $this;
     }
 
-    public function time(string $format = null): static
+    public function time(?string $format = null): static
     {
         $format ??= 'H:i:s';
         $this->datetime($format);
@@ -22,7 +22,7 @@ trait Date
         return $this;
     }
 
-    public function datetime(string $format = null): static
+    public function datetime(?string $format = null): static
     {
         $format ??= 'j F, Y H:i:s';
         $this->type('datetime', $format);
