@@ -1,7 +1,9 @@
+@use(Noxo\FilamentActivityLog\Services\Helper)
+
 <div
     @class([
         'p-2 space-y-2 bg-white rounded-xl shadow group',
-        'dark:border-gray-600 dark:bg-gray-800',
+        'dark:border-gray-600 dark:bg-gray-900',
     ])
     x-data="{
         isCollapsed: @json($this->isCollapsible ? $this->isCollapsed : false),
@@ -12,40 +14,22 @@
     @php
         /* @var \Spatie\Activitylog\Models\Activity $activity */
         $changes = $activity->getChangesAttribute();
-        $hasChanges = !empty($changes['attributes']);
+        $attributes = (array) ($changes['attributes'] ?? []);
+        $old = (array) ($changes['old'] ?? []);
+        $hasChanges = !empty($attributes);
+        $hasOld = !empty($old);
     @endphp
 
     @php
-        $isInlineSingle = null;
-        $inlineField = null;
-        $withoutOldValue = empty($changes['old']);
-
-        // TODO: move to a function
-        if ($hasChanges && !$withoutOldValue) {
-            $isInlineSingle = count($changes['attributes']) === 1;
-            if ($isInlineSingle) {
-                foreach ($changes['attributes'] as $key => $newValue) {
-                    $field = $logger->getFieldByName($key);
-                    if (!$field) {
-                        continue;
-                    }
-
-                    $oldValue = $changes['old'][$key] ?? null;
-
-                    if ($field->isInline()) {
-                        $inlineField = [$field, $oldValue, $newValue];
-                        break;
-                    }
-                }
-            }
-        }
+        $isInlineSingle = count($attributes) === 1;
+        $inlineField = $hasOld && $isInlineSingle ? Helper::resolveInlineField($logger, $attributes, $old) : null;
     @endphp
 
     {{ view('filament-activity-log::list.header', compact('activity', 'hasChanges', 'logger', 'inlineField')) }}
 
-    @if (!$isInlineSingle && $hasChanges)
+    @if (empty($inlineField) && $hasChanges)
         @php
-            $table = $withoutOldValue ? 'simple' : 'default';
+            $table = !$hasOld ? 'simple' : 'default';
         @endphp
 
         <div x-show="!isCollapsed">
