@@ -15,9 +15,13 @@ use Spatie\Activitylog\Models\Activity;
 trait HasListFilters
 {
     public ?string $date_range = null;
+
     public ?string $causer = null;
+
     public ?string $subject_type = null;
+
     public ?string $subject_id = null;
+
     public ?string $event = null;
 
     protected $queryString = [
