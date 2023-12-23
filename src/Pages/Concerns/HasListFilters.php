@@ -14,38 +14,45 @@ use Spatie\Activitylog\Models\Activity;
 
 trait HasListFilters
 {
-    public ?array $filters = [
-        'date_range' => null,
-        'causer' => null,
-        'subject_type' => null,
-        'subject_id' => null,
-        'event' => null,
+    public ?string $date_range = null;
+    public ?string $causer = null;
+    public ?string $subject_type = null;
+    public ?string $subject_id = null;
+    public ?string $event = null;
+
+    protected $queryString = [
+        'date_range' => ['except' => null],
+        'causer' => ['except' => null],
+        'subject_type' => ['except' => null],
+        'subject_id' => ['except' => null],
+        'event' => ['except' => null],
     ];
-
-    protected function queryString()
-    {
-        $queryString = [];
-        foreach (array_keys($this->filters) as $filter) {
-            $queryString["filters.{$filter}"] = ['except' => null, 'as' => $filter];
-        }
-
-        return $queryString;
-    }
 
     public function resetFiltersForm(): void
     {
         $this->form->fill();
     }
 
+    public function getFilters(): array
+    {
+        return [
+            'date_range' => $this->date_range,
+            'causer' => $this->causer,
+            'subject_type' => $this->subject_type,
+            'subject_id' => $this->subject_id,
+            'event' => $this->event,
+        ];
+    }
+
     public function hasActiveFilters(): bool
     {
-        return count(array_filter($this->filters)) > 0;
+        return count(array_filter($this->getFilters())) > 0;
     }
 
     public function fillFilters(): void
     {
         $values = request()->only(
-            array_keys($this->filters),
+            array_keys($this->getFilters()),
         );
 
         $this->form->fill(
@@ -58,13 +65,17 @@ trait HasListFilters
     public function applyFilters(Builder $query): Builder
     {
         $state = $this->form->getState();
-
         $causer = with($state['causer'], function ($causer) {
             if (empty($causer) || ! str_contains($causer, ':')) {
                 return null;
             }
 
-            [$causer_type, $causer_id] = explode(':', $causer);
+            $parts = explode(':', $causer);
+            if (count($parts) !== 2) {
+                return null;
+            }
+
+            [$causer_type, $causer_id] = $parts;
 
             return compact('causer_type', 'causer_id');
         });

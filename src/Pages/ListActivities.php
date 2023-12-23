@@ -55,8 +55,7 @@ abstract class ListActivities extends Page implements HasForms
                         $this->getEventField(),
                     ]),
             ])
-            ->debounce()
-            ->statePath('filters');
+            ->debounce();
     }
 
     public function getActivities()
