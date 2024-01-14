@@ -64,16 +64,17 @@ class MakeLoggerCommand extends Command
 
         $resourceDirectories = $panel->getResourceDirectories();
         $resourceNamespaces = $panel->getResourceNamespaces();
+        $resourceNamespace = Arr::first($resourceNamespaces, default: 'App\\Filament\\Resources');
 
         $namespace = (count($resourceNamespaces) > 1) ?
             select(
                 label: 'Which namespace would you like to create this in?',
                 options: $resourceNamespaces
-            ) :
-            (Arr::first($resourceNamespaces) ?? 'App\\Filament\\Resources');
+            ) : $resourceNamespace;
+
         $path = (count($resourceDirectories) > 1) ?
             $resourceDirectories[array_search($namespace, $resourceNamespaces)] :
-            (Arr::first($resourceDirectories) ?? app_path('Filament/Resources/'));
+            Arr::first($resourceDirectories, default: app_path('Filament/Resources/'));
 
         $path = str_replace('/Resources', '/Loggers', $path);
         $namespace = str_replace('\\Resources', '\\Loggers', $namespace);
@@ -94,7 +95,7 @@ class MakeLoggerCommand extends Command
             'namespace' => $namespace,
             'class' => $loggerClass,
             'modelClass' => $modelClass,
-            'resourceNamespace' => config('filament-activity-log.loggers.namespace'),
+            'resourceNamespace' => $resourceNamespace,
             'modelNamespace' => 'App\\Models' . ($modelNamespace !== '' ? "\\{$modelNamespace}" : '') . '\\' . $modelClass,
         ]);
 

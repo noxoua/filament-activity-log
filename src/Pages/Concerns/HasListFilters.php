@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use Exception;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent;
 use Illuminate\Support\Facades\Blade;
 use Malzariey\FilamentDaterangepickerFilter\Fields\DateRangePicker;
 use Noxo\FilamentActivityLog\Loggers\Loggers;
@@ -66,7 +66,7 @@ trait HasListFilters
         );
     }
 
-    public function applyFilters(Builder $query): Builder
+    public function applyFilters(Eloquent\Builder $query): Eloquent\Builder
     {
         $state = $this->form->getState();
         $causer = with($state['causer'], function ($causer) {
@@ -87,23 +87,23 @@ trait HasListFilters
         $query
             ->when(
                 $date_range = $this->getDateRange($state['date_range'] ?? null),
-                fn (Builder $query) => $query->whereBetween('created_at', $date_range)
+                fn (Eloquent\Builder $query) => $query->whereBetween('created_at', $date_range)
             )
             ->unless(
                 empty($causer),
-                fn (Builder $query) => $query->where($causer)
+                fn (Eloquent\Builder $query) => $query->where($causer)
             )
             ->unless(
                 empty($state['subject_type']),
-                fn (Builder $query) => $query->where('subject_type', $state['subject_type'])
+                fn (Eloquent\Builder $query) => $query->where('subject_type', $state['subject_type'])
             )
             ->unless(
                 empty($state['subject_id']),
-                fn (Builder $query) => $query->where('subject_id', $state['subject_id'])
+                fn (Eloquent\Builder $query) => $query->where('subject_id', $state['subject_id'])
             )
             ->unless(
                 empty($state['event']),
-                fn (Builder $query) => $query->where('event', $state['event'])
+                fn (Eloquent\Builder $query) => $query->where('event', $state['event'])
             );
 
         return $query;
@@ -144,6 +144,7 @@ trait HasListFilters
                 $causers = Activity::query()
                     ->groupBy('causer_id', 'causer_type')
                     ->get(['causer_id', 'causer_type'])
+                    ->filter(fn ($activity) => $activity->causer instanceof Eloquent\Model)
                     ->map(fn ($activity) => [
                         'value' => "{$activity->causer_type}:{$activity->causer_id}",
                         'label' => Blade::render(
