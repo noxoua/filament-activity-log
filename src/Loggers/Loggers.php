@@ -26,13 +26,27 @@ class Loggers
     public static function discover(): void
     {
         $config = config('filament-activity-log.loggers');
+
+        if (array_key_exists('panels', $config) && count($config['panels']) > 0) {
+            foreach ($config['panels'] as $panelLoggers) {
+                static::setLogger($panelLoggers['directory'], $panelLoggers['namespace']);
+            }
+        }
+
+        // Default panel
         $directory = $config['directory'];
         $namespace = $config['namespace'];
-        $baseClass = Logger::class;
 
+        static::setLogger($directory, $namespace);
+    }
+
+    private static function setLogger(string $directory, string $namespace): void
+    {
         if (blank($directory) || blank($namespace)) {
             return;
         }
+
+        $baseClass = Logger::class;
 
         $filesystem = app(Filesystem::class);
 
