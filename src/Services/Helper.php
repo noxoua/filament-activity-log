@@ -25,7 +25,7 @@ final class Helper
      */
     public static function resolveLogger(null | string | Model $record, bool $force = false): ?string
     {
-        if (!$record) {
+        if (! $record) {
             return null;
         }
 
