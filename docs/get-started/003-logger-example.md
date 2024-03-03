@@ -19,6 +19,7 @@ use Noxo\FilamentActivityLog\Loggers\Logger;
 use Noxo\FilamentActivityLog\ResourceLogger\Field;
 use Noxo\FilamentActivityLog\ResourceLogger\RelationManager;
 use Noxo\FilamentActivityLog\ResourceLogger\ResourceLogger;
+use Spatie\Activitylog\Models\Activity;
 
 class ProductLogger extends Logger
 {
@@ -30,6 +31,16 @@ class ProductLogger extends Logger
     {
         // return __('Product');
         return ProductResource::getModelLabel();
+    }
+
+    public function getSubjectRoute(Activity $activity): ?string
+    {
+        return ProductResource::getUrl('edit', ['record' => $activity->subject_id]);
+    }
+
+    public function getRelationManagerRoute(Activity $activity): ?string
+    {
+        return $this->getSubjectRoute($activity).'?activeRelationManager=0';
     }
 
     public static function resource(ResourceLogger $logger): ResourceLogger
