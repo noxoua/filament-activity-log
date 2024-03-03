@@ -34,4 +34,14 @@ trait HasResourceLogger
 
         return $this->getResourceLogger()->getFieldByName($name);
     }
+
+    public function getSubjectLabel(): ?string
+    {
+        return $this->getLabel();
+    }
+
+    public function getSubjectId($activity): ?string
+    {
+        return '#' . $activity->subject_id;
+    }
 }

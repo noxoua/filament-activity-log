@@ -1,3 +1,30 @@
+@php
+    $event = $activity->event;
+    $eventStyle = match ($event) {
+        'created',
+        'attached'
+            => 'bg-green-50/70 dark:bg-green-100/10 text-green-700 dark:text-green-400 dark:border-green-600',
+        'updated' => 'bg-blue-50/70 dark:bg-blue-100/10 text-blue-700 dark:text-blue-400 dark:border-blue-600',
+        'deleted', 'detached' => 'bg-red-50/70 dark:bg-red-100/10 text-red-700 dark:text-red-400 dark:border-red-600',
+        'restored'
+            => 'bg-orange-50/70 dark:bg-orange-100/10 text-orange-700 dark:text-orange-400 dark:border-orange-600',
+        default => 'bg-gray-50/70 dark:bg-gray-100/10 text-gray-700 dark:text-gray-400 dark:border-gray-600',
+    };
+
+    // Relation Manager
+    $showRelationManager = false;
+    if ($logger->relationManager) {
+        $relationManagertLabel = $logger->getRelationManagerLabel();
+        $relationManagertId = $logger->getRelationManagerId($activity);
+        $showRelationManager = $relationManagertLabel || $relationManagertId;
+    }
+
+    // Subject
+    $subjectLabel = $logger->getSubjectLabel();
+    $subjectId = $logger->getSubjectId($activity);
+    $showSubject = $subjectLabel || $subjectId;
+@endphp
+
 <div
     @class([
         'flex justify-between items-center',
@@ -36,19 +63,6 @@
     @endif
 
     <div class="flex gap-x-2">
-        @php
-            $subject_label = $logger->getLabel();
-
-            $event = $activity->event;
-            $eventStyle = match ($event) {
-                'created', 'attached' => 'bg-green-50/70 dark:bg-green-100/10 text-green-700 dark:text-green-400 dark:border-green-600',
-                'updated' => 'bg-blue-50/70 dark:bg-blue-100/10 text-blue-700 dark:text-blue-400 dark:border-blue-600',
-                'deleted', 'detached' => 'bg-red-50/70 dark:bg-red-100/10 text-red-700 dark:text-red-400 dark:border-red-600',
-                'restored' => 'bg-orange-50/70 dark:bg-orange-100/10 text-orange-700 dark:text-orange-400 dark:border-orange-600',
-                default => 'bg-gray-50/70 dark:bg-gray-100/10 text-gray-700 dark:text-gray-400 dark:border-gray-600',
-            };
-        @endphp
-
         <span @class([
             'py-2 px-4 rounded-full text-xs',
             'flex items-center',
@@ -58,27 +72,29 @@
             @lang("filament-activity-log::activities.events.{$event}.description")
         </span>
 
-        @if ($logger->relationManager)
+        @if ($showRelationManager)
             <div @class([
                 'flex items-center gap-1 p-2 rounded-lg',
                 'text-xs text-gray-700 bg-gray-100 font-medium',
                 'opacity-70 transition group-hover:opacity-100',
                 'dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300',
             ])>
-                <span>{{ $logger->relationManager->getLabel() }}</span>
-                <span>#{{ $activity->properties['relation_manager']['id'] ?? '–' }}</span>
+                <span>{{ $relationManagertLabel }}</span>
+                <span>{{ $relationManagertId }}</span>
             </div>
         @endif
 
-        <div @class([
-            'flex items-center gap-1 p-2 rounded-lg',
-            'text-xs text-gray-700 bg-gray-100 font-medium',
-            'opacity-70 transition group-hover:opacity-100',
-            'dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300',
-        ])>
-            <span>{{ $subject_label }}</span>
-            <span>#{{ $activity->subject_id }}</span>
-        </div>
+        @if ($showSubject)
+            <div @class([
+                'flex items-center gap-1 p-2 rounded-lg',
+                'text-xs text-gray-700 bg-gray-100 font-medium',
+                'opacity-70 transition group-hover:opacity-100',
+                'dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300',
+            ])>
+                <span>{{ $subjectLabel }}</span>
+                <span>{{ $subjectId }}</span>
+            </div>
+        @endif
 
         @if ($hasChanges && $this->isCollapsible)
             <x-filament::icon

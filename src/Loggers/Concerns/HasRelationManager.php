@@ -33,4 +33,16 @@ trait HasRelationManager
     {
         return static::getResourceLogger()->getRelationManager($name);
     }
+
+    public function getRelationManagerLabel(): ?string
+    {
+        return $this->relationManager->getLabel();
+    }
+
+    public function getRelationManagerId($activity): ?string
+    {
+        $value = $activity->properties['relation_manager']['id'] ?? null;
+
+        return $value ? "#{$value}" : '–';
+    }
 }

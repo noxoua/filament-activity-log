@@ -7,13 +7,11 @@
     <div class="w-full overflow-x-auto border border-gray-200 dark:border-white/5 rounded-lg">
         <x-filament-tables::table>
             <x-slot:header>
-                <x-filament-tables::row>
-                    @foreach ($fields as $field)
-                        <x-filament-tables::header-cell class="!p-2">
-                            {{ $field->getLabel() }}
-                        </x-filament-tables::header-cell>
-                    @endforeach
-                </x-filament-tables::row>
+                @foreach ($fields as $field)
+                    <x-filament-tables::header-cell class="!p-2">
+                        {{ $field->getLabel() }}
+                    </x-filament-tables::header-cell>
+                @endforeach
             </x-slot:header>
 
 
