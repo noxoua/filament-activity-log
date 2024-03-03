@@ -4,6 +4,7 @@ namespace Noxo\FilamentActivityLog\Loggers\Concerns;
 
 use Illuminate\Database\Eloquent\Model;
 use Noxo\FilamentActivityLog\ResourceLogger\RelationManager;
+use Spatie\Activitylog\Models\Activity;
 
 trait HasRelationManager
 {
@@ -34,12 +35,17 @@ trait HasRelationManager
         return static::getResourceLogger()->getRelationManager($name);
     }
 
+    public function getRelationManagerRoute(Activity $activity): ?string
+    {
+        return null;
+    }
+
     public function getRelationManagerLabel(): ?string
     {
         return $this->relationManager->getLabel();
     }
 
-    public function getRelationManagerId($activity): ?string
+    public function getRelationManagerId(Activity $activity): ?string
     {
         $value = $activity->properties['relation_manager']['id'] ?? null;
 

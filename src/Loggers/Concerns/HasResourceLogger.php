@@ -4,6 +4,7 @@ namespace Noxo\FilamentActivityLog\Loggers\Concerns;
 
 use Noxo\FilamentActivityLog\ResourceLogger\Field;
 use Noxo\FilamentActivityLog\ResourceLogger\ResourceLogger;
+use Spatie\Activitylog\Models\Activity;
 
 trait HasResourceLogger
 {
@@ -35,12 +36,17 @@ trait HasResourceLogger
         return $this->getResourceLogger()->getFieldByName($name);
     }
 
+    public function getSubjectRoute(Activity $activity): ?string
+    {
+        return null;
+    }
+
     public function getSubjectLabel(): ?string
     {
         return $this->getLabel();
     }
 
-    public function getSubjectId($activity): ?string
+    public function getSubjectId(Activity $activity): ?string
     {
         return '#' . $activity->subject_id;
     }

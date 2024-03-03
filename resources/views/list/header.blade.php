@@ -14,12 +14,14 @@
     // Relation Manager
     $showRelationManager = false;
     if ($logger->relationManager) {
+        $relationManagerRoute = $logger->getRelationManagerRoute($activity);
         $relationManagertLabel = $logger->getRelationManagerLabel();
         $relationManagertId = $logger->getRelationManagerId($activity);
         $showRelationManager = $relationManagertLabel || $relationManagertId;
     }
 
     // Subject
+    $subjectRoute = $logger->getSubjectRoute($activity);
     $subjectLabel = $logger->getSubjectLabel();
     $subjectId = $logger->getSubjectId($activity);
     $showSubject = $subjectLabel || $subjectId;
@@ -73,27 +75,33 @@
         </span>
 
         @if ($showRelationManager)
-            <div @class([
-                'flex items-center gap-1 p-2 rounded-lg',
-                'text-xs text-gray-700 bg-gray-100 font-medium',
-                'opacity-70 transition group-hover:opacity-100',
-                'dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300',
-            ])>
+            <a
+                @if ($relationManagerRoute) href="{{ $relationManagerRoute }}" @endif
+                @class([
+                    'flex items-center gap-1 p-2 rounded-lg',
+                    'text-xs text-gray-700 bg-gray-100 font-medium',
+                    'opacity-70 transition group-hover:opacity-100',
+                    'dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300',
+                ])
+            >
                 <span>{{ $relationManagertLabel }}</span>
                 <span>{{ $relationManagertId }}</span>
-            </div>
+            </a>
         @endif
 
         @if ($showSubject)
-            <div @class([
-                'flex items-center gap-1 p-2 rounded-lg',
-                'text-xs text-gray-700 bg-gray-100 font-medium',
-                'opacity-70 transition group-hover:opacity-100',
-                'dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300',
-            ])>
+            <a
+                @if ($subjectRoute) href="{{ $subjectRoute }}" @endif
+                @class([
+                    'flex items-center gap-1 p-2 rounded-lg',
+                    'text-xs text-gray-700 bg-gray-100 font-medium',
+                    'opacity-70 transition group-hover:opacity-100',
+                    'dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300',
+                ])
+            >
                 <span>{{ $subjectLabel }}</span>
                 <span>{{ $subjectId }}</span>
-            </div>
+            </a>
         @endif
 
         @if ($hasChanges && $this->isCollapsible)
