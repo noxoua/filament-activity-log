@@ -28,6 +28,11 @@
             }
 
             $oldValue = $changes['old'][$key] ?? null;
+
+            if($field->display($oldValue, raw: true) === $field->display($newValue, raw: true)) {
+                // Skip display if it's the same value.
+                continue;
+            }
         @endphp
 
         <x-filament-tables::row>
