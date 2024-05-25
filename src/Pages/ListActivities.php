@@ -63,7 +63,7 @@ abstract class ListActivities extends Page implements HasForms
         $activityModel = config('activitylog.activity_model') ?? Activity::class;
 
         return $this->paginateTableQuery(
-            $this->applyFilters($activityModel::latest())
+            $this->applyFilters($activityModel::with('causer')->latest())
         );
     }
 
