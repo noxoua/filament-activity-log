@@ -142,6 +142,7 @@ trait HasListFilters
             ->allowHtml()
             ->options(function () {
                 $causers = Activity::query()
+                    ->with('causer')
                     ->groupBy('causer_id', 'causer_type')
                     ->get(['causer_id', 'causer_type'])
                     ->filter(fn ($activity) => $activity->causer instanceof Eloquent\Model)
