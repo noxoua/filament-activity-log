@@ -171,7 +171,7 @@ trait HasListFilters
             ->options(
                 array_column(
                     array_map(fn ($logger) => [
-                        'value' => $logger::$model,
+                        'value' => Eloquent\Relations\Relation::getMorphAlias($logger::$model) ?? $logger::$model,
                         'label' => $logger::getLabel(),
                     ], Loggers::$loggers),
                     'label',
