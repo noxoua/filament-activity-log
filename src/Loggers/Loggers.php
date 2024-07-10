@@ -15,7 +15,7 @@ class Loggers
     public static function getLoggerByModel(string $model, bool $force = false): ?string
     {
         foreach (self::$loggers as $logger) {
-            if ($logger::$model === $model && (! $logger::$disabled || $force)) {
+            if (app($logger::$model)->getMorphClass() === $model && (! $logger::$disabled || $force)) {
                 return $logger;
             }
         }
