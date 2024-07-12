@@ -2,6 +2,7 @@
 
 namespace Noxo\FilamentActivityLog\Loggers;
 
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Filesystem\Filesystem;
 use ReflectionClass;
 
@@ -15,7 +16,9 @@ class Loggers
     public static function getLoggerByModel(string $model, bool $force = false): ?string
     {
         foreach (self::$loggers as $logger) {
-            if ($logger::$model === $model && (! $logger::$disabled || $force)) {
+            $alias = Relation::getMorphAlias($logger::$model) ?? $logger::$model;
+
+            if ($alias === $model && (! $logger::$disabled || $force)) {
                 return $logger;
             }
         }
