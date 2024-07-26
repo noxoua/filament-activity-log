@@ -3,6 +3,7 @@
 namespace Noxo\FilamentActivityLog\Services;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Noxo\FilamentActivityLog\Loggers\Logger;
 use Noxo\FilamentActivityLog\Loggers\Loggers;
 use UnitEnum;
@@ -30,6 +31,10 @@ final class Helper
         }
 
         $name = is_string($record) ? $record : get_class($record);
+
+        $name = is_string($record)
+            ? (Relation::getMorphedModel($record) ?: $record)
+            : get_class($record);
 
         return Loggers::getLoggerByModel($name, $force);
     }
