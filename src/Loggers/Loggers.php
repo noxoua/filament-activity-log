@@ -16,9 +16,7 @@ class Loggers
     public static function getLoggerByModel(string $model, bool $force = false): ?string
     {
         foreach (self::$loggers as $logger) {
-            $alias = Relation::getMorphAlias($logger::$model) ?? $logger::$model;
-
-            if ($alias === $model && (! $logger::$disabled || $force)) {
+            if ($logger::$model === $model && (! $logger::$disabled || $force)) {
                 return $logger;
             }
         }
