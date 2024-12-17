@@ -6,7 +6,7 @@
 
 </div>
 
- [📚 Full documentation](https://activity-log.noxo.app/)
+ [📚 Full documentation](https://noxoua.github.io/filament-activity-log/)
 
 ## Introduction
 
