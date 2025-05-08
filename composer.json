@@ -30,7 +30,7 @@
         "filament/filament": "^3.0.95",
         "spatie/laravel-activitylog": "^4.7",
         "dragon-code/support": "^6.3",
-        "malzariey/filament-daterangepicker-filter": "^2.3"
+        "malzariey/filament-daterangepicker-filter": "^3.0"
     },
     "require-dev": {
         "laravel/pint": "^1.0"
