@@ -2,7 +2,6 @@
 
 namespace Noxo\FilamentActivityLog\Loggers;
 
-use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Filesystem\Filesystem;
 use ReflectionClass;
 
